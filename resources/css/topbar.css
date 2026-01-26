@@ -1,0 +1,196 @@
+/* ================= TOPBAR ================= */
+.topbar {
+  background: linear-gradient(135deg, #020617, #020617);
+  color: #cbd5e1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 48px;
+  font-size: 13px;
+  border-bottom: 1.5px solid rgba(255,255,255,0.08);
+  position: relative;
+  height: 44px;
+}
+
+
+/* subtle glow line */
+.topbar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #38bdf8,
+    transparent
+  );
+  opacity: 0.25;
+}
+
+/* ================= LEFT ================= */
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.9;
+  transition: opacity 0.25s ease;
+}
+
+.info-item:hover {
+  opacity: 1;
+}
+
+.info-item strong {
+  font-weight: 500;
+}
+
+.email {
+  color: #7dd3fc;
+}
+
+/* DOT SEPARATOR */
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #38bdf8;
+  opacity: 0.6;
+}
+
+/* ================= RIGHT ================= */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.top-link {
+  color: #f14c00;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.top-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: #38bdf8;
+  transition: width 0.25s ease;
+}
+
+.top-link:hover {
+  color: #38bdf8;
+}
+
+.top-link:hover::after {
+  width: 100%;
+}
+
+.divider {
+  opacity: 0.35;
+}
+
+/* ================= SOCIAL ICONS ================= */
+.socials {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.2rem;
+}
+
+.socials a {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #020617;
+  transition: all 0.3s ease;
+}
+
+/* brand hover colors */
+.socials .linkedin:hover {
+  background: #0a66c2;
+  color: #fff;
+}
+
+.socials .facebook:hover {
+  background: #1877f2;
+  color: #fff;
+}
+
+.socials .twitter:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+  .topbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .dot {
+    display: none;
+  }
+
+  .socials {
+    margin-bottom: 1.2rem;
+    margin-left: 1rem;
+  }
+
+  .socials .linkedin{
+  background: #0a66c2;
+  color: #fff;
+}
+
+.socials .facebook {
+  background: #1877f2;
+  color: #fff;
+}
+
+.socials .twitter {
+  background: #000;
+  color: #fff;
+}
+}
+
+.topbar {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+body.scrolled .topbar {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+

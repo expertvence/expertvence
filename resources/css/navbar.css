@@ -1,0 +1,119 @@
+/* ================= NAVBAR ================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 48px;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  position: fixed;   /* 🔥 changed */
+  top: 44px;    /* 🔥 changed */
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+/* when scrolled */
+.navbar.navbar-scrolled {
+  top: 0;
+}
+
+
+/* LOGO */
+.logo-img {
+  max-height: 44px;
+  width: auto;
+}
+
+/* DESKTOP MENU */
+.desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.menu a {
+  color: #cbd5f5;
+  text-decoration: none;
+  font-size: 15px;
+  position: relative;
+}
+
+.menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #38bdf8;
+  transition: 0.3s;
+}
+
+.menu a:hover::after {
+  width: 100%;
+}
+
+.cta {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6366f1, #22d3ee);
+  color: #020617 !important;
+  font-weight: 600;
+}
+
+/* ================= TOGGLE ================= */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 22px;
+  height: 2px;
+  background: #e5e7eb;
+}
+
+/* ================= MOBILE MENU ================= */
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #020617;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 16px;
+}
+
+/* animation */
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.25s ease;
+}
+.slide-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .desktop-menu {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .navbar {
+    padding: 16px 20px;
+  }
+}
