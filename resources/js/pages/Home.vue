@@ -28,21 +28,33 @@
 </section>
 
 
-    <!-- STATS -->
-    <section class="home-stats fade-section">
-      <div class="stat">
-        <h2>50+</h2>
-        <p>Projects Delivered</p>
-      </div>
-      <div class="stat">
-        <h2>20+</h2>
-        <p>Happy Clients</p>
-      </div>
-      <div class="stat">
-        <h2>5+</h2>
-        <p>Years Experience</p>
-      </div>
-    </section>
+   <!-- STATS -->
+<section class="home-stats fade-section" ref="statsSection">
+  <h2 class="stats-title">Our Achievements</h2>
+  <p class="stats-subtitle">
+    Numbers that define our expertise
+  </p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h2>{{ projects }}+</h2>
+      <p>Projects Delivered</p>
+    </div>
+
+    <div class="stat-card">
+      <h2>{{ clients }}+</h2>
+      <p>Happy Clients</p>
+    </div>
+
+    <div class="stat-card">
+      <h2>{{ experience }}+</h2>
+      <p>Years Experience</p>
+    </div>
+  </div>
+</section>
+
+
+
 
     <!-- SERVICES -->
     <section class="industries-section fade-section">
@@ -347,14 +359,8 @@
 </div>
 
 </section>
-<!-- World Map -->
 
-<section class="world-map-section">
-  <h2>Serving Clients Worldwide</h2>
-  <p>Based in Bangladesh, working globally 🌍</p>
 
-  <div id="world-map" class="world-map"></div>
-</section>
 
 
     <!-- PORTFOLIO -->
@@ -532,7 +538,8 @@
   </main>
 </template>
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+
 
 import php from '@/assets/tech/php.svg'
 import python from '@/assets/tech/python.svg'
@@ -704,25 +711,6 @@ const subscribe = () => {
   alert('Subscribed successfully!')
 }
 
-/* World Map Section */
-
-onMounted(() => {
-  $('#world-map').vectorMap({
-    map: 'world_mill',
-    backgroundColor: 'transparent',
-    zoomOnScroll: false,
-    regionStyle: {
-      initial: { fill: '#1e293b' },
-      hover: { fill: '#38bdf8' }
-    },
-    series: {
-      regions: [{
-        values: { BD: '#22d3ee' },
-        attribute: 'fill'
-      }]
-    }
-  })
-})
 
 
 </script>

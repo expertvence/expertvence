@@ -9,7 +9,7 @@
   font-size: 13px;
   border-bottom: 1.5px solid rgba(255,255,255,0.08);
   position: relative;
-  height: 44px;
+  height: 30px;
 }
 
 
@@ -34,7 +34,7 @@
 .topbar-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 
 .info-item {
@@ -149,6 +149,7 @@
     align-items: center;
     gap: 6px;
     padding: 10px 20px;
+    height: auto;
   }
 
   .topbar-left,
@@ -188,9 +189,6 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-body.scrolled .topbar {
-  transform: translateY(-100%);
-  opacity: 0;
-}
+
 
 

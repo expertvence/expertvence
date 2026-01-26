@@ -6,7 +6,7 @@
   padding: 18px 48px;
   background: linear-gradient(135deg, #020617, #0f172a);
   position: fixed;   /* 🔥 changed */
-  top: 44px;    /* 🔥 changed */
+  top: auto;    /* 🔥 changed */
   left: 0;
   width: 100%;
   z-index: 999;
