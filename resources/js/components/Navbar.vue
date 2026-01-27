@@ -4,8 +4,11 @@
 
     <!-- LEFT -->
     <div class="nav-left">
-      <img :src="logo" alt="ExpertVence Logo" class="logo-img" />
+      <router-link to="/" class="logo-link" @click="open = false">
+        <img :src="logo" alt="ExpertVence Logo" class="logo-img" />
+      </router-link>
     </div>
+
 
     <!-- DESKTOP MENU -->
     <ul class="menu desktop-menu">
