@@ -70,7 +70,7 @@
 
                 <div class="form-group">
                   <label>How can we help?</label>
-                  <textarea placeholder="Tell us about your project..." rows="1" required
+                  <textarea placeholder="Tell us about your project..." rows="3" required
                     v-model="form.message"></textarea>
                 </div>
 
@@ -99,7 +99,7 @@
 
 <script setup>
 import { ref, reactive, defineProps, defineEmits } from 'vue'
-import contactBg from '@/assets/images/contact-bg2.png'
+import contactBg from '@/assets/images/contact-bg4.png'
 
 defineProps({ show: Boolean })
 defineEmits(['close'])
@@ -158,7 +158,6 @@ const handleSubmit = () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   width: min(1100px, 94vw);
   max-height: 90vh;
   display: flex;
@@ -243,7 +242,7 @@ const handleSubmit = () => {
   background: white;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 2);
 }
 
 
@@ -300,6 +299,7 @@ const handleSubmit = () => {
   flex-direction: column;
   flex: 1;
   padding-bottom: 40px;
+  gap: 15px;
   /* Added padding at bottom of form */
 }
 
@@ -467,7 +467,7 @@ const handleSubmit = () => {
   padding: 13px 16px;
   border: 2px solid #e5e7eb;
   border-left: none;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 5px 5px 0;
   font-size: 15px;
   color: #111827;
   background: white;
@@ -506,7 +506,7 @@ const handleSubmit = () => {
   gap: 5px;
   background: white;
   border-top: 1px solid #e5e7eb;
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .submit-btn {
@@ -515,8 +515,8 @@ const handleSubmit = () => {
   border: none;
   border-radius: 5px;
   padding: 16px 24px;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-top: 20px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -526,7 +526,7 @@ const handleSubmit = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
   position: relative;
   overflow: hidden;
 }
