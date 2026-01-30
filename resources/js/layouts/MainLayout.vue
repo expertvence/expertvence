@@ -19,6 +19,8 @@
     <router-view />
   </main>
   <Footer />
+
+  <WhatsAppFloat />
 </template>
 
 <script setup>
@@ -48,6 +50,7 @@ import { useRoute } from 'vue-router'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import TopBar from '../components/TopBar.vue'
+import WhatsAppFloat from '@/components/WhatsAppFloat.vue'
 
 const route = useRoute()
 
