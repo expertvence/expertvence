@@ -2,7 +2,7 @@
   <TopBar />
   <Navbar />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link
   rel="stylesheet"
@@ -12,13 +12,15 @@
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
+/> -->
 
 
   <main>
     <router-view />
   </main>
   <Footer />
+
+  <WhatsAppFloat />
 </template>
 
 <script setup>
@@ -48,6 +50,7 @@ import { useRoute } from 'vue-router'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import TopBar from '../components/TopBar.vue'
+import WhatsAppFloat from '@/components/WhatsAppFloat.vue'
 
 const route = useRoute()
 

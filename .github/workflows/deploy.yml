@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - dev   
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -16,7 +15,7 @@ jobs:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-          server: ftp.webgenius0.agency
-          username: chelseyibrown@chelseyibrown.webgenius0.agency
-          password: "[*[w6?m18WO0vSKv"
+          server: ftp.expertvence.com
+          username: u847662062.expertvence
+          password: "Expertvenceftp123@"
 
