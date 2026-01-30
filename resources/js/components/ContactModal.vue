@@ -1,66 +1,13 @@
 <template>
   <transition name="contact-modal">
     <div v-if="show" class="contact-overlay" @click.self="$emit('close')">
-      <div class="contact-modal">
+      <div class="contact-modal" :style="{
+            backgroundImage: `
+                                  url(${contactBg})
+                                `
+          }">
         <div class="contact-wrapper">
-          <!-- LEFT SIDE - Blue Background with Funny Topography Lines -->
-          <div class="contact-left">
-            <!-- Comic Style Topography Lines -->
-            <div class="comic-pattern">
-              <svg class="comic-svg" width="100%" height="100%" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
-                <!-- Squiggly lines -->
-                <path d="M-50,100 Q50,80 150,120 T350,90" fill="none" stroke="white" stroke-opacity="0.3" stroke-width="2" stroke-dasharray="5,5"/>
-                <path d="M-50,150 Q50,130 150,170 T350,140" fill="none" stroke="white" stroke-opacity="0.4" stroke-width="3" stroke-dasharray="8,8"/>
-                <path d="M-50,200 Q50,180 150,220 T350,190" fill="none" stroke="white" stroke-opacity="0.3" stroke-width="2" stroke-dasharray="6,6"/>
-                
-                <!-- Funny wave lines -->
-                <path d="M0,250 Q50,230 100,250 T200,230" fill="none" stroke="white" stroke-opacity="0.5" stroke-width="2"/>
-                <path d="M0,280 Q50,260 100,280 T200,260" fill="none" stroke="white" stroke-opacity="0.4" stroke-width="2"/>
-                <path d="M0,310 Q50,290 100,310 T200,290" fill="none" stroke="white" stroke-opacity="0.3" stroke-width="2"/>
-                
-                <!-- Comic dots and stars -->
-                <g class="comic-dots">
-                  <!-- Stars -->
-                  <path d="M50,50 L55,65 L70,65 L60,75 L65,90 L50,80 L35,90 L40,75 L30,65 L45,65 Z" fill="white" fill-opacity="0.4"/>
-                  <path d="M300,120 L305,135 L320,135 L310,145 L315,160 L300,150 L285,160 L290,145 L280,135 L295,135 Z" fill="white" fill-opacity="0.4"/>
-                  <path d="M150,350 L155,365 L170,365 L160,375 L165,390 L150,380 L135,390 L140,375 L130,365 L145,365 Z" fill="white" fill-opacity="0.3"/>
-                  
-                  <!-- Funny faces -->
-                  <circle cx="250" cy="300" r="15" fill="white" fill-opacity="0.2" stroke="white" stroke-opacity="0.4" stroke-width="1.5"/>
-                  <circle cx="245" cy="295" r="2" fill="white" fill-opacity="0.6"/>
-                  <circle cx="255" cy="295" r="2" fill="white" fill-opacity="0.6"/>
-                  <path d="M245,305 Q250,310 255,305" stroke="white" stroke-opacity="0.6" stroke-width="1.5" fill="none"/>
-                  
-                  <circle cx="100" cy="400" r="12" fill="white" fill-opacity="0.2" stroke="white" stroke-opacity="0.4" stroke-width="1.5"/>
-                  <circle cx="95" cy="395" r="1.5" fill="white" fill-opacity="0.6"/>
-                  <circle cx="105" cy="395" r="1.5" fill="white" fill-opacity="0.6"/>
-                  <circle cx="100" cy="400" r="1" fill="white" fill-opacity="0.8"/>
-                  <path d="M95,405 Q100,410 105,405" stroke="white" stroke-opacity="0.6" stroke-width="1.5" fill="none"/>
-                  
-                  <!-- Dots with trails -->
-                  <circle cx="350" cy="200" r="4" fill="white" fill-opacity="0.5">
-                    <animate attributeName="cy" values="200;210;200" dur="3s" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="80" cy="250" r="3" fill="white" fill-opacity="0.5">
-                    <animate attributeName="cx" values="80;90;80" dur="4s" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="200" cy="450" r="5" fill="white" fill-opacity="0.4">
-                    <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/>
-                  </circle>
-                </g>
-                
-                <!-- Speech bubble -->
-                <path d="M300,400 Q320,380 340,400 T380,390" fill="none" stroke="white" stroke-opacity="0.3" stroke-width="2"/>
-                <path d="M320,390 L310,410 L330,410 Z" fill="white" fill-opacity="0.2"/>
-                <circle cx="360" cy="380" r="8" fill="white" fill-opacity="0.1" stroke="white" stroke-opacity="0.4" stroke-width="1"/>
-              </svg>
-            </div>
-
-            <div class="contact-content">
-              <h2>Get in touch and ask us anything.</h2>
-              <p class="description">The difference between bookkeeping and accounting, can you start a company from Madagascar, which business literature our CEO prefers – we answer it all.</p>
-            </div>
-          </div>
+          
 
           <!-- RIGHT SIDE - Form -->
           <div class="contact-right">
@@ -68,7 +15,7 @@
               <h1>Contact us</h1>
               <button class="close-btn" @click="$emit('close')">✕</button>
             </div>
-            
+
             <div class="form-scroll">
               <form class="contact-form" @submit.prevent="handleSubmit">
                 <div class="form-row">
@@ -76,7 +23,17 @@
                     <label>Your name</label>
                     <input type="text" placeholder="Write Your Name" required v-model="form.name">
                   </div>
+
                   <div class="form-group">
+                  <label>Email address</label>
+                  <input type="email" placeholder="you@example.com" required v-model="form.email">
+                </div>
+                  
+                </div>
+
+                
+                <div class="form-row">
+                <div class="form-group">
                     <label>Phone number</label>
                     <div class="phone-input-wrapper">
                       <div class="country-selector" @click="toggleCountryList">
@@ -84,35 +41,19 @@
                         <span class="country-code">+{{ selectedCountry.code }}</span>
                         <span class="dropdown-arrow">▼</span>
                       </div>
-                      
+
                       <div v-if="showCountryList" class="country-dropdown">
-                        <div 
-                          v-for="country in countries" 
-                          :key="country.code"
-                          class="country-option"
-                          @click="selectCountry(country)"
-                        >
+                        <div v-for="country in countries" :key="country.code" class="country-option"
+                          @click="selectCountry(country)">
                           <img :src="country.flag" alt="flag" class="flag">
                           <span class="country-name">{{ country.name }}</span>
                           <span class="country-code">+{{ country.code }}</span>
                         </div>
                       </div>
-                      
-                      <input 
-                        type="tel" 
-                        placeholder="999 9999999"
-                        class="phone-input"
-                        required
-                        v-model="form.phone"
-                      >
+
+                      <input type="tel" placeholder="999 9999999" class="phone-input" required v-model="form.phone">
                     </div>
                   </div>
-                </div>
-
-                <div class="form-group">
-                  <label>Email address</label>
-                  <input type="email" placeholder="you@example.com" required v-model="form.email">
-                </div>
 
                 <div class="form-group">
                   <label>Interested in</label>
@@ -125,10 +66,12 @@
                     <option>Business Consulting</option>
                   </select>
                 </div>
+                </div>
 
                 <div class="form-group">
                   <label>How can we help?</label>
-                  <textarea placeholder="Tell us about your project..." rows="1" required v-model="form.message"></textarea>
+                  <textarea placeholder="Tell us about your project..." rows="1" required
+                    v-model="form.message"></textarea>
                 </div>
 
                 <!-- SUBMIT BUTTON SECTION - Fixed and Visible -->
@@ -138,9 +81,10 @@
                       <span class="btn-text">Send your message</span>
                       <span class="btn-arrow">→</span>
                     </button>
-                    
+
                     <p class="terms">
-                      By clicking, you agree to our <a href="#">Terms & Conditions</a>, <a href="#">Privacy</a> and <a href="#">Data Protection Policy</a>
+                      By clicking, you agree to our <a href="#">Terms & Conditions</a>, <a href="#">Privacy</a> and <a
+                        href="#">Data Protection Policy</a>
                     </p>
                   </div>
                 </div>
@@ -154,7 +98,8 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, defineProps, defineEmits } from 'vue'
+import contactBg from '@/assets/images/contact-bg2.png'
 
 defineProps({ show: Boolean })
 defineEmits(['close'])
@@ -204,7 +149,7 @@ const handleSubmit = () => {
   inset: 0;
   background: rgba(15, 23, 42, 0.35);
   backdrop-filter: blur(4px);
-
+  max-height: unset;
   z-index: 99999;
 }
 
@@ -219,27 +164,20 @@ const handleSubmit = () => {
   display: flex;
   flex-direction: column;
   background: #c0c2da;
-  border-radius: 14px;
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .contact-wrapper {
   display: flex;
-  height:45rem;
-  min-height: 650px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
-/* LEFT SIDE - Blue Background with Comic Style Lines */
-.contact-left {
-  flex: 0 0 45%;
-  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
-  padding: 50px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
+
+
+
 
 .comic-pattern {
   position: absolute;
@@ -256,15 +194,19 @@ const handleSubmit = () => {
   0% {
     transform: translate(0, 0) rotate(0deg);
   }
+
   25% {
     transform: translate(-5px, -5px) rotate(0.5deg);
   }
+
   50% {
     transform: translate(5px, -5px) rotate(-0.5deg);
   }
+
   75% {
     transform: translate(-5px, 5px) rotate(0.5deg);
   }
+
   100% {
     transform: translate(5px, 5px) rotate(-0.5deg);
   }
@@ -275,9 +217,12 @@ const handleSubmit = () => {
 }
 
 @keyframes bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-5px);
   }
@@ -288,31 +233,19 @@ const handleSubmit = () => {
   z-index: 2;
 }
 
-.contact-left h2 {
-  font-size: 32px;
-  font-weight: 700;
-  color: white;
-  margin: 0 0 25px 0;
-  line-height: 1.3;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
 
-.description {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 16px;
-  line-height: 1.6;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
 
 /* RIGHT SIDE - Form */
 .contact-right {
-  flex: 0 0 55%;
+  width: 100%;
+  max-width: 660px;
+
   background: white;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
 }
+
 
 .form-header {
   padding: 10px 55px 0;
@@ -353,7 +286,8 @@ const handleSubmit = () => {
 }
 
 .form-scroll {
-  padding: 0 40px 0; /* Changed: Removed bottom padding */
+  padding: 0 40px 0;
+  /* Changed: Removed bottom padding */
   flex: 1;
   overflow-y: auto;
   display: flex;
@@ -365,7 +299,8 @@ const handleSubmit = () => {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding-bottom: 40px; /* Added padding at bottom of form */
+  padding-bottom: 40px;
+  /* Added padding at bottom of form */
 }
 
 .form-row {
@@ -375,8 +310,19 @@ const handleSubmit = () => {
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.phone-input-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 140px 1fr;
 }
 
 .form-group label {
@@ -669,7 +615,7 @@ const handleSubmit = () => {
   .contact-modal {
     max-width: 95vw;
   }
-  
+
   .contact-wrapper {
     min-height: 600px;
   }
@@ -680,30 +626,25 @@ const handleSubmit = () => {
     flex-direction: column;
     min-height: auto;
   }
-  
-  .contact-left {
-    flex: none;
-    padding: 40px 30px;
-    min-height: 300px;
-  }
-  
+
+
   .contact-right {
     flex: none;
     max-height: 70vh;
   }
-  
+
   .form-header {
     padding: 20px 30px 20px;
   }
-  
+
   .form-scroll {
     padding: 0 30px 0;
   }
-  
+
   .contact-form {
     padding-bottom: 30px;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -714,59 +655,45 @@ const handleSubmit = () => {
   .contact-overlay {
     padding: 10px;
   }
-  
+
   .contact-modal {
     max-height: 95vh;
     border-radius: 12px;
   }
-  
-  .contact-left {
-    padding: 30px 20px;
-    min-height: 250px;
-  }
-  
-  .contact-left h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
-  }
-  
-  .description {
-    font-size: 14px;
-  }
-  
+
   .form-header {
     padding: 15px 20px 15px;
   }
-  
+
   .form-scroll {
     padding: 0 20px 0;
   }
-  
+
   .contact-form {
     padding-bottom: 20px;
   }
-  
+
   .form-header h1 {
     font-size: 24px;
   }
-  
+
   .close-btn {
     width: 36px;
     height: 36px;
     font-size: 18px;
   }
-  
+
   .form-group input:not(.phone-input),
   .form-group select,
   .form-group textarea {
     padding: 11px 14px;
     font-size: 14px;
   }
-  
+
   .country-dropdown {
     width: 100%;
   }
-  
+
   .submit-btn {
     padding: 14px;
     font-size: 15px;
