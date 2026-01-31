@@ -1,0 +1,62 @@
+/* MODAL OVERLAY */
+.neon-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+/* MODAL CONTAINER */
+.neon-modal {
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+
+  /* ❌ height: 610px; এটা সরাও */
+  height: 100vh;           /* content অনুযায়ী হবে */
+  min-height: unset;
+  overflow: visible;
+  background: #000;
+  border: 2px solid #00ff88;
+  box-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88, 0 0 60px #00ff88;
+  border-radius: 8px;   /* আগে 2rem ছিল — একটু কমানো */
+  color: #00ff88;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 1.2rem; /* নিচে কিছু স্পেস */
+  margin-top: 1.01rem;    /* উপরে কিছু স্পেস */
+  
+}
+
+
+
+/* REMOVE PAGE OFFSET IN MODAL */
+.modal-mode {
+  min-height: auto;
+  padding-top: 0;
+}
+
+/* CLOSE BUTTON */
+.neon-modal-close {
+  position: absolute;
+  top: 1px;
+  right: -1px;
+  width: 32px;
+  height: 32px;
+  background: #000;
+  border: 1px solid #00ff88;
+  color: #00ff88;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ff88;
+}
+
+.neon-modal-close:hover {
+  background: #00ff88;
+  color: #000;
+}
+

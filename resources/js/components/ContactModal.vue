@@ -115,7 +115,7 @@ const form = reactive({
 })
 
 const countries = ref([
-  { name: 'Italy', code: '39', flag: 'https://flagcdn.com/w20/it.png' },
+  { name: 'Italy', code: '+88', flag: 'https://flagcdn.com/w20/bd.png' },
   { name: 'United States', code: '1', flag: 'https://flagcdn.com/w20/us.png' },
   { name: 'United Kingdom', code: '44', flag: 'https://flagcdn.com/w20/gb.png' },
   { name: 'Germany', code: '49', flag: 'https://flagcdn.com/w20/de.png' },
@@ -144,15 +144,16 @@ const handleSubmit = () => {
 </script>
 
 <style scoped>
+/* ================= Overlay ================= */
 .contact-overlay {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.35);
-  backdrop-filter: blur(4px);
-  max-height: unset;
+  backdrop-filter: blur(6px);
   z-index: 99999;
 }
 
+/* ================= Modal ================= */
 .contact-modal {
   position: fixed;
   top: 50%;
@@ -162,9 +163,12 @@ const handleSubmit = () => {
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  background: #c0c2da;
-  border-radius: 6px;
+  background: #e6e9f0;
+  border-radius: 5px;
   overflow: hidden;
+  box-shadow:
+    14px 14px 30px rgba(0, 0, 0, 0.15),
+    -14px -14px 30px rgba(255, 255, 255, 0.9);
 }
 
 .contact-wrapper {
@@ -174,86 +178,26 @@ const handleSubmit = () => {
   height: 100%;
 }
 
-
-
-
-
-.comic-pattern {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.7;
-}
-
-.comic-svg {
-  animation: wavyMove 15s ease-in-out infinite alternate;
-}
-
-@keyframes wavyMove {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-
-  25% {
-    transform: translate(-5px, -5px) rotate(0.5deg);
-  }
-
-  50% {
-    transform: translate(5px, -5px) rotate(-0.5deg);
-  }
-
-  75% {
-    transform: translate(-5px, 5px) rotate(0.5deg);
-  }
-
-  100% {
-    transform: translate(5px, 5px) rotate(-0.5deg);
-  }
-}
-
-.comic-dots {
-  animation: bounce 8s ease-in-out infinite;
-}
-
-@keyframes bounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-.contact-content {
-  position: relative;
-  z-index: 2;
-}
-
-
-
-/* RIGHT SIDE - Form */
+/* ================= Right Form Card ================= */
 .contact-right {
   width: 100%;
   max-width: 660px;
-
-  background: white;
+  background: #e6e9f0;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 2);
+  border-radius: 0px;
+  box-shadow:
+    inset 8px 8px 16px rgba(0, 0, 0, 0.08),
+    inset -8px -8px 16px rgba(255, 255, 255, 0.9);
 }
 
-
+/* ================= Header ================= */
 .form-header {
-  padding: 10px 55px 0;
+  padding: 18px 40px 12px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 10px;
-  flex-shrink: 0;
+  align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .form-header h1 {
@@ -261,338 +205,171 @@ const handleSubmit = () => {
   font-weight: 700;
   color: #111827;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .close-btn {
-  background: #f3f4f6;
+  background: #e6e9f0;
   border: none;
   width: 40px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
-  color: #374151;
   cursor: pointer;
-  transition: all 0.2s;
+  box-shadow:
+    5px 5px 10px rgba(0, 0, 0, 0.15),
+    -5px -5px 10px rgba(255, 255, 255, 0.9);
 }
 
-.close-btn:hover {
-  background: #e5e7eb;
-  transform: scale(1.05);
+.close-btn:active {
+  box-shadow:
+    inset 4px 4px 8px rgba(0, 0, 0, 0.2),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.9);
 }
 
+/* ================= Scroll Area ================= */
 .form-scroll {
-  padding: 0 40px 0;
-  /* Changed: Removed bottom padding */
+  padding: 10px 40px 0;
   flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
 
-/* FORM STYLES */
 .contact-form {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  gap: 16px;
   padding-bottom: 40px;
-  gap: 15px;
-  /* Added padding at bottom of form */
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.form-group {
-  width: 100%;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  box-sizing: border-box;
-}
-.phone-input-wrapper {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 140px 1fr;
+  gap: 16px;
 }
 
 .form-group label {
   font-size: 14px;
   font-weight: 600;
   color: #374151;
-  margin-bottom: 8px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  margin-bottom: 6px;
+  display: block;
 }
 
+/* ================= Inputs ================= */
 .form-group input:not(.phone-input),
 .form-group select,
-.form-group textarea {
-  padding: 13px 16px;
-  border: 2px solid #e5e7eb;
-  border-radius: 5px;
-  font-size: 15px;
+.form-group textarea,
+.phone-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 12px;
+  background: #e6e9f0;
   color: #111827;
-  background: white;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  transition: all 0.2s;
-}
-
-.form-group input:focus:not(.phone-input),
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-}
-
-.form-group input::placeholder:not(.phone-input),
-.form-group textarea::placeholder {
-  color: #9ca3af;
-}
-
-.form-group select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  background-size: 18px;
-  padding-right: 45px;
-  cursor: pointer;
+  font-size: 15px;
+  box-shadow:
+    inset 5px 5px 10px rgba(0, 0, 0, 0.12),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.9);
 }
 
 .form-group textarea {
   resize: vertical;
   min-height: 80px;
-  line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* PHONE INPUT */
+.form-group input:focus:not(.phone-input),
+.form-group select:focus,
+.form-group textarea:focus,
+.phone-input:focus {
+  outline: none;
+  box-shadow:
+    inset 2px 2px 5px rgba(0, 0, 0, 0.2),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.9),
+    0 0 0 2px rgba(79, 70, 229, 0.35);
+}
+
+/* ================= Phone ================= */
 .phone-input-wrapper {
-  position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: 140px 1fr;
 }
 
 .country-selector {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 0 16px;
-  background: white;
-  border: 2px solid #e5e7eb;
-  border-right: none;
-  border-radius: 10px 0 0 10px;
+  padding: 0 14px;
+  background: #e6e9f0;
+  border-radius: 12px 0 0 12px;
   cursor: pointer;
-  transition: all 0.2s;
-  font-size: 15px;
-  color: #374151;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  min-width: 120px;
-}
-
-.country-selector:hover {
-  background: #f9fafb;
-}
-
-.flag {
-  width: 22px;
-  height: 16px;
-  object-fit: cover;
-  border-radius: 2px;
-}
-
-.dropdown-arrow {
-  font-size: 11px;
-  color: #6b7280;
-  margin-left: auto;
+  box-shadow:
+    5px 5px 10px rgba(0, 0, 0, 0.12),
+    -5px -5px 10px rgba(255, 255, 255, 0.9);
 }
 
 .country-dropdown {
   position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  width: 300px;
-  max-height: 320px;
+  margin-top: 6px;
+  width: 280px;
+  max-height: 300px;
   overflow-y: auto;
-  background: white;
-  border: 2px solid #e5e7eb;
-  border-radius: 10px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  background: #e6e9f0;
+  border-radius: 14px;
+  box-shadow:
+    10px 10px 25px rgba(0, 0, 0, 0.18),
+    -10px -10px 25px rgba(255, 255, 255, 0.9);
+  z-index: 200;
 }
 
-.country-option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 16px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.country-option:last-child {
-  border-bottom: none;
-}
-
-.country-option:hover {
-  background: #f9fafb;
-}
-
-.country-name {
-  flex: 1;
-  font-size: 14px;
-  color: #374151;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-.country-option .country-code {
-  font-family: monospace;
-  color: #6b7280;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.phone-input {
-  flex: 1;
-  padding: 13px 16px;
-  border: 2px solid #e5e7eb;
-  border-left: none;
-  border-radius: 0 5px 5px 0;
-  font-size: 15px;
-  color: #111827;
-  background: white;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  transition: all 0.2s;
-}
-
-.phone-input:focus {
-  outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-}
-
-.phone-input::placeholder {
-  color: #9ca3af;
-}
-
-.phone-input-wrapper:focus-within .country-selector,
-.phone-input-wrapper:focus-within .phone-input {
-  border-color: #4f46e5;
-}
-
-/* SUBMIT BUTTON SECTION - FIXED AND ALWAYS VISIBLE */
+/* ================= Submit Section ================= */
 .submit-section-wrapper {
   margin-top: auto;
-  margin-bottom: 20px;
-  position: relative;
-  bottom: 0;
-  background: linear-gradient(to top, white 80%, transparent);
   padding-bottom: 20px;
 }
 
 .submit-section {
+  background: #e6e9f0;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: 30px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  background: white;
-  border-top: 1px solid #e5e7eb;
-  padding-top: 40px;
+  gap: 10px;
 }
 
 .submit-btn {
-  background: #1e293b;
-  color: white;
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: 14px;
   border: none;
-  border-radius: 5px;
-  padding: 16px 24px;
-  padding-bottom: 20px;
-  padding-top: 20px;
-  font-size: 16px;
+  background: #e6e9f0;
+  color: #1e293b;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.submit-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.submit-btn:hover::before {
-  left: 100%;
-}
-
-.submit-btn:hover {
-  background: #334155;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.18),
+    -8px -8px 16px rgba(255, 255, 255, 0.9);
 }
 
 .submit-btn:active {
-  transform: translateY(-1px);
-}
-
-.btn-arrow {
-  font-size: 20px;
-  transition: transform 0.3s;
-}
-
-.submit-btn:hover .btn-arrow {
-  transform: translateX(5px);
+  box-shadow:
+    inset 6px 6px 12px rgba(0, 0, 0, 0.2),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.9);
 }
 
 .terms {
   font-size: 12px;
-  color: #6b7280;
   text-align: center;
-  margin-bottom: 10px;
-  line-height: 2.5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #6b7280;
 }
 
-.terms a {
-  color: #4f46e5;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.terms a:hover {
-  text-decoration: underline;
-}
-
-/* ANIMATION */
+/* ================= Animation ================= */
 .contact-modal-enter-active,
 .contact-modal-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.contact-modal-enter-active .contact-modal,
-.contact-modal-leave-active .contact-modal {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }
 
 .contact-modal-enter-from,
@@ -600,103 +377,174 @@ const handleSubmit = () => {
   opacity: 0;
 }
 
-.contact-modal-enter-from .contact-modal {
-  transform: translateY(-20px) scale(0.95);
-  opacity: 0;
-}
+/* ================= Ultra Responsive Fixes (Additive Only) ================= */
 
-.contact-modal-leave-to .contact-modal {
-  transform: translateY(20px) scale(0.95);
-  opacity: 0;
-}
-
-/* RESPONSIVE */
-@media (max-width: 1024px) {
+/* Very large screens (4K, ultrawide) */
+@media (min-width: 1440px) {
   .contact-modal {
-    max-width: 95vw;
-  }
-
-  .contact-wrapper {
-    min-height: 600px;
-  }
-}
-
-@media (max-width: 768px) {
-  .contact-wrapper {
-    flex-direction: column;
-    min-height: auto;
-  }
-
-
-  .contact-right {
-    flex: none;
-    max-height: 70vh;
+    width: 1100px;
   }
 
   .form-header {
-    padding: 20px 30px 20px;
+    padding: 24px 60px 16px;
   }
 
   .form-scroll {
-    padding: 0 30px 0;
-  }
-
-  .contact-form {
-    padding-bottom: 30px;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    padding: 10px 60px 0;
   }
 }
 
-@media (max-width: 480px) {
+/* Tablets & small laptops */
+@media (max-width: 1024px) {
+  .contact-modal {
+    width: 96vw;
+    max-height: 92vh;
+  }
+
+  .contact-right {
+    max-width: 100%;
+  }
+
+  .form-header {
+    padding: 16px 28px 12px;
+  }
+
+  .form-scroll {
+    padding: 0 28px;
+  }
+}
+
+/* Large phones */
+@media (max-width: 768px) {
   .contact-overlay {
-    padding: 10px;
+    padding: 12px;
   }
 
   .contact-modal {
-    max-height: 95vh;
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-height: 100%;
+    border-radius: 16px;
+  }
+
+  .contact-wrapper {
+    height: auto;
+  }
+
+  .contact-right {
+    border-radius: 16px;
+  }
+
+  .form-header {
+    padding: 14px 20px 12px;
+  }
+
+  .form-scroll {
+    padding: 0 20px;
+  }
+
+  .submit-section-wrapper {
+    padding-bottom: 12px;
+  }
+
+  .submit-btn {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+}
+
+/* Small phones (iPhone SE, very small Android) */
+@media (max-width: 480px) {
+  .contact-overlay {
+    padding: 8px;
+  }
+
+  .contact-modal {
     border-radius: 12px;
   }
 
-  .form-header {
-    padding: 15px 20px 15px;
-  }
-
-  .form-scroll {
-    padding: 0 20px 0;
-  }
-
-  .contact-form {
-    padding-bottom: 20px;
-  }
-
   .form-header h1 {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .close-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
+
+  .form-group label {
+    font-size: 12px;
   }
 
   .form-group input:not(.phone-input),
   .form-group select,
-  .form-group textarea {
-    padding: 11px 14px;
+  .form-group textarea,
+  .phone-input {
+    padding: 12px 12px;
     font-size: 14px;
+  }
+
+  .phone-input-wrapper {
+    grid-template-columns: 110px 1fr;
+  }
+
+  .country-selector {
+    padding: 0 10px;
+    gap: 6px;
   }
 
   .country-dropdown {
     width: 100%;
+    left: 0;
+    right: 0;
   }
 
   .submit-btn {
-    padding: 14px;
-    font-size: 15px;
+    padding: 13px 14px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .terms {
+    font-size: 11px;
+    line-height: 1.4;
   }
 }
+
+/* Ultra small screens / fold phones */
+@media (max-width: 360px) {
+  .form-header h1 {
+    font-size: 18px;
+  }
+
+  .phone-input-wrapper {
+    grid-template-columns: 95px 1fr;
+  }
+
+  .submit-btn {
+    font-size: 13px;
+    padding: 12px;
+  }
+}
+
+/* Height-based responsiveness (short screens) */
+@media (max-height: 600px) {
+  .contact-modal {
+    max-height: 98vh;
+  }
+
+  .form-scroll {
+    max-height: 65vh;
+  }
+
+  .submit-section-wrapper {
+    padding-bottom: 8px;
+  }
+}
+
+
 </style>

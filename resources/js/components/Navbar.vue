@@ -18,7 +18,10 @@
       <li><router-link to="/portfolio">Portfolio</router-link></li>
       <li><router-link to="/gallery">Gallery</router-link></li>
       <li>
-        <router-link to="/contact" class="cta">Get Started</router-link>
+                           <button class="cta-btn" @click="showModal = true">
+  Get Started
+</button>
+        <ContactModal :show="showModal" @close="showModal = false" />
       </li>
     </ul>
 
@@ -37,9 +40,10 @@
         <li @click="open=false"><router-link to="/services">Services</router-link></li>
         <li @click="open=false"><router-link to="/portfolio">Portfolio</router-link></li>
         <li @click="open=false"><router-link to="/gallery">Gallery</router-link></li>
-        <li @click="open=false">
-          <router-link to="/contact" class="cta">Get Started</router-link>
-        </li>
+                   <button class="cta-btn" @click="showModal = true">
+  Get Started →
+</button>
+        <ContactModal :show="showModal" @close="showModal = false" />
       </ul>
     </transition>
   </nav>
@@ -47,6 +51,8 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import ContactModal from '@/components/ContactModal.vue'
+const showModal = ref(false)
 
 const open = ref(false)
 const logo = '/images/logo.png'
