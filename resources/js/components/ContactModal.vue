@@ -1,7 +1,10 @@
+
+
 <template>
-  <transition name="contact-modal">
-    <div v-if="show" class="contact-overlay" @click.self="$emit('close')">
-      <div class="contact-modal" :style="{
+  <Teleport to="body">
+    <transition name="contact-modal">
+      <div v-if="show" class="contact-overlay" @click.self="$emit('close')">
+       <div class="contact-modal" :style="{
             backgroundImage: `
                                   url(${contactBg})
                                 `
@@ -93,9 +96,11 @@
           </div>
         </div>
       </div>
-    </div>
-  </transition>
+      </div>
+    </transition>
+  </Teleport>
 </template>
+
 
 <script setup>
 import { ref, reactive, defineProps, defineEmits } from 'vue'
@@ -150,7 +155,7 @@ const handleSubmit = () => {
   inset: 0;
   background: rgba(15, 23, 42, 0.35);
   backdrop-filter: blur(6px);
-  z-index: 99999;
+  z-index: 999999;
 }
 
 /* ================= Modal ================= */
@@ -169,6 +174,7 @@ const handleSubmit = () => {
   box-shadow:
     14px 14px 30px rgba(0, 0, 0, 0.15),
     -14px -14px 30px rgba(255, 255, 255, 0.9);
+    z-index: 1000000;
 }
 
 .contact-wrapper {

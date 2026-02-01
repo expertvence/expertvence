@@ -17,9 +17,11 @@
 
     <!-- RIGHT ACTIONS -->
     <div class="topbar-right">
-      <router-link to="/contact" class="top-link">
+      <router-link to="" @click="showModal = true" class="top-link">
         Contact
       </router-link>
+
+        <ContactModal :show="showModal" @close="showModal = false" />
 
       <span class="divider">|</span>
 
@@ -38,7 +40,8 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-
+import ContactModal from '@/components/ContactModal.vue'
+const showModal = ref(false)
 
 const hideTopbar = ref(false)
 
