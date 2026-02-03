@@ -8,8 +8,12 @@
   padding: 9px 48px;
   font-size: 13px;
   border-bottom: 1.5px solid rgba(255,255,255,0.08);
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 30px;
+  z-index: 1500;
 }
 
 
@@ -141,6 +145,61 @@
   color: #fff;
 }
 
+.flag {
+  display: inline-block;
+  width: 25px;     /* flag width */
+  height: 15px;    /* 3:2 ratio */
+  border-radius: 2px;
+  vertical-align: middle;
+  position: relative;
+  background-color: #006a4e;
+  overflow: hidden;
+
+  /* wave animation */
+  background-image: linear-gradient(#006a4e 0 100%);
+  background-size: 200% 100%;
+  animation: wave 1.5s infinite linear;
+}
+
+/* red circle */
+.flag.bd::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  width: 10px;       /* circle size */
+  height: 10px;
+  background-color: #f42a41;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: wave-circle 1.5s infinite linear;
+}
+
+/* full flag wave effect using skew/rotate */
+@keyframes flag-wave {
+  0%   { transform: rotate(0deg) skewX(0deg); }
+  10%  { transform: rotate(1deg) skewX(3deg); }
+  20%  { transform: rotate(-1deg) skewX(-3deg); }
+  30%  { transform: rotate(2deg) skewX(4deg); }
+  40%  { transform: rotate(-2deg) skewX(-4deg); }
+  50%  { transform: rotate(1deg) skewX(2deg); }
+  60%  { transform: rotate(-1deg) skewX(-2deg); }
+  70%  { transform: rotate(2deg) skewX(3deg); }
+  80%  { transform: rotate(-2deg) skewX(-3deg); }
+  90%  { transform: rotate(1deg) skewX(1deg); }
+  100% { transform: rotate(0deg) skewX(0deg); }
+}
+
+/* circle moves slightly with flag motion */
+@keyframes circle-wave {
+  0%   { transform: translate(-50%, -50%) translateX(0); }
+  25%  { transform: translate(-50%, -50%) translateX(1px); }
+  50%  { transform: translate(-50%, -50%) translateX(0); }
+  75%  { transform: translate(-50%, -50%) translateX(-1px); }
+  100% { transform: translate(-50%, -50%) translateX(0); }
+}
+
+
 /* ================= RESPONSIVE ================= */
 
 @media (max-width: 900px) {
@@ -150,6 +209,11 @@
     gap: 6px;
     padding: 10px 20px;
     height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 998;
   }
 
   .topbar-left,

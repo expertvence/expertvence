@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Orbitron', monospace;
+}
+
+.neon-auth-wrapper {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #020202, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.neon-card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid #00ff88;
+  box-shadow: 0 0 20px #00ff88;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.neon-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.neon-icon {
+  font-size: 30px;
+  color: #00ff88;
+  margin-bottom: 10px;
+}
+
+.neon-header h2 {
+  color: #00eaff;
+  letter-spacing: 2px;
+}
+
+.neon-header p {
+  color: #ff0055;
+  font-size: 12px;
+}
+
+.neon-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.neon-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #00ff88;
+  padding: 10px;
+}
+
+.neon-input span {
+  color: #00ff88;
+  margin-right: 8px;
+}
+
+.neon-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #00ff88;
+}
+
+.neon-options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.neon-options a {
+  color: #ff0055;
+  text-decoration: none;
+}
+
+.neon-btn {
+  margin-top: 10px;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid #00ff88;
+  color: #00ff88;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.neon-btn:hover {
+  background: #00ff88;
+  color: #000;
+  box-shadow: 0 0 15px #00ff88;
+}
+
+.neon-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.neon-footer a {
+  color: #00eaff;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+/* 📱 Mobile Responsive */
+@media (max-width: 480px) {
+  .neon-card {
+    padding: 20px;
+  }
+}
+
+/* EXTRA OPTIONS */
+.neon-extra {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.neon-check {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.neon-check input {
+  accent-color: #00ff88;
+}
+
+.forgot-link {
+  color: #00eaff;
+  text-decoration: none;
+}
+
+/* GRADIENT SIGN IN */
+.neon-gradient {
+  background: linear-gradient(90deg, #00ff88, #00ff88);
+  color: #000;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 0 20px rgba(0,255,136,.5);
+}
+
+.neon-gradient:hover {
+  box-shadow: 0 0 30px rgba(0,255,136,.9);
+}
+
+/* OR DIVIDER */
+.neon-divider {
+  text-align: center;
+  position: relative;
+  margin: 15px 0;
+  color: #666;
+  font-size: 12px;
+}
+
+.neon-divider::before,
+.neon-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #222;
+}
+
+.neon-divider::before { left: 0; }
+.neon-divider::after { right: 0; }
+
+/* SOCIAL LOGIN */
+.neon-social {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-btn {
+  background: #111;
+  border: 1px solid #222;
+  padding: 10px;
+  color: #ccc;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.social-btn.google span {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.social-btn.apple span {
+  font-size: 18px;
+}
+
+.social-btn:hover {
+  border-color: #00ff88;
+  color: #00ff88;
+}
+
+/* NAVBAR SAFE OFFSET */
+.neon-auth-wrapper {
+  padding-top: 90px; /* navbar + topbar height */
+}
+

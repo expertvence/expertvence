@@ -3,7 +3,7 @@ name: Laravel Auto Deploy
 on:
   push:
     branches:
-      - dev     
+      - mofazzal   
 jobs:
   deploy:
     runs-on: ubuntu-latest

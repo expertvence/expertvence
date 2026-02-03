@@ -171,7 +171,7 @@
 /* ===== STATS ===== */
 .home-stats {
   padding: 100px 20px;
-  background:#00b40c;
+  background:#037741;
 }
 
 /* title */
@@ -223,7 +223,7 @@
 .stat-card h2 {
   font-size: 44px;
   font-weight: 800;
-  color: #208502;
+  color: #00ff88;
   margin-bottom: 6px;
 }
 
@@ -1077,7 +1077,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 34px;
+  padding: 10px 15px;
   border-radius: 999px;
   font-weight: 700;
   font-size: 16px;
@@ -1742,5 +1742,3 @@
     font-size: 12px;
   }
 }
-
-

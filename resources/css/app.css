@@ -22,6 +22,7 @@ html, body {
   font-family: Inter, system-ui, sans-serif;
 }
 
+
 img {
   max-width: 100%;
   height: auto;
@@ -71,3 +72,20 @@ flex-direction: column;
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ================= PAGE OFFSET FIX ================= */
+
+/* Topbar height ≈ 30px */
+/* Navbar height ≈ 72px */
+
+.page-content {
+  padding-top: 76px; /* 30 + 72 */
+}
+
+/* Mobile navbar height slightly smaller */
+@media (max-width: 900px) {
+  .page-content {
+    padding-top: 110px; /* topbar height + navbar height */
+  }
+}
+

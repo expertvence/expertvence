@@ -1,487 +1,556 @@
+
+
 <template>
-  <transition name="contact-modal">
-    <div v-if="show" class="contact-overlay" @click.self="$emit('close')">
-      <div class="contact-modal contact-bg">
-        <!-- HEADER -->
-        <div class="contact-header">
-          <h3>Let’s build something great 🚀</h3>
-          <button class="close-btn" @click="$emit('close')">✕</button>
-        </div>
+  <Teleport to="body">
+    <transition name="contact-modal">
+      <div v-if="show" class="contact-overlay" @click.self="$emit('close')">
+       <div class="contact-modal" :style="{
+            backgroundImage: `
+                                  url(${contactBg})
+                                `
+          }">
+        <div class="contact-wrapper">
+          
 
-        <!-- BODY -->
-        <div class="contact-body">
-          <!-- LEFT -->
-          <div class="contact-info">
-            <h2>Tell us about your goals</h2>
-            <p>We’ll get back within one business day.</p>
-            <ul>
-              <li>📧 info@expertvence.com</li>
-              <li>📞 +880 18183590326</li>
-            </ul>
-          </div>
-
-          <!-- RIGHT -->
-          <form class="contact-form">
-            <div class="row">
-              <input type="text" placeholder="Your name" />
-              <input type="email" placeholder="Email" />
+          <!-- RIGHT SIDE - Form -->
+          <div class="contact-right">
+            <div class="form-header">
+              <h1>Contact us</h1>
+              <button class="close-btn" @click="$emit('close')">✕</button>
             </div>
 
-            <!-- PHONE INPUT -->
-            <label class="label">Mobile</label>
-            <div class="phone-input">
-              <button
-                type="button"
-                class="phone-prefix"
-                @click="open = !open"
-              >
-                <img :src="selected.flag" />
-                <span>{{ selected.code }}</span>
-                ▾
-              </button>
+            <div class="form-scroll">
+              <form class="contact-form" @submit.prevent="handleSubmit">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Your name</label>
+                    <input type="text" placeholder="Write Your Name" required v-model="form.name">
+                  </div>
 
-            <input
-              type="tel"
-              placeholder="Enter mobile number"
-              @input="showMessaging = $event.target.value.length > 0"
-            />
-
-
-
-              <!-- DROPDOWN -->
-              <div v-if="open" class="country-list">
-                <div
-                  v-for="c in countries"
-                  :key="c.code"
-                  @click="selectCountry(c)"
-                  class="country-item"
-                >
-                  <img :src="c.flag" />
-                  {{ c.name }} ({{ c.code }})
+                  <div class="form-group">
+                  <label>Email address</label>
+                  <input type="email" placeholder="you@example.com" required v-model="form.email">
                 </div>
-              </div>
+                  
+                </div>
+
+                
+                <div class="form-row">
+                <div class="form-group">
+                    <label>Phone number</label>
+                    <div class="phone-input-wrapper">
+                      <div class="country-selector" @click="toggleCountryList">
+                        <img :src="selectedCountry.flag" alt="flag" class="flag">
+                        <span class="country-code">+{{ selectedCountry.code }}</span>
+                        <span class="dropdown-arrow">▼</span>
+                      </div>
+
+                      <div v-if="showCountryList" class="country-dropdown">
+                        <div v-for="country in countries" :key="country.code" class="country-option"
+                          @click="selectCountry(country)">
+                          <img :src="country.flag" alt="flag" class="flag">
+                          <span class="country-name">{{ country.name }}</span>
+                          <span class="country-code">+{{ country.code }}</span>
+                        </div>
+                      </div>
+
+                      <input type="tel" placeholder="999 9999999" class="phone-input" required v-model="form.phone">
+                    </div>
+                  </div>
+
+                <div class="form-group">
+                  <label>Interested in</label>
+                  <select required v-model="form.interest">
+                    <option value="" disabled selected>Select an option</option>
+                    <option>Bookkeeping</option>
+                    <option>Accounting</option>
+                    <option>Company Formation</option>
+                    <option>Tax Services</option>
+                    <option>Business Consulting</option>
+                  </select>
+                </div>
+                </div>
+
+                <div class="form-group">
+                  <label>How can we help?</label>
+                  <textarea placeholder="Tell us about your project..." rows="3" required
+                    v-model="form.message"></textarea>
+                </div>
+
+                <!-- SUBMIT BUTTON SECTION - Fixed and Visible -->
+                <div class="submit-section-wrapper">
+                  <div class="submit-section">
+                    <button type="submit" class="submit-btn">
+                      <span class="btn-text">Send your message</span>
+                      <span class="btn-arrow">→</span>
+                    </button>
+
+                    <p class="terms">
+                      By clicking, you agree to our <a href="#">Terms & Conditions</a>, <a href="#">Privacy</a> and <a
+                        href="#">Data Protection Policy</a>
+                    </p>
+                  </div>
+                </div>
+              </form>
             </div>
-            <!-- MESSAGING OPTIONS -->
-<div class="messaging-options" v-show="showMessaging">
-
-  <label class="msg-item">
-    <input type="checkbox" />
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" />
-    <span>WhatsApp</span>
-  </label>
-
-  <label class="msg-item">
-    <input type="checkbox" />
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" />
-    <span>Telegram</span>
-  </label>
-</div>
-
-
-            <select>
-              <option>Project type</option>
-              <option>Web Development</option>
-              <option>SaaS</option>
-            </select>
-
-            <textarea placeholder="Project brief"></textarea>
-
-            <button class="submit">Submit</button>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
-  </transition>
+      </div>
+    </transition>
+  </Teleport>
 </template>
 
 
-
-
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, reactive, defineProps, defineEmits } from 'vue'
+import contactBg from '@/assets/images/contact-bg4.png'
 
 defineProps({ show: Boolean })
+defineEmits(['close'])
 
-const open = ref(false)
-const showMessaging = ref(false)
+const showCountryList = ref(false)
 
+const form = reactive({
+  name: '',
+  phone: '',
+  email: '',
+  interest: '',
+  message: ''
+})
 
-const countries = [
-  {
-    name: 'Afghanistan',
-    code: '+93',
-    flag: 'https://flagcdn.com/w20/af.png'
-  },
-  {
-    name: 'Bangladesh',
-    code: '+880',
-    flag: 'https://flagcdn.com/w20/bd.png'
-  },
-  {
-    name: 'India',
-    code: '+91',
-    flag: 'https://flagcdn.com/w20/in.png'
-  }
-]
+const countries = ref([
+  { name: 'Italy', code: '+88', flag: 'https://flagcdn.com/w20/bd.png' },
+  { name: 'United States', code: '1', flag: 'https://flagcdn.com/w20/us.png' },
+  { name: 'United Kingdom', code: '44', flag: 'https://flagcdn.com/w20/gb.png' },
+  { name: 'Germany', code: '49', flag: 'https://flagcdn.com/w20/de.png' },
+  { name: 'France', code: '33', flag: 'https://flagcdn.com/w20/fr.png' },
+  { name: 'Spain', code: '34', flag: 'https://flagcdn.com/w20/es.png' },
+])
 
-const selected = ref(countries[0])
+const selectedCountry = ref(countries.value[0])
 
-const selectCountry = (c) => {
-  selected.value = c
-  open.value = false
+const toggleCountryList = () => {
+  showCountryList.value = !showCountryList.value
 }
 
-watch(
-  () => open.value,
-  v => document.body.style.overflow = v ? 'hidden' : ''
-)
+const selectCountry = (country) => {
+  selectedCountry.value = country
+  showCountryList.value = false
+}
+
+const handleSubmit = () => {
+  // Handle form submission
+  console.log('Form submitted:', form)
+  alert('Thanks for your message! We\'ll get back to you soon.')
+  // Reset form
+  Object.keys(form).forEach(key => form[key] = '')
+}
 </script>
 
-
-
 <style scoped>
-
-/* ================= ICON WATERMARKS ================= */
-.contact-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2399a2ff' stroke-width='1.4'%3E%3Cpath d='M22 16.9V21a1 1 0 0 1-1.1 1A19.8 19.8 0 0 1 3 5.1 1 1 0 0 1 4 4h4.1a1 1 0 0 1 1 .8l1.2 4.7a1 1 0 0 1-.3 1L8.9 11a16 16 0 0 0 4.1 4.1l1.5-1.5a1 1 0 0 1 1-.3l4.7 1.2a1 1 0 0 1 .8 1z'/%3E%3C/svg%3E")
-      12% 22% / 120px no-repeat,
-
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2399a2ff' stroke-width='1.4'%3E%3Cpath d='M22 2L11 13'/%3E%3Cpath d='M22 2L15 22l-4-9-9-4z'/%3E%3C/svg%3E")
-      80% 75% / 140px no-repeat,
-
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2399a2ff' stroke-width='1.4'%3E%3Crect x='5' y='2' width='14' height='20' rx='2'/%3E%3Cline x1='12' y1='18' x2='12' y2='18'/%3E%3C/svg%3E")
-      86% 28% / 100px no-repeat;
-
-  opacity: 0.12;
-  animation: iconDrift 40s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes iconDrift {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
-}
-.contact-bg::before,
-.contact-bg::after {
-  will-change: transform;
-}
-
+/* ================= Overlay ================= */
 .contact-overlay {
   position: fixed;
   inset: 0;
-
-  /* lighter overlay */
   background: rgba(15, 23, 42, 0.35);
-  backdrop-filter: blur(4px);
-
-  z-index: 99999;
+  backdrop-filter: blur(6px);
+  z-index: 999999;
 }
 
-
+/* ================= Modal ================= */
 .contact-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   width: min(1100px, 94vw);
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  background: #c0c2da;
-  border-radius: 14px;
+  background: #e6e9f0;
+  border-radius: 5px;
   overflow: hidden;
+  box-shadow:
+    14px 14px 30px rgba(0, 0, 0, 0.15),
+    -14px -14px 30px rgba(255, 255, 255, 0.9);
+    z-index: 1000000;
 }
 
-/* HEADER */
-.contact-header {
-  padding: 14px 20px;
-  background: #f3f4f6;
+.contact-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* ================= Right Form Card ================= */
+.contact-right {
+  width: 100%;
+  max-width: 660px;
+  background: #e6e9f0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0px;
+  box-shadow:
+    inset 8px 8px 16px rgba(0, 0, 0, 0.08),
+    inset -8px -8px 16px rgba(255, 255, 255, 0.9);
+}
+
+/* ================= Header ================= */
+.form-header {
+  padding: 18px 40px 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.form-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
 }
 
 .close-btn {
+  background: #e6e9f0;
   border: none;
-  background: none;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-/* BODY */
-.contact-body {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 30px;
-  padding: 26px;
-  overflow-y: auto;
-  max-height: calc(90vh - 70px); /* header height বাদ */
-}
-
-
-
-.contact-info h2 {
-  font-size: 26px;
-  margin-bottom: 10px;
-}
-
-.contact-info p {
-  opacity: 0.9;
-  margin-bottom: 24px;
-}
-
-.contact-info ul {
-  list-style: none;
-  padding: 0;
-}
-
-.contact-info li {
-  margin-bottom: 12px;
-  font-size: 15px;
-}
-
-
-.contact-body::before {
-  content: "";
-  position: absolute;
-  top: 10%;
-  bottom: 10%;
-  left: 45%;
-  width: 2px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(99, 102, 241, 0.4),
-    transparent
-  );
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus,
-.contact-form select:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
-  outline: none;
-}
-
-/* FORM */
-.contact-form input,
-.contact-form select,
-.contact-form textarea {
-  width: 100%;
-  padding: 10px 12px;
-  margin-bottom: 12px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-}
-
-.row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-/* PHONE */
-.phone-input {
-  position: relative;
-  display: flex;
-  height: 2.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  overflow: visible;
-  margin-bottom: 12px;
-}
-
-.phone-prefix {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  height: 2.5rem;
-  padding: 0 12px;
-  background: #d1d5db;
-  border: none;
-  border-radius: 5px;
+  justify-content: center;
+  font-size: 20px;
   cursor: pointer;
+  box-shadow:
+    5px 5px 10px rgba(0, 0, 0, 0.15),
+    -5px -5px 10px rgba(255, 255, 255, 0.9);
 }
 
-.phone-prefix img {
-  width: 18px;
+.close-btn:active {
+  box-shadow:
+    inset 4px 4px 8px rgba(0, 0, 0, 0.2),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.9);
 }
 
-.phone-input input {
-  border: none;
+/* ================= Scroll Area ================= */
+.form-scroll {
+  padding: 10px 40px 0;
   flex: 1;
-  padding: 10px 12px;
-  outline: none;
-}
-
-/* COUNTRY LIST */
-.country-list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 260px;
-  max-height: 220px;
   overflow-y: auto;
-  background: #fff;
-  border: 1px solid #d1d5db;
-  z-index: 10;
-}
-
-.country-item {
-  padding: 8px 10px;
   display: flex;
-  gap: 8px;
-  cursor: pointer;
-}
-.country-item:hover {
-  background: #f3f4f6;
+  flex-direction: column;
 }
 
-/* BUTTON */
-.submit {
-  background: #f59e0b;
-  color: #fff;
-  width: 100%;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 40px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group label {
+  font-size: 14px;
   font-weight: 600;
-  cursor: pointer;
+  color: #374151;
+  margin-bottom: 6px;
+  display: block;
 }
 
-.submit:hover {
-  background: #d97706;
+/* ================= Inputs ================= */
+.form-group input:not(.phone-input),
+.form-group select,
+.form-group textarea,
+.phone-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 12px;
+  background: #e6e9f0;
+  color: #111827;
+  font-size: 15px;
+  box-shadow:
+    inset 5px 5px 10px rgba(0, 0, 0, 0.12),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.9);
 }
 
-/* ANIMATION */
-.contact-modal-enter-active,
-.contact-modal-leave-active {
-  transition: .35s ease;
-}
-.contact-modal-enter-from,
-.contact-modal-leave-to {
-  opacity: 0;
-  transform: translate(-50%, -55%) scale(.96);
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
 }
 
-@media (max-width: 900px) {
-  .contact-modal {
-    width: 96vw;
-    max-height: 92vh;
-    border-radius: 18px;
-  }
-
-  .contact-body {
-    grid-template-columns: 1fr;
-  }
-
-  /* REMOVE vertical divider */
-  .contact-body::before {
-    display: none;
-  }
-
-  /* ADD horizontal divider */
-  .contact-info {
-    position: relative;
-  }
-
-  .contact-info::after {
-    content: "";
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    bottom: 0;
-    height: 2px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      rgba(255,255,255,0.2),
-      transparent
-    );
-  }
+.form-group input:focus:not(.phone-input),
+.form-group select:focus,
+.form-group textarea:focus,
+.phone-input:focus {
+  outline: none;
+  box-shadow:
+    inset 2px 2px 5px rgba(0, 0, 0, 0.2),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.9),
+    0 0 0 2px rgba(79, 70, 229, 0.35);
 }
 
-@media (max-width: 520px) {
-  .contact-modal {
-    top: auto;
-    bottom: 0;
-    transform: translate(-50%, 0);
-    border-radius: 22px 22px 0 0;
-    height: 92vh;
-  }
-
-  .contact-header h3 {
-    font-size: 16px;
-  }
-
-  .row {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-info h2 {
-    font-size: 22px;
-  }
-
-  .contact-body {
-    max-height: calc(92vh - 60px);
-    padding-bottom: 30px;
-  }
+/* ================= Phone ================= */
+.phone-input-wrapper {
+  display: grid;
+  grid-template-columns: 140px 1fr;
 }
 
-  /* MESSAGING ICONS */
-.messaging-options {
-  display: flex;
-  gap: 18px;
-  margin-bottom: 16px;
-}
-
-.msg-item {
+.country-selector {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255,255,255,0.55);
-  padding: 8px 14px;
-  border-radius: 999px;
+  padding: 0 14px;
+  background: #e6e9f0;
+  border-radius: 12px 0 0 12px;
   cursor: pointer;
-  font-size: 14px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow:
+    5px 5px 10px rgba(0, 0, 0, 0.12),
+    -5px -5px 10px rgba(255, 255, 255, 0.9);
 }
 
-.msg-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+.country-dropdown {
+  position: absolute;
+  margin-top: 6px;
+  width: 280px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #e6e9f0;
+  border-radius: 14px;
+  box-shadow:
+    10px 10px 25px rgba(0, 0, 0, 0.18),
+    -10px -10px 25px rgba(255, 255, 255, 0.9);
+  z-index: 200;
 }
 
-.msg-item img {
-  width: 22px;
-  height: 22px;
+/* ================= Submit Section ================= */
+.submit-section-wrapper {
+  margin-top: auto;
+  padding-bottom: 20px;
 }
 
-.msg-item input {
-  accent-color: #22c55e;
-  transform: scale(1.15);
+.submit-section {
+  background: #e6e9f0;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: 14px;
+  border: none;
+  background: #e6e9f0;
+  color: #1e293b;
+  font-weight: 600;
   cursor: pointer;
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.18),
+    -8px -8px 16px rgba(255, 255, 255, 0.9);
 }
 
-
-
-
-.phone-input input:focus {
-  outline: none !important;
-  box-shadow: none !important;
+.submit-btn:active {
+  box-shadow:
+    inset 6px 6px 12px rgba(0, 0, 0, 0.2),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.9);
 }
 
+.terms {
+  font-size: 12px;
+  text-align: center;
+  color: #6b7280;
+}
 
+/* ================= Animation ================= */
+.contact-modal-enter-active,
+.contact-modal-leave-active {
+  transition: opacity 0.25s ease;
+}
 
+.contact-modal-enter-from,
+.contact-modal-leave-to {
+  opacity: 0;
+}
+
+/* ================= Ultra Responsive Fixes (Additive Only) ================= */
+
+/* Very large screens (4K, ultrawide) */
+@media (min-width: 1440px) {
+  .contact-modal {
+    width: 1100px;
+  }
+
+  .form-header {
+    padding: 24px 60px 16px;
+  }
+
+  .form-scroll {
+    padding: 10px 60px 0;
+  }
+}
+
+/* Tablets & small laptops */
+@media (max-width: 1024px) {
+  .contact-modal {
+    width: 96vw;
+    max-height: 92vh;
+  }
+
+  .contact-right {
+    max-width: 100%;
+  }
+
+  .form-header {
+    padding: 16px 28px 12px;
+  }
+
+  .form-scroll {
+    padding: 0 28px;
+  }
+}
+
+/* Large phones */
+@media (max-width: 768px) {
+  .contact-overlay {
+    padding: 12px;
+  }
+
+  .contact-modal {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-height: 100%;
+    border-radius: 16px;
+  }
+
+  .contact-wrapper {
+    height: auto;
+  }
+
+  .contact-right {
+    border-radius: 16px;
+  }
+
+  .form-header {
+    padding: 14px 20px 12px;
+  }
+
+  .form-scroll {
+    padding: 0 20px;
+  }
+
+  .submit-section-wrapper {
+    padding-bottom: 12px;
+  }
+
+  .submit-btn {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+}
+
+/* Small phones (iPhone SE, very small Android) */
+@media (max-width: 480px) {
+  .contact-overlay {
+    padding: 8px;
+  }
+
+  .contact-modal {
+    border-radius: 12px;
+  }
+
+  .form-header h1 {
+    font-size: 20px;
+  }
+
+  .close-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+  }
+
+  .form-group input:not(.phone-input),
+  .form-group select,
+  .form-group textarea,
+  .phone-input {
+    padding: 12px 12px;
+    font-size: 14px;
+  }
+
+  .phone-input-wrapper {
+    grid-template-columns: 110px 1fr;
+  }
+
+  .country-selector {
+    padding: 0 10px;
+    gap: 6px;
+  }
+
+  .country-dropdown {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .submit-btn {
+    padding: 13px 14px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .terms {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
+
+/* Ultra small screens / fold phones */
+@media (max-width: 360px) {
+  .form-header h1 {
+    font-size: 18px;
+  }
+
+  .phone-input-wrapper {
+    grid-template-columns: 95px 1fr;
+  }
+
+  .submit-btn {
+    font-size: 13px;
+    padding: 12px;
+  }
+}
+
+/* Height-based responsiveness (short screens) */
+@media (max-height: 600px) {
+  .contact-modal {
+    max-height: 98vh;
+  }
+
+  .form-scroll {
+    max-height: 65vh;
+  }
+
+  .submit-section-wrapper {
+    padding-bottom: 8px;
+  }
+}
 
 
 </style>
