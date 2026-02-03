@@ -1,38 +1,33 @@
 <template>
-  <section class="services">
-    <h1>Our Services</h1>
+  <section class="services-page">
+    <h1 class="page-title">Our Services</h1>
+    <p class="page-subtitle">
+      Explore our professional IT services & solutions
+    </p>
 
-    <div class="service-grid">
-      <div class="card">Web Application Development</div>
-      <div class="card">Laravel & API Development</div>
-      <div class="card">Vue.js Frontend Development</div>
-      <div class="card">SaaS & Startup Solutions</div>
-      <div class="card">Custom Software Solutions</div>
-      <div class="card">Maintenance & Support</div>
+    <div class="services-grid">
+      <div
+        v-for="service in services"
+        :key="service.slug"
+        class="service-card"
+        @click="$router.push(`/services/${service.slug}`)"
+      >
+        <div class="icon">{{ service.icon }}</div>
+        <h2>{{ service.title }}</h2>
+        <p>{{ service.description }}</p>
+        <span class="view-more">View Details →</span>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup>
+import { services } from '@/data/services'
 </script>
 
-<style scoped>
-.services {
-  padding: 80px 20px;
-  text-align: center;
-}
 
-.service-grid {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
+<!-- <script setup>
+import { services } from '@/data/services'
+</script> -->
 
-.card {
-  padding: 20px;
-  border-radius: 10px;
-  background: #f1f5f9;
-  font-weight: bold;
-}
-</style>
+<!-- <style src="../../css/services.css"></style> -->

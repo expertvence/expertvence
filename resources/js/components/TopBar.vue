@@ -2,7 +2,7 @@
   <div class="topbar" :class="{ 'topbar-hide': hideTopbar }">
     <!-- LEFT INFO -->
     <div class="topbar-left">
-      <span class="flag bd"></span> +880 1813590326
+      <span class="flag bd"></span> +880 1797488350
 
       <span class="info-item email">
         <!-- Titan Email Icon (simplified SVG) -->

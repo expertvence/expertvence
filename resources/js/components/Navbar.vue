@@ -34,7 +34,7 @@
                 <h3>Web & App Development</h3>
                 <ul>
                   <li><span class="dropdown-icon">☕</span><a href="#">Java Development</a></li>
-                  <li><span class="dropdown-icon">🐘</span><a href="#">PHP Development</a></li>
+                  <li><span class="dropdown-icon">🐘</span><router-link to="/services/php-development">PHP Development</router-link></li>
                 </ul>
               </div>
             </div>
@@ -80,9 +80,11 @@
               </div>
             </div>
             <div class="dropdown-category explore-all">
-              <a href="#" class="explore-link">
-                Explore all categories →
-              </a>
+              <router-link to="/services" class="explore-link">
+  Explore all categories →
+</router-link>
+
+
             </div>
           </div>
         </div>
@@ -119,7 +121,8 @@
               <li><a href="#">Custom Software Development</a></li>
               <li><a href="#">Blockchain Development</a></li>
               <li><a href="#">Java Development</a></li>
-              <li><a href="#">PHP Development</a></li>
+              <li><router-link to="/services/php-development">PHP Development</router-link>
+</li>
               <li><a href="#">UI/UX Design</a></li>
               <li><a href="#">Digital Marketing</a></li>
               <li><a href="#">Python Development</a></li>
