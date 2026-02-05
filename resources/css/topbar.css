@@ -85,6 +85,16 @@
   transition: color 0.25s ease;
 }
 
+.logout-link
+{
+  color: rgb(255, 153, 0);
+}
+
+.name-link
+{
+  color: #1bd602;
+}
+
 .top-link::after {
   content: "";
   position: absolute;
@@ -172,7 +182,6 @@
   background-color: #f42a41;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  animation: wave-circle 1.5s infinite linear;
 }
 
 /* full flag wave effect using skew/rotate */

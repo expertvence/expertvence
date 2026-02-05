@@ -22,6 +22,8 @@ import '../../css/services.css'
 import '../../css/gallery.css'
 import '../../css/portfolio.css'
 import '../../css/contact.css'
+import '../../css/service-detail.css'
+import '../../css/casestudy.css'
 
 /* JS */
 import { homeInit } from '../scripts/home'

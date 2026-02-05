@@ -7,32 +7,18 @@
         <p>[ SECURE TERMINAL ACCESS ]</p>
       </div>
 
-      <form class="neon-form">
+      <form class="neon-form" @submit.prevent="submitLogin">
         <div class="neon-input">
           <span>&gt;</span>
-          <input type="email" placeholder="EMAIL_ADDRESS" />
+          <input v-model="form.email" type="email" placeholder="EMAIL_ADDRESS" />
         </div>
 
         <div class="neon-input">
           <span>&gt;</span>
-          <input type="password" placeholder="ACCESS_CODE" />
+          <input v-model="form.password" type="password" placeholder="ACCESS_CODE" />
         </div>
 
-<!--         <div class="neon-options">
-          <label>
-            <input type="checkbox" />
-            Maintain Session
-          </label>
-          <a href="#">Recover Access</a>
-        </div>
 
-        <button class="neon-btn">INITIALIZE CONNECTION</button>
-
-        <div class="neon-footer">
-          <router-link to="/register">CREATE_PROFILE</router-link>
-        </div> -->
-
-        <!-- EXTRA OPTIONS -->
 <div class="neon-extra">
   <label class="neon-check">
     <input type="checkbox" />
@@ -46,9 +32,11 @@
 </div>
 
 <!-- SIGN IN BUTTON -->
-<button class="neon-btn neon-gradient">
-  INITIALIZE CONNECTION
-</button>
+ 
+        <button class="neon-btn neon-gradient" :disabled="auth.loading">
+          {{ auth.loading ? 'LOGGING IN...' : 'LOGIN' }}
+        </button>
+
 
 <!-- OR DIVIDER -->
 <div class="neon-divider">
@@ -72,13 +60,38 @@
   <router-link to="/register">CREATE_PROFILE</router-link>
 </div>
 
+ <p v-if="auth.error" class="neon-error">
+    {{ auth.error }}
+  </p>
+
       </form>
     </div>
   </div>
 </template>
 
 <script setup>
+import { reactive } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
+const auth = useAuthStore()
+
+const form = reactive({
+  email: '',
+  password: '',
+})
+
+const router = useRouter()
+
+const submitLogin = async () => {
+  await auth.login(form)
+
+  if (auth.token) {
+    router.push('/') // 🔥 HOME
+  }
+}
 </script>
+
 
 <style scoped>
 @import '../../../css/neon-auth.css';
