@@ -8,6 +8,10 @@
       </div>
 
       <form class="neon-form" @submit.prevent="submitLogin">
+
+       <p v-if="verifiedMessage" class="neon-success">{{ verifiedMessage }}</p>
+
+
         <div class="neon-input">
           <span>&gt;</span>
           <input v-model="form.email" type="email" placeholder="EMAIL_ADDRESS" />
@@ -64,33 +68,67 @@
     {{ auth.error }}
   </p>
 
+  
+
       </form>
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const auth = useAuthStore()
+const router = useRouter()
+const route = useRoute()
 
 const form = reactive({
   email: '',
   password: '',
 })
 
-const router = useRouter()
+const verifiedMessage = ref('')
 
+// 🔹 Check query params on mount
+onMounted(() => {
+  // Clear previous auth state
+  auth.token = null
+  auth.user = null
+  auth.error = null
+  auth.loading = false
+  localStorage.removeItem('token')
+
+  if (route.query.verified === 'true') {
+    verifiedMessage.value = '✅ Email verified! You can login now.'
+  } else if (route.query.verified === 'false') {
+    verifiedMessage.value = '❌ Invalid verification link.'
+  }
+})
+
+
+// 🔹 LOGIN
 const submitLogin = async () => {
-  await auth.login(form)
+  auth.loading = true
+  auth.error = null
 
-  if (auth.token) {
-    router.push('/') // 🔥 HOME
+  try {
+    const res = await auth.login(form)
+    
+    // 🔹 Login checks token inside login
+    if (auth.token) {
+      router.push('/') // 🔥 Login success → Home
+    }
+  } catch (err) {
+    auth.error =
+      err.response?.data?.message || 'Login failed'
+  } finally {
+    auth.loading = false
   }
 }
 </script>
+
 
 
 <style scoped>
