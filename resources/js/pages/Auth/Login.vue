@@ -7,32 +7,22 @@
         <p>[ SECURE TERMINAL ACCESS ]</p>
       </div>
 
-      <form class="neon-form">
-        <div class="neon-input">
-          <span>&gt;</span>
-          <input type="email" placeholder="EMAIL_ADDRESS" />
-        </div>
+      <form class="neon-form" @submit.prevent="submitLogin">
+
+       <p v-if="verifiedMessage" class="neon-success">{{ verifiedMessage }}</p>
+
 
         <div class="neon-input">
           <span>&gt;</span>
-          <input type="password" placeholder="ACCESS_CODE" />
+          <input v-model="form.email" type="email" placeholder="EMAIL_ADDRESS" />
         </div>
 
-<!--         <div class="neon-options">
-          <label>
-            <input type="checkbox" />
-            Maintain Session
-          </label>
-          <a href="#">Recover Access</a>
+        <div class="neon-input">
+          <span>&gt;</span>
+          <input v-model="form.password" type="password" placeholder="ACCESS_CODE" />
         </div>
 
-        <button class="neon-btn">INITIALIZE CONNECTION</button>
 
-        <div class="neon-footer">
-          <router-link to="/register">CREATE_PROFILE</router-link>
-        </div> -->
-
-        <!-- EXTRA OPTIONS -->
 <div class="neon-extra">
   <label class="neon-check">
     <input type="checkbox" />
@@ -46,9 +36,11 @@
 </div>
 
 <!-- SIGN IN BUTTON -->
-<button class="neon-btn neon-gradient">
-  INITIALIZE CONNECTION
-</button>
+ 
+        <button class="neon-btn neon-gradient" :disabled="auth.loading">
+          {{ auth.loading ? 'LOGGING IN...' : 'LOGIN' }}
+        </button>
+
 
 <!-- OR DIVIDER -->
 <div class="neon-divider">
@@ -72,13 +64,72 @@
   <router-link to="/register">CREATE_PROFILE</router-link>
 </div>
 
+ <p v-if="auth.error" class="neon-error">
+    {{ auth.error }}
+  </p>
+
+  
+
       </form>
     </div>
   </div>
 </template>
 
 <script setup>
+import { reactive, ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter, useRoute } from 'vue-router'
+
+const auth = useAuthStore()
+const router = useRouter()
+const route = useRoute()
+
+const form = reactive({
+  email: '',
+  password: '',
+})
+
+const verifiedMessage = ref('')
+
+// 🔹 Check query params on mount
+onMounted(() => {
+  // Clear previous auth state
+  auth.token = null
+  auth.user = null
+  auth.error = null
+  auth.loading = false
+  localStorage.removeItem('token')
+
+  if (route.query.verified === 'true') {
+    verifiedMessage.value = '✅ Email verified! You can login now.'
+  } else if (route.query.verified === 'false') {
+    verifiedMessage.value = '❌ Invalid verification link.'
+  }
+})
+
+
+// 🔹 LOGIN
+const submitLogin = async () => {
+  auth.loading = true
+  auth.error = null
+
+  try {
+    const res = await auth.login(form)
+    
+    // 🔹 Login checks token inside login
+    if (auth.token) {
+      router.push('/') // 🔥 Login success → Home
+    }
+  } catch (err) {
+    auth.error =
+      err.response?.data?.message || 'Login failed'
+  } finally {
+    auth.loading = false
+  }
+}
 </script>
+
+
 
 <style scoped>
 @import '../../../css/neon-auth.css';

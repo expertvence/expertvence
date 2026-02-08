@@ -16,31 +16,54 @@
     </div>
 
     <!-- RIGHT ACTIONS -->
-    <div class="topbar-right">
-      <router-link to="" @click="showModal = true" class="top-link">
-        Contact
-      </router-link>
+<!-- RIGHT ACTIONS -->
+<div class="topbar-right">
+  <router-link to="" @click="showModal = true" class="top-link">
+    Contact
+  </router-link>
 
-        <ContactModal :show="showModal" @close="showModal = false" />
+  <ContactModal :show="showModal" @close="showModal = false" />
 
-      <span class="divider">|</span>
+  <span class="divider">|</span>
 
-      <router-link to="/login" class="top-link">
-        Login
-      </router-link>
+  <!-- 🔐 AUTH AREA -->
+  <template v-if="isLoggedIn">
+    <!-- 👋 USER NAME -->
+    <span class="name-link">
+      Hi, {{ auth.user?.name }}
+    </span>
 
-      <div class="socials">
-        <a href="#" class="linkedin">in</a>
-        <a href="#" class="facebook">f</a>
-        <a href="#" class="twitter">x</a>
-      </div>
-    </div>
+    <span class="divider">|</span>
+
+    <!-- 🚪 LOGOUT -->
+    <a href="#" class="logout-link" @click.prevent="auth.logout">
+      Logout
+    </a>
+  </template>
+
+  <template v-else>
+    <router-link to="/login" class="top-link">
+      Login
+    </router-link>
+  </template>
+
+  <div class="socials">
+    <a href="#" class="linkedin">in</a>
+    <a href="#" class="facebook">f</a>
+    <a href="#" class="twitter">x</a>
+  </div>
+</div>
+
+
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 import ContactModal from '@/components/ContactModal.vue'
+
+const auth = useAuthStore()
 const showModal = ref(false)
 
 const hideTopbar = ref(false)
@@ -56,4 +79,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
 })
+
+// 🔥 auth state
+const isLoggedIn = computed(() => auth.isLoggedIn)
 </script>

@@ -19,8 +19,12 @@
         "@amcharts/amcharts5": "^5.15.4",
         "@amcharts/amcharts5-geodata": "^5.1.5",
         "@vueuse/head": "^2.0.0",
+        "chart.js": "^4.5.1",
+        "google-libphonenumber": "^3.2.44",
         "jquery": "^4.0.0",
         "jvectormap-next": "^3.1.2",
+        "libphonenumber-js": "^1.12.36",
+        "pinia": "^3.0.4",
         "vue": "^3.5.27",
         "vue-router": "^4.6.4"
     }

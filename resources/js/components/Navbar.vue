@@ -23,8 +23,8 @@
               <div class="dropdown-category">
                 <h3>Software Development</h3>
                 <ul>
-                  <li><span class="dropdown-icon">💻</span><a href="#">Custom Software Development</a></li>
-                  <li><span class="dropdown-icon">⛓️</span><a href="#">Blockchain Development</a></li>
+                  <li><span class="dropdown-icon">💻</span><router-link to="/services/software-development">Custom Software Development</router-link></li>
+                  <li><span class="dropdown-icon">⛓️</span><router-link to="/services/software-development">Blockchain Development</router-link></li>
                 </ul>
               </div>
             </div>
@@ -33,8 +33,8 @@
               <div class="dropdown-category">
                 <h3>Web & App Development</h3>
                 <ul>
-                  <li><span class="dropdown-icon">☕</span><a href="#">Java Development</a></li>
-                  <li><span class="dropdown-icon">🐘</span><router-link to="/services/php-development">PHP Development</router-link></li>
+                  <li><span class="dropdown-icon">☕</span><router-link to="/services/web-app-development">Java Development</router-link></li>
+                  <li><span class="dropdown-icon">🐘</span><router-link to="/services/web-app-development">PHP Development</router-link></li>
                 </ul>
               </div>
             </div>
@@ -43,7 +43,9 @@
               <div class="dropdown-category">
                 <h3>Design</h3>
                 <ul>
-                  <li><span class="dropdown-icon">🎨</span><a href="#">UI/UX Design</a></li>
+                  <li><span class="dropdown-icon">🎨</span><router-link :to="`/services/design`">
+                  UI/UX Design
+                </router-link></li>
                 </ul>
               </div>
             </div>
@@ -53,8 +55,8 @@
               <div class="dropdown-category">
                 <h3>Marketing & Advertising</h3>
                 <ul>
-                  <li><span class="dropdown-icon">📈</span><a href="#">Digital Marketing</a></li>
-                  <li><span class="dropdown-icon">🐍</span><a href="#">Python Development</a></li>
+                  <li><span class="dropdown-icon">📈</span><router-link to="/services/web-app-development">Digital Marketing</router-link></li>
+                  <li><span class="dropdown-icon">🐍</span><router-link to="/services/web-app-development">Python Development</router-link></li>
                 </ul>
               </div>
             </div>
@@ -63,9 +65,10 @@
               <div class="dropdown-category">
                 <h3>Latest Tech</h3>
                 <ul>
-                  <li><span class="dropdown-icon">⚛️</span><a href="#">React Development</a></li>
-                  <li><span class="dropdown-icon">🅰️</span><a href="#">AngularJS Development</a></li>
-                  <li><span class="dropdown-icon">🟢</span><a href="#">NodeJS Development</a></li>
+                  <li><span class="dropdown-icon">⚛️</span><router-link to="/services/software-development">React Development</router-link></li>
+                  <li><span class="dropdown-icon">🧩</span><router-link to="/services/software-development">Vue Development</router-link></li>
+                  <li><span class="dropdown-icon">🅰️</span><router-link to="/services/web-app-development">AngularJS Development</router-link></li>
+                  <li><span class="dropdown-icon">🟢</span><router-link to="/services/web-app-development">NodeJS Development</router-link></li>
                 </ul>
               </div>
             </div>
@@ -74,8 +77,8 @@
               <div class="dropdown-category">
                 <h3>Business & IT Services</h3>
                 <ul>
-                  <li><span class="dropdown-icon">🔵</span><a href="#">.Net Development</a></li>
-                  <li><span class="dropdown-icon">🧪</span><a href="#">Software Testing</a></li>
+                  <li><span class="dropdown-icon">🔵</span><router-link to="/services/software-development">.Net Development</router-link></li>
+                  <li><span class="dropdown-icon">🧪</span><router-link to="/services/software-development">Software Testing</router-link></li>
                 </ul>
               </div>
             </div>
