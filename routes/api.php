@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PasswordResetController;
+use App\Http\Controllers\Api\ContactController;
 
 
 Route::prefix('auth')->group(function () {
@@ -14,4 +15,8 @@ Route::prefix('auth')->group(function () {
     // 🔐 JWT Protected
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
     Route::get('/me', [AuthController::class, 'me'])->middleware('auth:api');
+    Route::post('/contact', [ContactController::class, 'store']);
+    Route::get('/detect-country', [ContactController::class, 'detectCountry']);
 });
+
+

@@ -1,152 +1,312 @@
-
-
 <template>
   <Teleport to="body">
     <transition name="contact-modal">
       <div v-if="show" class="contact-overlay" @click.self="$emit('close')">
-       <div class="contact-modal" :style="{
-            backgroundImage: `
-                                  url(${contactBg})
-                                `
-          }">
-        <div class="contact-wrapper">
-          
+        <div class="contact-modal" :style="{ backgroundImage: `url(${contactBg})` }">
+          <div class="contact-wrapper">
 
-          <!-- RIGHT SIDE - Form -->
-          <div class="contact-right">
-            <div class="form-header">
-              <h1>Contact us</h1>
-              <button class="close-btn" @click="$emit('close')">✕</button>
-            </div>
+            <!-- RIGHT SIDE - Form -->
+            <div class="contact-right">
+              <div class="form-header">
+                <h1>Contact us</h1>
+                <button class="close-btn" @click="$emit('close')">✕</button>
+              </div>
 
-            <div class="form-scroll">
-              <form class="contact-form" @submit.prevent="handleSubmit">
-                <div class="form-row">
-                  <div class="form-group">
-                    <label>Your name</label>
-                    <input type="text" placeholder="Write Your Name" required v-model="form.name">
-                  </div>
-
-                  <div class="form-group">
-                  <label>Email address</label>
-                  <input type="email" placeholder="you@example.com" required v-model="form.email">
-                </div>
-                  
-                </div>
-
-                
-                <div class="form-row">
-                <div class="form-group">
-                    <label>Phone number</label>
-                    <div class="phone-input-wrapper">
-                      <div class="country-selector" @click="toggleCountryList">
-                        <img :src="selectedCountry.flag" alt="flag" class="flag">
-                        <span class="country-code">+{{ selectedCountry.code }}</span>
-                        <span class="dropdown-arrow">▼</span>
-                      </div>
-
-                      <div v-if="showCountryList" class="country-dropdown">
-                        <div v-for="country in countries" :key="country.code" class="country-option"
-                          @click="selectCountry(country)">
-                          <img :src="country.flag" alt="flag" class="flag">
-                          <span class="country-name">{{ country.name }}</span>
-                          <span class="country-code">+{{ country.code }}</span>
-                        </div>
-                      </div>
-
-                      <input type="tel" placeholder="999 9999999" class="phone-input" required v-model="form.phone">
+              <div class="form-scroll">
+                <form class="contact-form" @submit.prevent="handleSubmit">
+                  <!-- Name & Email -->
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Your name</label>
+                      <input type="text" placeholder="Write Your Name" required v-model="form.name" />
+                    </div>
+                    <div class="form-group">
+                      <label>Email address</label>
+                      <input type="email" placeholder="you@example.com" required v-model="form.email" />
                     </div>
                   </div>
 
-                <div class="form-group">
-                  <label>Interested in</label>
-                  <select required v-model="form.interest">
-                    <option value="" disabled selected>Select an option</option>
-                    <option>Bookkeeping</option>
-                    <option>Accounting</option>
-                    <option>Company Formation</option>
-                    <option>Tax Services</option>
-                    <option>Business Consulting</option>
-                  </select>
-                </div>
-                </div>
+                  <!-- Phone & Interest -->
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Phone number</label>
+                      <div class="phone-input-wrapper">
+                        <div class="country-selector" @click="showCountryList = !showCountryList">
+                          <img v-if="selectedCountry.flag" :src="selectedCountry.flag" class="flag" />
+                          <span>{{ selectedCountry.dial_code }}</span>
+                        </div>
 
-                <div class="form-group">
-                  <label>How can we help?</label>
-                  <textarea placeholder="Tell us about your project..." rows="3" required
-                    v-model="form.message"></textarea>
-                </div>
+                        <div v-if="showCountryList" class="country-dropdown">
+                          <div
+                            v-for="c in filteredCountries"
+                            :key="c.iso"
+                            @click="selectCountry(c)"
+                            class="country-option"
+                          >
+                            <img :src="c.flag" class="flag" />
+                            <span>{{ c.dial_code }} - {{ c.name }}</span>
+                          </div>
+                        </div>
 
-                <!-- SUBMIT BUTTON SECTION - Fixed and Visible -->
-                <div class="submit-section-wrapper">
-                  <div class="submit-section">
-                    <button type="submit" class="submit-btn">
-                      <span class="btn-text">Send your message</span>
-                      <span class="btn-arrow">→</span>
-                    </button>
+                        <input
+                          type="tel"
+                          class="phone-input"
+                          :placeholder="phonePlaceholder"
+                          required
+                          v-model="form.phone"
+                        />
+                        <p v-if="phoneMeta.message" class="text-xs mt-1 text-amber-600">
+                          {{ phoneMeta.message }}
+                        </p>
+                      </div>
+                    </div>
 
-                    <p class="terms">
-                      By clicking, you agree to our <a href="#">Terms & Conditions</a>, <a href="#">Privacy</a> and <a
-                        href="#">Data Protection Policy</a>
-                    </p>
+                    <div class="form-group">
+                      <label>Interested in</label>
+                      <select required v-model="form.interest">
+                        <option value="" disabled>Select an option</option>
+                        <option>Bookkeeping</option>
+                        <option>Accounting</option>
+                        <option>Company Formation</option>
+                        <option>Tax Services</option>
+                        <option>Business Consulting</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
-              </form>
+
+                  <!-- Message -->
+                  <div class="form-group">
+                    <label>How can we help?</label>
+                    <textarea placeholder="Tell us about your project..." rows="3" required
+                      v-model="form.message"></textarea>
+                  </div>
+
+                  <!-- Whatsapp / Telegram -->
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>
+                        <input type="checkbox" v-model="form.has_whatsapp" /> WhatsApp available
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label>
+                        <input type="checkbox" v-model="form.has_telegram" /> Telegram available
+                      </label>
+                      <input
+                        v-if="form.has_telegram"
+                        type="text"
+                        placeholder="Telegram username"
+                        v-model="form.telegram_username"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Submit -->
+                  <div class="submit-section-wrapper">
+                    <div class="submit-section">
+                      <button type="submit" class="submit-btn" :disabled="!phoneMeta.isValid">
+                        <span class="btn-text">Send your message</span>
+                        <span class="btn-arrow">→</span>
+                      </button>
+                      <p class="terms">
+                        By clicking, you agree to our
+                        <a href="#">Terms & Conditions</a>,
+                        <a href="#">Privacy</a> and
+                        <a href="#">Data Protection Policy</a>
+                      </p>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
             </div>
+
           </div>
         </div>
-      </div>
       </div>
     </transition>
   </Teleport>
 </template>
 
-
 <script setup>
-import { ref, reactive, defineProps, defineEmits } from 'vue'
+import { ref, reactive, onMounted, computed, watch } from 'vue'
+import axios from 'axios'
 import contactBg from '@/assets/images/contact-bg4.png'
+import { loadCountries } from '@/data/countries.js'
 
+// ✅ Libphonenumber-js
+import { AsYouType, isPossiblePhoneNumber } from 'libphonenumber-js'
+
+// Props & emits
 defineProps({ show: Boolean })
 defineEmits(['close'])
 
+// 🌍 Country Data
 const showCountryList = ref(false)
+const search = ref('')
+const countries = ref([])
+const selectedCountry = ref({
+  name: '',
+  iso: '',
+  dial_code: '',
+  flag: ''
+})
 
+// Form state
 const form = reactive({
   name: '',
-  phone: '',
   email: '',
+  phone: '',
   interest: '',
+  message: '',
+  has_whatsapp: true,
+  has_telegram: false,
+  telegram_username: ''
+})
+
+// Phone validation state
+const phoneMeta = reactive({
+  isPossible: true,
+  isValid: true,
   message: ''
 })
 
-const countries = ref([
-  { name: 'Italy', code: '+88', flag: 'https://flagcdn.com/w20/bd.png' },
-  { name: 'United States', code: '1', flag: 'https://flagcdn.com/w20/us.png' },
-  { name: 'United Kingdom', code: '44', flag: 'https://flagcdn.com/w20/gb.png' },
-  { name: 'Germany', code: '49', flag: 'https://flagcdn.com/w20/de.png' },
-  { name: 'France', code: '33', flag: 'https://flagcdn.com/w20/fr.png' },
-  { name: 'Spain', code: '34', flag: 'https://flagcdn.com/w20/es.png' },
-])
+// Filtered countries for search
+const filteredCountries = computed(() =>
+  countries.value.filter(c =>
+    c.name.toLowerCase().includes(search.value.toLowerCase()) ||
+    c.dial_code.includes(search.value)
+  )
+)
 
-const selectedCountry = ref(countries.value[0])
-
-const toggleCountryList = () => {
-  showCountryList.value = !showCountryList.value
+// Auto-detect country via backend
+const autoDetectCountry = async () => {
+  try {
+    const res = await axios.get('/api/auth/detect-country')
+    const found = countries.value.find(c => c.iso === res.data.iso)
+    selectedCountry.value = found || countries.value.find(c => c.iso === 'US') || {
+      name: 'Unknown',
+      iso: 'US',
+      dial_code: '+1',
+      flag: ''
+    }
+  } catch (err) {
+    console.error('Country auto-detect failed:', err)
+    selectedCountry.value = countries.value.find(c => c.iso === 'US') || {
+      name: 'Unknown',
+      iso: 'US',
+      dial_code: '+1',
+      flag: ''
+    }
+  }
 }
 
+// Select country manually
 const selectCountry = (country) => {
   selectedCountry.value = country
   showCountryList.value = false
+  form.phone = ''
 }
 
-const handleSubmit = () => {
-  // Handle form submission
-  console.log('Form submitted:', form)
-  alert('Thanks for your message! We\'ll get back to you soon.')
-  // Reset form
-  Object.keys(form).forEach(key => form[key] = '')
+// Phone placeholder based on country
+const phonePlaceholder = computed(() => {
+  switch (selectedCountry.value.iso) {
+    case 'BD': return '18XXXXXXXX'
+    case 'US': return '201 555 0123'
+    default: return 'Phone number'
+  }
+})
+
+// Watch phone input for live validation
+watch(
+  () => form.phone,
+  (val) => {
+    if (!val || !selectedCountry.value.iso) {
+      phoneMeta.message = ''
+      phoneMeta.isValid = true
+      return
+    }
+
+    const typer = new AsYouType(selectedCountry.value.iso)
+    typer.input(val)
+    const formatted = typer.getNumber()
+
+    if (!formatted) {
+      phoneMeta.isValid = false
+      phoneMeta.message = 'Incomplete phone number'
+      return
+    }
+
+    phoneMeta.isValid = isPossiblePhoneNumber(val, selectedCountry.value.iso)
+    phoneMeta.message = phoneMeta.isValid ? '' : 'Invalid or incomplete phone number'
+  }
+)
+
+// Load countries and auto-detect on mount
+onMounted(async () => {
+  countries.value = await loadCountries() // ✅ load with proper name mapping
+  await autoDetectCountry()
+})
+
+// Form submission
+const handleSubmit = async () => {
+  if (!phoneMeta.isValid) return
+
+  const payload = {
+    name: form.name,
+    email: form.email,
+    phone_number: form.phone,
+    dial_code: selectedCountry.value.dial_code || '+1',
+    country_name: selectedCountry.value.name || 'Unknown',
+    country_iso: selectedCountry.value.iso || 'US',
+    interest: form.interest,
+    message: form.message,
+    has_whatsapp: form.has_whatsapp,
+    has_telegram: form.has_telegram,
+    telegram_username: form.telegram_username
+  }
+
+  try {
+    const res = await axios.post('/api/auth/contact', payload, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+
+    // ✅ Success alert
+    alert('Message sent successfully!')
+
+    // Reset form
+    form.name = ''
+    form.email = ''
+    form.phone = ''
+    form.interest = ''
+    form.message = ''
+    form.has_whatsapp = true
+    form.has_telegram = false
+    form.telegram_username = ''
+    phoneMeta.message = ''
+
+  } catch (err) {
+    console.error('Backend error:', err.response?.data || err)
+
+    if (err.response?.data?.errors) {
+      // Laravel validation errors
+      const firstError = Object.values(err.response.data.errors)[0][0]
+      alert(`Validation error: ${firstError}`)
+    } else if (err.response?.data?.message) {
+      alert(`Error: ${err.response.data.message}`)
+    } else {
+      alert('Failed to send message. Please try again.')
+    }
+  }
 }
 </script>
+
+
+
+
 
 <style scoped>
 /* ================= Overlay ================= */
@@ -174,7 +334,7 @@ const handleSubmit = () => {
   box-shadow:
     14px 14px 30px rgba(0, 0, 0, 0.15),
     -14px -14px 30px rgba(255, 255, 255, 0.9);
-    z-index: 1000000;
+  z-index: 1000000;
 }
 
 .contact-wrapper {
@@ -203,7 +363,7 @@ const handleSubmit = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .form-header h1 {
@@ -339,7 +499,7 @@ const handleSubmit = () => {
 
 .submit-section {
   background: #e6e9f0;
-  border-top: 1px solid rgba(0,0,0,0.05);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   padding-top: 30px;
   display: flex;
   flex-direction: column;
@@ -551,6 +711,4 @@ const handleSubmit = () => {
     padding-bottom: 8px;
   }
 }
-
-
 </style>

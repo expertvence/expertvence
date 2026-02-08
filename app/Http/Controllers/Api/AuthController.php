@@ -9,7 +9,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
-use Illuminate\Support\Facades\Hash; // 🔥 REQUIRED
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
