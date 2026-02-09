@@ -2,7 +2,12 @@
   <Teleport to="body">
     <transition name="contact-modal">
       <div v-if="show" class="contact-overlay" @click.self="$emit('close')">
-        <div class="contact-modal" :style="{ backgroundImage: `url(${contactBg})` }">
+        <div
+  class="contact-modal"
+  :class="{ 'is-submitting': isSubmitting }"
+  :style="{ backgroundImage: `url(${contactBg})` }"
+>
+
           <div class="contact-wrapper">
 
             <!-- RIGHT SIDE - Form -->
@@ -104,8 +109,12 @@
                   <!-- Submit -->
                   <div class="submit-section-wrapper">
                     <div class="submit-section">
-                      <button type="submit" class="submit-btn" :disabled="!phoneMeta.isValid">
-                        <span class="btn-text">Send your message</span>
+                      <button
+  type="submit"
+  class="submit-btn"
+  :disabled="!phoneMeta.isValid || isSubmitting"
+>
+                        Send Message
                         <span class="btn-arrow">→</span>
                       </button>
                       <p class="terms">
@@ -122,13 +131,20 @@
             </div>
 
           </div>
+            <div v-if="isSubmitting" class="submit-overlay">
+  <div class="loader">Sending...</div>
+</div>
         </div>
+        
       </div>
     </transition>
   </Teleport>
+
+
 </template>
 
 <script setup>
+const emit = defineEmits(['close'])
 import { ref, reactive, onMounted, computed, watch } from 'vue'
 import axios from 'axios'
 import contactBg from '@/assets/images/contact-bg4.png'
@@ -136,10 +152,13 @@ import { loadCountries } from '@/data/countries.js'
 
 // ✅ Libphonenumber-js
 import { AsYouType, isPossiblePhoneNumber } from 'libphonenumber-js'
+const isSubmitting = ref(false)  // <--- new reactive state
+
+
 
 // Props & emits
 defineProps({ show: Boolean })
-defineEmits(['close'])
+
 
 // 🌍 Country Data
 const showCountryList = ref(false)
@@ -250,7 +269,10 @@ onMounted(async () => {
 
 // Form submission
 const handleSubmit = async () => {
+  
   if (!phoneMeta.isValid) return
+
+  isSubmitting.value = true   // <--- start loading overlay
 
   const payload = {
     name: form.name,
@@ -268,31 +290,22 @@ const handleSubmit = async () => {
 
   try {
     const res = await axios.post('/api/auth/contact', payload, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
     })
 
-    // ✅ Success alert
-    alert('Message sent successfully!')
+    alert(res.data.message)  // show confirmation
+    emit('close')
 
     // Reset form
-    form.name = ''
-    form.email = ''
-    form.phone = ''
-    form.interest = ''
-    form.message = ''
-    form.has_whatsapp = true
-    form.has_telegram = false
-    form.telegram_username = ''
+    Object.keys(form).forEach(key => {
+      form[key] = key === 'has_whatsapp' ? true : key === 'has_telegram' ? false : ''
+    })
     phoneMeta.message = ''
 
   } catch (err) {
     console.error('Backend error:', err.response?.data || err)
 
     if (err.response?.data?.errors) {
-      // Laravel validation errors
       const firstError = Object.values(err.response.data.errors)[0][0]
       alert(`Validation error: ${firstError}`)
     } else if (err.response?.data?.message) {
@@ -300,8 +313,11 @@ const handleSubmit = async () => {
     } else {
       alert('Failed to send message. Please try again.')
     }
+  } finally {
+    isSubmitting.value = false   // <--- stop loading overlay
   }
 }
+
 </script>
 
 
@@ -310,6 +326,29 @@ const handleSubmit = async () => {
 
 <style scoped>
 /* ================= Overlay ================= */
+.contact-modal.is-submitting {
+  pointer-events: none;
+}
+
+.submit-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   pointer-events: all; /* 🔥 THIS LINE ENSURES FULL LOCK */
+}
+
+.loader {
+  color: #00ffcc;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
 .contact-overlay {
   position: fixed;
   inset: 0;

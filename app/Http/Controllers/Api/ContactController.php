@@ -8,6 +8,7 @@ use App\Models\Contact;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactNotification;
 use Stevebauman\Location\Facades\Location;
+use App\Mail\ContactConfirmation; // ✅ THIS WAS MISSING
 
 class ContactController extends Controller
 {
@@ -54,32 +55,29 @@ class ContactController extends Controller
         \Log::info('Contact form payload', $request->all());
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone_number' => 'required|string|max:50',
-            'dial_code' => 'required|string|max:10',
-            'country_name' => 'required|string|max:255',
-            'country_iso' => 'required|string|max:10',
-            'interest' => 'required|string|max:255',
-            'message' => 'required|string',
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone_number' => 'required',
+            'dial_code' => 'required',
+            'country_name' => 'required',
+            'country_iso' => 'required',
+            'interest' => 'required',
+            'message' => 'required',
             'has_whatsapp' => 'boolean',
             'has_telegram' => 'boolean',
-            'telegram_username' => 'nullable|string|max:255',
+            'telegram_username' => 'nullable|string',
         ]);
 
-        // Save to database
         $contact = Contact::create($validated);
 
-        \Log::info('Contact saved', ['id' => $contact->id]);
+        // Send mail to admin
+        Mail::to(config('mail.from.address'))
+            ->queue(new ContactNotification($contact));
 
-        try {
-            // Send email
-            Mail::to(config('mail.from.address'))->send(new ContactNotification($contact));
-            \Log::info('Contact mail sent', ['id' => $contact->id]);
-        } catch (\Throwable $e) {
-            \Log::error('Contact mail failed', ['error' => $e->getMessage()]);
-        }
+        Mail::to($contact->email)
+            ->queue(new ContactConfirmation($contact));
 
-        return response()->json(['success' => true]);
+
+        return response()->json(['success' => true, 'message' => 'Message sent successfully!']);
     }
 }
