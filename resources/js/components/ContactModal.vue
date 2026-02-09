@@ -3,11 +3,10 @@
     <transition name="contact-modal">
       <div v-if="show" class="contact-overlay" @click.self="$emit('close')">
         <div
-  class="contact-modal"
-  :class="{ 'is-submitting': isSubmitting }"
-  :style="{ backgroundImage: `url(${contactBg})` }"
->
-
+          class="contact-modal"
+          :class="{ 'is-submitting': isSubmitting }"
+          :style="{ backgroundImage: `url(${contactBg})` }"
+        >
           <div class="contact-wrapper">
 
             <!-- RIGHT SIDE - Form -->
@@ -19,6 +18,7 @@
 
               <div class="form-scroll">
                 <form class="contact-form" @submit.prevent="handleSubmit">
+
                   <!-- Name & Email -->
                   <div class="form-row">
                     <div class="form-group">
@@ -86,7 +86,7 @@
                       v-model="form.message"></textarea>
                   </div>
 
-                  <!-- Whatsapp / Telegram -->
+                  <!-- WhatsApp / Telegram -->
                   <div class="form-row">
                     <div class="form-group">
                       <label>
@@ -110,10 +110,10 @@
                   <div class="submit-section-wrapper">
                     <div class="submit-section">
                       <button
-  type="submit"
-  class="submit-btn"
-  :disabled="!phoneMeta.isValid || isSubmitting"
->
+                        type="submit"
+                        class="submit-btn"
+                        :disabled="!phoneMeta.isValid || isSubmitting"
+                      >
                         Send Message
                         <span class="btn-arrow">→</span>
                       </button>
@@ -131,66 +131,41 @@
             </div>
 
           </div>
-            <div v-if="isSubmitting" class="submit-overlay">
-  <div class="loader">Sending...</div>
-</div>
+
+          <div v-if="isSubmitting" class="submit-overlay">
+            <div class="loader">Sending...</div>
+          </div>
+
         </div>
-        
       </div>
     </transition>
   </Teleport>
-
-
 </template>
 
 <script setup>
-const emit = defineEmits(['close'])
-import { ref, reactive, onMounted, computed, watch } from 'vue'
+import { ref, reactive, computed, watch, onMounted } from 'vue'
 import axios from 'axios'
 import contactBg from '@/assets/images/contact-bg4.png'
 import { loadCountries } from '@/data/countries.js'
-
-// ✅ Libphonenumber-js
 import { AsYouType, isPossiblePhoneNumber } from 'libphonenumber-js'
-const isSubmitting = ref(false)  // <--- new reactive state
 
-
-
-// Props & emits
+const emit = defineEmits(['close'])
 defineProps({ show: Boolean })
 
-
-// 🌍 Country Data
+const isSubmitting = ref(false)
 const showCountryList = ref(false)
 const search = ref('')
 const countries = ref([])
-const selectedCountry = ref({
-  name: '',
-  iso: '',
-  dial_code: '',
-  flag: ''
-})
+const selectedCountry = ref({ name: '', iso: '', dial_code: '', flag: '' })
 
-// Form state
 const form = reactive({
-  name: '',
-  email: '',
-  phone: '',
-  interest: '',
-  message: '',
-  has_whatsapp: true,
-  has_telegram: false,
-  telegram_username: ''
+  name: '', email: '', phone: '', interest: '', message: '',
+  has_whatsapp: true, has_telegram: false, telegram_username: ''
 })
 
-// Phone validation state
-const phoneMeta = reactive({
-  isPossible: true,
-  isValid: true,
-  message: ''
-})
+const phoneMeta = reactive({ isValid: true, message: '' })
 
-// Filtered countries for search
+// Filtered countries
 const filteredCountries = computed(() =>
   countries.value.filter(c =>
     c.name.toLowerCase().includes(search.value.toLowerCase()) ||
@@ -198,127 +173,144 @@ const filteredCountries = computed(() =>
   )
 )
 
-// Auto-detect country via backend
 const autoDetectCountry = async () => {
   try {
     const res = await axios.get('/api/auth/detect-country')
     const found = countries.value.find(c => c.iso === res.data.iso)
-    selectedCountry.value = found || countries.value.find(c => c.iso === 'US') || {
-      name: 'Unknown',
-      iso: 'US',
-      dial_code: '+1',
-      flag: ''
-    }
-  } catch (err) {
-    console.error('Country auto-detect failed:', err)
-    selectedCountry.value = countries.value.find(c => c.iso === 'US') || {
-      name: 'Unknown',
-      iso: 'US',
-      dial_code: '+1',
-      flag: ''
-    }
+    selectedCountry.value = found || countries.value.find(c => c.iso === 'US') || { name:'Unknown', iso:'US', dial_code:'+1', flag:'' }
+  } catch {
+    selectedCountry.value = countries.value.find(c => c.iso === 'US') || { name:'Unknown', iso:'US', dial_code:'+1', flag:'' }
   }
 }
 
-// Select country manually
 const selectCountry = (country) => {
   selectedCountry.value = country
   showCountryList.value = false
   form.phone = ''
 }
 
-// Phone placeholder based on country
 const phonePlaceholder = computed(() => {
-  switch (selectedCountry.value.iso) {
+  switch(selectedCountry.value.iso){
     case 'BD': return '18XXXXXXXX'
     case 'US': return '201 555 0123'
     default: return 'Phone number'
   }
 })
 
-// Watch phone input for live validation
-watch(
-  () => form.phone,
-  (val) => {
-    if (!val || !selectedCountry.value.iso) {
-      phoneMeta.message = ''
-      phoneMeta.isValid = true
-      return
-    }
-
-    const typer = new AsYouType(selectedCountry.value.iso)
-    typer.input(val)
-    const formatted = typer.getNumber()
-
-    if (!formatted) {
-      phoneMeta.isValid = false
-      phoneMeta.message = 'Incomplete phone number'
-      return
-    }
-
-    phoneMeta.isValid = isPossiblePhoneNumber(val, selectedCountry.value.iso)
-    phoneMeta.message = phoneMeta.isValid ? '' : 'Invalid or incomplete phone number'
+watch(() => form.phone, (val)=>{
+  if(!val || !selectedCountry.value.iso){
+    phoneMeta.message = ''
+    phoneMeta.isValid = true
+    return
   }
-)
+  const typer = new AsYouType(selectedCountry.value.iso)
+  typer.input(val)
+  const formatted = typer.getNumber()
+  if(!formatted){
+    phoneMeta.isValid = false
+    phoneMeta.message = 'Incomplete phone number'
+    return
+  }
+  phoneMeta.isValid = isPossiblePhoneNumber(val, selectedCountry.value.iso)
+  phoneMeta.message = phoneMeta.isValid ? '' : 'Invalid or incomplete phone number'
+})
 
-// Load countries and auto-detect on mount
 onMounted(async () => {
-  countries.value = await loadCountries() // ✅ load with proper name mapping
+  countries.value = await loadCountries()
   await autoDetectCountry()
 })
 
-// Form submission
-const handleSubmit = async () => {
-  
-  if (!phoneMeta.isValid) return
+// ✅ reCAPTCHA
+const loadRecaptcha = () => new Promise((resolve,reject)=>{
+  if(window.grecaptcha) return resolve(window.grecaptcha)
+  const script = document.createElement('script')
+  script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`
+  script.async = true
+  script.defer = true
+  script.onload = ()=> window.grecaptcha ? resolve(window.grecaptcha) : reject('grecaptcha not loaded')
+  script.onerror = ()=> reject('Failed to load reCAPTCHA script')
+  document.head.appendChild(script)
+})
 
-  isSubmitting.value = true   // <--- start loading overlay
+// Load reCAPTCHA and get token
+const getRecaptchaToken = async () => {
+  return new Promise((resolve, reject) => {
+    if (!window.grecaptcha) {
+      // Dynamically load script
+      const script = document.createElement('script');
+      script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        if (!window.grecaptcha) return reject('grecaptcha not loaded');
+        executeRecaptcha(resolve, reject);
+      };
+      script.onerror = () => reject('Failed to load reCAPTCHA script');
+      document.head.appendChild(script);
+    } else {
+      executeRecaptcha(resolve, reject);
+    }
+
+    function executeRecaptcha(resolve, reject) {
+      window.grecaptcha.ready(() => {
+        window.grecaptcha.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: 'contact_form' })
+          .then(token => {
+            if (!token) return reject('No token received');
+            resolve(token);
+          })
+          .catch(err => reject(err));
+      });
+    }
+  });
+};
+
+
+// Form submit
+const handleSubmit = async () => {
+  if (!phoneMeta.isValid) return;
+  isSubmitting.value = true;
+
+  let recaptcha_token;
+  try {
+    recaptcha_token = await getRecaptchaToken();
+  } catch (err) {
+    alert('reCAPTCHA failed. Please try again.');
+    isSubmitting.value = false;
+    return;
+  }
 
   const payload = {
     name: form.name,
     email: form.email,
-    phone_number: form.phone,
-    dial_code: selectedCountry.value.dial_code || '+1',
-    country_name: selectedCountry.value.name || 'Unknown',
-    country_iso: selectedCountry.value.iso || 'US',
+    phone_number: form.phone, // Laravel expects this
     interest: form.interest,
     message: form.message,
     has_whatsapp: form.has_whatsapp,
     has_telegram: form.has_telegram,
-    telegram_username: form.telegram_username
-  }
+    telegram_username: form.telegram_username,
+    dial_code: selectedCountry.value.dial_code,
+    country_name: selectedCountry.value.name,
+    country_iso: selectedCountry.value.iso,
+    recaptcha_token
+  };
 
   try {
-    const res = await axios.post('/api/auth/contact', payload, {
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-    })
-
-    alert(res.data.message)  // show confirmation
-    emit('close')
-
-    // Reset form
-    Object.keys(form).forEach(key => {
-      form[key] = key === 'has_whatsapp' ? true : key === 'has_telegram' ? false : ''
-    })
-    phoneMeta.message = ''
-
+    const res = await axios.post('/api/auth/contact', payload);
+    alert(res.data.message);
+    emit('close');
   } catch (err) {
-    console.error('Backend error:', err.response?.data || err)
-
-    if (err.response?.data?.errors) {
-      const firstError = Object.values(err.response.data.errors)[0][0]
-      alert(`Validation error: ${firstError}`)
-    } else if (err.response?.data?.message) {
-      alert(`Error: ${err.response.data.message}`)
-    } else {
-      alert('Failed to send message. Please try again.')
-    }
+    const msg = err.response?.data?.message || 'Failed to send message';
+    alert(msg);
   } finally {
-    isSubmitting.value = false   // <--- stop loading overlay
+    isSubmitting.value = false;
   }
-}
+};
 
 </script>
+
+
+
+
 
 
 

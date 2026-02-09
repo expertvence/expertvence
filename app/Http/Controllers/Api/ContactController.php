@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactNotification;
 use Stevebauman\Location\Facades\Location;
 use App\Mail\ContactConfirmation; // ✅ THIS WAS MISSING
+use Illuminate\Support\Facades\Http;
+
 
 class ContactController extends Controller
 {
@@ -50,34 +52,47 @@ class ContactController extends Controller
     /**
      * Store contact form submission
      */
-    public function store(Request $request)
-    {
-        \Log::info('Contact form payload', $request->all());
+   public function store(Request $request)
+{
+    // Validate required fields first
+    $validated = $request->validate([
+        'name' => 'required',
+        'email' => 'required|email',
+        'phone_number' => 'required',
+        'dial_code' => 'required',
+        'country_name' => 'required',
+        'country_iso' => 'required',
+        'interest' => 'required',
+        'message' => 'required',
+        'has_whatsapp' => 'boolean',
+        'has_telegram' => 'boolean',
+        'telegram_username' => 'nullable|string',
+        'recaptcha_token' => 'required|string',
+    ]);
 
-        $validated = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required',
-            'dial_code' => 'required',
-            'country_name' => 'required',
-            'country_iso' => 'required',
-            'interest' => 'required',
-            'message' => 'required',
-            'has_whatsapp' => 'boolean',
-            'has_telegram' => 'boolean',
-            'telegram_username' => 'nullable|string',
-        ]);
+    // Verify reCAPTCHA v3
+    $recaptcha_secret = env('RECAPTCHA_SECRET_KEY');
+    $recaptcha_response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+        'secret' => $recaptcha_secret,
+        'response' => $validated['recaptcha_token']
+    ])->json();
 
-        $contact = Contact::create($validated);
+    \Log::info('reCAPTCHA response', $recaptcha_response); // debug
 
-        // Send mail to admin
-        Mail::to(config('mail.from.address'))
-            ->queue(new ContactNotification($contact));
-
-        Mail::to($contact->email)
-            ->queue(new ContactConfirmation($contact));
-
-
-        return response()->json(['success' => true, 'message' => 'Message sent successfully!']);
+    if (!($recaptcha_response['success'] ?? false) || ($recaptcha_response['score'] ?? 0) < 0.5) {
+        return response()->json([
+            'message' => 'reCAPTCHA validation failed. Please try again.'
+        ], 422);
     }
+
+    // Store contact
+    $contact = Contact::create($validated);
+
+    // Send emails
+    Mail::to(config('mail.from.address'))->queue(new ContactNotification($contact));
+    Mail::to($contact->email)->queue(new ContactConfirmation($contact));
+
+    return response()->json(['success' => true, 'message' => 'Message sent successfully!']);
+}
+
 }
