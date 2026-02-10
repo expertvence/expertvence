@@ -67,6 +67,7 @@ class ContactController extends Controller
         'has_whatsapp' => 'boolean',
         'has_telegram' => 'boolean',
         'telegram_username' => 'nullable|string',
+        'agreed_terms' => 'required|boolean|accepted', // ✅ NEW
         'recaptcha_token' => 'required|string',
     ]);
 

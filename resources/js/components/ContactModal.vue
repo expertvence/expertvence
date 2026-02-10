@@ -2,16 +2,13 @@
   <Teleport to="body">
     <transition name="contact-modal">
       <div v-if="show" class="contact-overlay" @click.self="$emit('close')">
-        <div
-          class="contact-modal"
-          :class="{ 'is-submitting': isSubmitting }"
-        >
+        <div class="contact-modal" :class="{ 'is-submitting': isSubmitting }">
           <div class="contact-wrapper">
             <!-- Form Container -->
             <div class="contact-right">
               <div class="form-header">
-                <h1>CONTACT US</h1>
-                <p class="form-subtitle">Get in touch with us</p>
+                <h1>KNOCK TO EXPERTVENCE</h1>
+                <p class="form-subtitle">Drop your opinion to us</p>
                 <button class="close-btn" @click="$emit('close')">
                   <span class="close-icon">✕</span>
                 </button>
@@ -24,26 +21,16 @@
                     <div class="form-group">
                       <label>YOUR NAME</label>
                       <div class="input-wrapper">
-                        <input 
-                          type="text" 
-                          placeholder="WRITE YOUR NAME" 
-                          required 
-                          v-model="form.name"
-                          class="neon-input"
-                        />
+                        <input type="text" placeholder="WRITE YOUR NAME" required v-model="form.name"
+                          class="neon-input" />
                         <div class="input-glow"></div>
                       </div>
                     </div>
                     <div class="form-group">
                       <label>EMAIL ADDRESS</label>
                       <div class="input-wrapper">
-                        <input 
-                          type="email" 
-                          placeholder="YOU@EXAMPLE.COM" 
-                          required 
-                          v-model="form.email"
-                          class="neon-input"
-                        />
+                        <input type="email" placeholder="YOU@EXAMPLE.COM" required v-model="form.email"
+                          class="neon-input" />
                         <div class="input-glow"></div>
                       </div>
                     </div>
@@ -63,25 +50,16 @@
                             </div>
 
                             <div v-if="showCountryList" class="country-dropdown neon-dropdown">
-                              <div
-                                v-for="c in filteredCountries"
-                                :key="c.iso"
-                                @click="selectCountry(c)"
-                                class="country-option"
-                              >
+                              <div v-for="c in filteredCountries" :key="c.iso" @click="selectCountry(c)"
+                                class="country-option">
                                 <img :src="c.flag" class="flag" />
                                 <span>{{ c.dial_code }} - {{ c.name }}</span>
                               </div>
                             </div>
                           </div>
-                          
-                          <input
-                            type="tel"
-                            class="neon-input phone-number-input"
-                            :placeholder="phonePlaceholder"
-                            required
-                            v-model="form.phone"
-                          />
+
+                          <input type="tel" class="neon-input phone-number-input" :placeholder="phonePlaceholder"
+                            required v-model="form.phone" />
                           <div class="input-glow"></div>
                         </div>
                         <p v-if="phoneMeta.message" class="error-message">
@@ -110,61 +88,34 @@
                   <div class="form-group">
                     <label>HOW CAN WE HELP?</label>
                     <div class="input-wrapper">
-                      <textarea 
-                        placeholder="TELL US ABOUT YOUR PROJECT..." 
-                        rows="3" 
-                        required
-                        v-model="form.message"
-                        class="neon-input"
-                      ></textarea>
+                      <textarea placeholder="TELL US ABOUT YOUR PROJECT..." rows="3" required v-model="form.message"
+                        class="neon-input"></textarea>
                       <div class="input-glow"></div>
                     </div>
                   </div>
 
-                  <!-- WhatsApp / Telegram -->
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label class="checkbox-label neon-checkbox">
-                        <input type="checkbox" v-model="form.has_whatsapp" />
-                        <span class="checkmark"></span>
-                        <span class="checkbox-text">WHATSAPP AVAILABLE</span>
-                      </label>
-                    </div>
-                    <div class="form-group">
-                      <label class="checkbox-label neon-checkbox">
-                        <input type="checkbox" v-model="form.has_telegram" />
-                        <span class="checkmark"></span>
-                        <span class="checkbox-text">TELEGRAM AVAILABLE</span>
-                      </label>
-                      <div v-if="form.has_telegram" class="input-wrapper">
-                        <input
-                          type="text"
-                          placeholder="TELEGRAM USERNAME"
-                          v-model="form.telegram_username"
-                          class="neon-input"
-                        />
-                        <div class="input-glow"></div>
-                      </div>
-                    </div>
+                  <!-- Terms Agreement -->
+                  <div class="form-group">
+                    <label class="checkbox-label neon-checkbox">
+                      <input type="checkbox" v-model="form.agreed_terms" required />
+                      <span class="checkmark"></span>
+                      <span class="checkbox-text">
+                        I AGREE TO THE
+                        <a href="#" class="terms-link">TERMS & CONDITIONS</a>,
+                        <a href="#" class="terms-link">PRIVACY</a> AND
+                        <a href="#" class="terms-link">DATA PROTECTION POLICY</a>
+                      </span>
+                    </label>
                   </div>
 
                   <!-- Submit -->
                   <div class="submit-section-wrapper">
                     <div class="submit-section">
-                      <button
-                        type="submit"
-                        class="submit-btn neon-btn"
-                        :disabled="!phoneMeta.isValid || isSubmitting"
-                      >
+                      <button type="submit" class="submit-btn neon-btn"
+                        :disabled="!phoneMeta.isValid || !form.agreed_terms || isSubmitting">
                         <span class="btn-text">SEND MESSAGE</span>
                         <span class="btn-arrow">→</span>
                       </button>
-                      <p class="terms">
-                        BY CLICKING, YOU AGREE TO OUR
-                        <a href="#" class="terms-link">TERMS & CONDITIONS</a>,
-                        <a href="#" class="terms-link">PRIVACY</a> AND
-                        <a href="#" class="terms-link">DATA PROTECTION POLICY</a>
-                      </p>
                     </div>
                   </div>
                 </form>
@@ -181,14 +132,27 @@
         </div>
       </div>
     </transition>
+
+    <!-- Custom Toast Notification -->
+    <transition name="toast-slide">
+      <div v-if="showToast" class="neon-toast" :class="toastType">
+        <div class="toast-content">
+          <span class="toast-icon">{{ toastIcon }}</span>
+          <div class="toast-text">
+            <div class="toast-title">{{ toastTitle }}</div>
+            <div class="toast-message">{{ toastMessage }}</div>
+          </div>
+          <button class="toast-close" @click="closeToast">✕</button>
+        </div>
+        <div class="toast-progress" :style="{ 'animation-duration': toastDuration + 'ms' }"></div>
+      </div>
+    </transition>
   </Teleport>
 </template>
 
 <script setup>
-/* ALL PREVIOUS LOGIC REMAINS UNTOUCHED - SAME AS BEFORE */
 import { ref, reactive, computed, watch, onMounted } from 'vue'
 import axios from 'axios'
-import contactBg from '@/assets/images/contact-bg4.png'
 import { loadCountries } from '@/data/countries.js'
 import { AsYouType, isPossiblePhoneNumber } from 'libphonenumber-js'
 
@@ -201,9 +165,21 @@ const search = ref('')
 const countries = ref([])
 const selectedCountry = ref({ name: '', iso: '', dial_code: '', flag: '' })
 
+// Toast state
+const showToast = ref(false)
+const toastType = ref('success')
+const toastTitle = ref('')
+const toastMessage = ref('')
+const toastDuration = ref(3000)
+const toastTimeout = ref(null)
+
 const form = reactive({
-  name: '', email: '', phone: '', interest: '', message: '',
-  has_whatsapp: true, has_telegram: false, telegram_username: ''
+  name: '', 
+  email: '', 
+  phone: '', 
+  interest: '', 
+  message: '', 
+  agreed_terms: true
 })
 
 const phoneMeta = reactive({ isValid: true, message: '' })
@@ -216,13 +192,45 @@ const filteredCountries = computed(() =>
   )
 )
 
+// Toast icon based on type
+const toastIcon = computed(() => {
+  return toastType.value === 'success' ? '✓' : '✕'
+})
+
+// Toast functions
+const showNotification = (type, title, message, duration = 3000) => {
+  // Clear existing timeout
+  if (toastTimeout.value) {
+    clearTimeout(toastTimeout.value)
+  }
+  
+  toastType.value = type
+  toastTitle.value = title
+  toastMessage.value = message
+  toastDuration.value = duration
+  showToast.value = true
+  
+  // Auto close after duration
+  toastTimeout.value = setTimeout(() => {
+    closeToast()
+  }, duration)
+}
+
+const closeToast = () => {
+  showToast.value = false
+  if (toastTimeout.value) {
+    clearTimeout(toastTimeout.value)
+    toastTimeout.value = null
+  }
+}
+
 const autoDetectCountry = async () => {
   try {
     const res = await axios.get('/api/auth/detect-country')
     const found = countries.value.find(c => c.iso === res.data.iso)
-    selectedCountry.value = found || countries.value.find(c => c.iso === 'US') || { name:'Unknown', iso:'US', dial_code:'+1', flag:'' }
+    selectedCountry.value = found || countries.value.find(c => c.iso === 'US') || { name: 'Unknown', iso: 'US', dial_code: '+1', flag: '' }
   } catch {
-    selectedCountry.value = countries.value.find(c => c.iso === 'US') || { name:'Unknown', iso:'US', dial_code:'+1', flag:'' }
+    selectedCountry.value = countries.value.find(c => c.iso === 'US') || { name: 'Unknown', iso: 'US', dial_code: '+1', flag: '' }
   }
 }
 
@@ -233,15 +241,15 @@ const selectCountry = (country) => {
 }
 
 const phonePlaceholder = computed(() => {
-  switch(selectedCountry.value.iso){
+  switch (selectedCountry.value.iso) {
     case 'BD': return '18XXXXXXXX'
     case 'US': return '201 555 0123'
     default: return 'Phone number'
   }
 })
 
-watch(() => form.phone, (val)=>{
-  if(!val || !selectedCountry.value.iso){
+watch(() => form.phone, (val) => {
+  if (!val || !selectedCountry.value.iso) {
     phoneMeta.message = ''
     phoneMeta.isValid = true
     return
@@ -249,7 +257,7 @@ watch(() => form.phone, (val)=>{
   const typer = new AsYouType(selectedCountry.value.iso)
   typer.input(val)
   const formatted = typer.getNumber()
-  if(!formatted){
+  if (!formatted) {
     phoneMeta.isValid = false
     phoneMeta.message = 'Incomplete phone number'
     return
@@ -263,15 +271,15 @@ onMounted(async () => {
   await autoDetectCountry()
 })
 
-// ✅ reCAPTCHA
-const loadRecaptcha = () => new Promise((resolve,reject)=>{
-  if(window.grecaptcha) return resolve(window.grecaptcha)
+// reCAPTCHA
+const loadRecaptcha = () => new Promise((resolve, reject) => {
+  if (window.grecaptcha) return resolve(window.grecaptcha)
   const script = document.createElement('script')
   script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.VITE_RECAPTCHA_SITE_KEY}`
   script.async = true
   script.defer = true
-  script.onload = ()=> window.grecaptcha ? resolve(window.grecaptcha) : reject('grecaptcha not loaded')
-  script.onerror = ()=> reject('Failed to load reCAPTCHA script')
+  script.onload = () => window.grecaptcha ? resolve(window.grecaptcha) : reject('grecaptcha not loaded')
+  script.onerror = () => reject('Failed to load reCAPTCHA script')
   document.head.appendChild(script)
 })
 
@@ -308,14 +316,28 @@ const getRecaptchaToken = async () => {
 
 // Form submit
 const handleSubmit = async () => {
-  if (!phoneMeta.isValid) return;
+  if (!phoneMeta.isValid) {
+    showNotification('error', 'Validation Error', 'Please check your phone number')
+    return;
+  }
+
+  
+  emit('close'); // ✅ modal instant close
+  // 🔔 Step 1: Sending toast
+showNotification(
+  'success',
+  'Sending...',
+  'Your message is being transmitted',
+  999999 // long duration, manually replaced later
+);
+  
   isSubmitting.value = true;
 
   let recaptcha_token;
   try {
     recaptcha_token = await getRecaptchaToken();
   } catch (err) {
-    alert('reCAPTCHA failed. Please try again.');
+    showNotification('error', 'reCAPTCHA Failed', 'Please try again or refresh the page', 4000)
     isSubmitting.value = false;
     return;
   }
@@ -332,16 +354,46 @@ const handleSubmit = async () => {
     dial_code: selectedCountry.value.dial_code,
     country_name: selectedCountry.value.name,
     country_iso: selectedCountry.value.iso,
+    agreed_terms: form.agreed_terms,
     recaptcha_token
   };
 
   try {
     const res = await axios.post('/api/auth/contact', payload);
-    alert(res.data.message);
-    emit('close');
+  
+
+    
+    // Show success toast
+    showNotification(
+  'success',
+  'Message Sent!',
+  'Thank you for contacting us. We will get back to you shortly.',
+  3000
+);
+
+    
+    // Close modal after 1.5 seconds
+    setTimeout(() => {
+      
+      
+      // Reset form
+      Object.assign(form, {
+        name: '', email: '', phone: '', interest: '', message: '', agreed_terms: true
+      })
+    }, 1500);
+    
   } catch (err) {
     const msg = err.response?.data?.message || 'Failed to send message';
-    alert(msg);
+    
+    // Show error toast
+    showNotification(
+  'error',
+  'Failed!',
+  'Unable to send your message. Please try again later.',
+  4000
+);
+
+    
   } finally {
     isSubmitting.value = false;
   }
@@ -379,19 +431,17 @@ const handleSubmit = async () => {
 .contact-modal {
   width: auto;
   max-width: 720px;
-  max-height: 90vh; /* Prevent overflow on desktop */
+  max-height: 90vh;
   background: var(--card-bg);
   border-radius: 5px;
   overflow: hidden;
   border: 1px solid rgba(0, 243, 255, 0.1);
-  box-shadow: 
+  box-shadow:
     0 0 40px rgba(0, 243, 255, 0.15),
     0 20px 60px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
-  margin-bottom: 50px;
-  
 }
 
 .contact-wrapper {
@@ -411,13 +461,13 @@ const handleSubmit = async () => {
 }
 
 .form-header h1 {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 800;
   color: var(--text-primary);
   margin: 0;
   letter-spacing: 2px;
   text-transform: uppercase;
-  background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+  background: #00f3ff;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -425,7 +475,7 @@ const handleSubmit = async () => {
 }
 
 .form-subtitle {
-  color: var(--text-secondary);
+  color: rgb(30, 224, 5);
   font-size: 14px;
   margin-top: 5px;
   letter-spacing: 1px;
@@ -489,7 +539,7 @@ const handleSubmit = async () => {
   color: linen;
   display: block;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.3px;
 }
 
 /* ================= Neon Inputs ================= */
@@ -505,13 +555,14 @@ const handleSubmit = async () => {
   padding: 14px;
   background: rgba(15, 20, 40, 0.6);
   border: 1px solid rgba(0, 243, 255, 0.2);
-  border-radius: 6px;
+  border-radius: 5px;
   color: rgb(30, 224, 5);
   font-size: 14px;
   font-family: monospace;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   box-sizing: border-box;
+  margin-bottom: 7px;
 }
 
 .neon-input::placeholder {
@@ -521,7 +572,7 @@ const handleSubmit = async () => {
 .neon-input:focus {
   outline: none;
   border-color: var(--neon-blue);
-  box-shadow: 
+  box-shadow:
     0 0 20px rgba(0, 243, 255, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   background: rgba(15, 20, 40, 0.8);
@@ -540,11 +591,11 @@ const handleSubmit = async () => {
   box-shadow: inset 0 0 30px rgba(0, 243, 255, 0.1);
 }
 
-.neon-input:focus ~ .input-glow {
+.neon-input:focus~.input-glow {
   opacity: 1;
 }
 
-/* ================= COMBINED PHONE INPUT (Flag + Number) ================= */
+/* ================= COMBINED PHONE INPUT ================= */
 .phone-input-wrapper {
   display: flex;
   flex-direction: column;
@@ -563,13 +614,13 @@ const handleSubmit = async () => {
 
 .phone-combined-input:focus-within {
   border-color: var(--neon-blue);
-  box-shadow: 
+  box-shadow:
     0 0 20px rgba(0, 243, 255, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   background: rgba(15, 20, 40, 0.8);
 }
 
-.phone-combined-input:focus-within ~ .input-glow {
+.phone-combined-input:focus-within~.input-glow {
   opacity: 1;
 }
 
@@ -693,7 +744,7 @@ textarea.neon-input {
 }
 
 .neon-checkbox:hover {
-  color: var(--text-primary);
+  color: rgb(30, 224, 5);
 }
 
 .neon-checkbox input[type="checkbox"] {
@@ -709,7 +760,7 @@ textarea.neon-input {
   transition: all 0.3s ease;
 }
 
-.neon-checkbox input[type="checkbox"]:checked ~ .checkmark {
+.neon-checkbox input[type="checkbox"]:checked~.checkmark {
   background: rgba(0, 243, 255, 0.1);
   border-color: var(--neon-blue);
 }
@@ -726,7 +777,7 @@ textarea.neon-input {
   font-size: 14px;
 }
 
-.neon-checkbox input[type="checkbox"]:checked ~ .checkmark::after {
+.neon-checkbox input[type="checkbox"]:checked~.checkmark::after {
   opacity: 1;
 }
 
@@ -734,6 +785,17 @@ textarea.neon-input {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.terms-link {
+  color: red;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.terms-link:hover {
+  color: darkorange;
+  text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
 }
 
 /* ================= Submit Section ================= */
@@ -754,7 +816,7 @@ textarea.neon-input {
   background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(157, 78, 221, 0.1));
   border: 1px solid rgba(0, 243, 255, 0.3);
   border-radius: 6px;
-  color: var(--text-primary);
+  color: rgb(30, 224, 5);
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -772,7 +834,7 @@ textarea.neon-input {
 .neon-btn:hover:not(:disabled) {
   background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(157, 78, 221, 0.2));
   border-color: var(--neon-blue);
-  box-shadow: 
+  box-shadow:
     0 0 30px rgba(0, 243, 255, 0.4),
     0 0 60px rgba(0, 243, 255, 0.2);
   transform: translateY(-2px);
@@ -796,26 +858,6 @@ textarea.neon-input {
   transform: translateX(4px);
 }
 
-/* ================= Terms ================= */
-.terms {
-  font-size: 11px;
-  text-align: center;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin: 0;
-}
-
-.terms-link {
-  color: var(--neon-blue);
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.terms-link:hover {
-  color: var(--neon-pink);
-  text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-}
-
 /* ================= Submit Overlay ================= */
 .contact-modal.is-submitting {
   pointer-events: none;
@@ -826,7 +868,7 @@ textarea.neon-input {
   inset: 0;
   background: rgba(5, 5, 16, 0.9);
   backdrop-filter: blur(8px);
-  display: flex;
+  display: none !important;
   align-items: center;
   justify-content: center;
   z-index: 10;
@@ -857,13 +899,192 @@ textarea.neon-input {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ================= CUSTOM TOAST STYLES ================= */
+.neon-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 320px;
+  max-width: 400px;
+  background: rgba(15, 20, 40, 0.95);
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 16px;
+  z-index: 1000000;
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.neon-toast.success {
+  border-color: rgba(0, 243, 255, 0.4);
+  box-shadow: 
+    0 0 30px rgba(0, 243, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.neon-toast.error {
+  border-color: rgba(255, 107, 107, 0.4);
+  box-shadow: 
+    0 0 30px rgba(255, 107, 107, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.toast-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.neon-toast.success .toast-icon {
+  background: rgba(0, 243, 255, 0.1);
+  color: #00f3ff;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.neon-toast.error .toast-icon {
+  background: rgba(255, 107, 107, 0.1);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+.toast-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.neon-toast.success .toast-title {
+  color: #00f3ff;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+.neon-toast.error .toast-title {
+  color: #ff6b6b;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+}
+
+.toast-message {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.toast-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.toast-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  transform-origin: left;
+  animation: toastProgress linear forwards;
+}
+
+.neon-toast.success .toast-progress {
+  background: linear-gradient(90deg, #00f3ff, #9d4edd);
+}
+
+.neon-toast.error .toast-progress {
+  background: linear-gradient(90deg, #ff6b6b, #ff00ff);
+}
+
+@keyframes toastProgress {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+/* Toast Animation */
+.toast-slide-enter-active,
+.toast-slide-leave-active {
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.toast-slide-enter-from {
+  opacity: 0;
+  transform: translateX(100%) translateY(-20px);
+}
+
+.toast-slide-enter-to {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+.toast-slide-leave-from {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+.toast-slide-leave-to {
+  opacity: 0;
+  transform: translateX(100%) translateY(-20px);
 }
 
 /* ================= Transitions ================= */
@@ -879,13 +1100,11 @@ textarea.neon-input {
 }
 
 /* ================= Responsive - MOBILE: SINGLE COLUMN ================= */
-
 /* Tablet: 2 columns */
 @media (min-width: 769px) {
   .contact-modal {
     max-height: 85vh;
   }
-  
   .form-content {
     padding: 24px 32px 32px;
   }
@@ -896,41 +1115,41 @@ textarea.neon-input {
   .contact-overlay {
     padding: 16px;
   }
-  
   .contact-modal {
     max-height: 95vh;
     border-radius: 5px;
   }
-  
   .form-header {
     padding: 24px 20px 16px;
   }
-  
   .form-content {
     padding: 20px 20px 24px;
   }
-  
   /* MOBILE: SINGLE COLUMN - One field per row */
   .form-row {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  
   .phone-combined-input {
     flex-direction: row;
   }
-  
   .country-selector {
     min-width: 90px;
     padding: 0 10px 0 12px;
   }
-  
   .neon-btn {
     padding: 16px;
   }
-  
   .form-group {
     width: 100%;
+  }
+  /* Toast mobile */
+  .neon-toast {
+    min-width: calc(100vw - 40px);
+    max-width: calc(100vw - 40px);
+    right: 20px;
+    left: 20px;
+    top: 20px;
   }
 }
 
@@ -939,33 +1158,37 @@ textarea.neon-input {
   .form-header h1 {
     font-size: 22px;
   }
-  
   .form-subtitle {
     font-size: 12px;
   }
-  
   .close-btn {
     width: 32px;
     height: 32px;
     top: 20px;
     right: 20px;
   }
-  
   .neon-input {
     padding: 14px;
   }
-  
   .country-selector {
     min-width: 80px;
     padding: 0 8px 0 10px;
   }
-  
   .dial-code {
     font-size: 13px;
   }
-  
   .phone-number-input {
     padding: 14px;
+  }
+  /* Toast mobile small */
+  .neon-toast {
+    padding: 12px;
+  }
+  .toast-title {
+    font-size: 13px;
+  }
+  .toast-message {
+    font-size: 12px;
   }
 }
 
@@ -974,50 +1197,38 @@ textarea.neon-input {
   .form-content {
     padding: 16px 16px 20px;
   }
-  
   .neon-input {
     padding: 12px;
     font-size: 13px;
   }
-  
   .country-selector {
     min-width: 70px;
     gap: 6px;
   }
-  
   .flag {
     width: 18px;
     height: 13px;
   }
-  
   .dial-code {
     font-size: 12px;
   }
-  
   .phone-number-input {
     padding: 12px;
   }
-  
   .neon-btn {
     padding: 14px;
     font-size: 14px;
   }
-  
-  .terms {
-    font-size: 10px;
-  }
 }
 
-/* Height-based adjustments for very tall screens */
+/* Height-based adjustments */
 @media (min-height: 900px) and (min-width: 769px) {
   .contact-modal {
     max-height: 80vh;
   }
-  
   .form-content {
     padding: 32px 40px 40px;
   }
-  
   .contact-form {
     gap: 24px;
   }
