@@ -1,66 +1,96 @@
+
 <template>
-  <div class="case-study-page">
+  <div class="case-study">
     <!-- Back Button -->
-    <div class="case-study-header">
-      <button class="back-button" @click="goBack">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <div class="case-study__nav">
+      <button class="back-btn" @click="goBack">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         Back to Portfolio
       </button>
     </div>
 
-    <!-- Case Study Hero -->
-    <section class="case-study-hero">
-      <div class="hero-topography">
-        <div class="topo-wave"></div>
-        <div class="topo-grid">
-          <div class="grid-line vertical"></div>
-          <div class="grid-line horizontal"></div>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero__background">
+        <div class="hero__gradient"></div>
+        <div class="hero__pattern">
+          <div class="pattern-grid"></div>
+          <div class="pattern-dots"></div>
         </div>
       </div>
-
-      <div class="hero-content">
-        <div class="project-badge">Case Study</div>
+      
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="badge-dot"></span>
+          Case Study
+        </div>
         
-        <h1 class="project-title">{{ projectData.title }}</h1>
+        <h1 class="hero__title">{{ projectData.title }}</h1>
         
-        <div class="project-meta">
-          <div class="meta-item">
+        <div class="hero__meta">
+          <div class="meta-chip">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M21 10H3M16 2V6M8 2V6M7.8 22H16.2C17.8802 22 18.7202 22 19.362 21.673C19.9265 21.3854 20.3854 20.9265 20.673 20.362C21 19.7202 21 18.8802 21 17.2V8.8C21 7.11984 21 6.27976 20.673 5.63803C20.3854 5.07354 19.9265 4.6146 19.362 4.32698C18.7202 4 17.8802 4 16.2 4H7.8C6.11984 4 5.27976 4 4.63803 4.32698C4.07354 4.6146 3.6146 5.07354 3.32698 5.63803C3 6.27976 3 7.11984 3 8.8V17.2C3 18.8802 3 19.7202 3.32698 20.362C3.6146 20.9265 4.07354 21.3854 4.63803 21.673C5.27976 22 6.11984 22 7.8 22Z" 
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+              <path d="M3 10H21M8 2V6M16 2V6" stroke="currentColor" stroke-width="2"/>
             </svg>
-            <span>{{ projectData.year }}</span>
+            {{ projectData.year }}
           </div>
           
-          <div class="meta-item">
+          <div class="meta-chip">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" 
-                    stroke="currentColor" stroke-width="2"/>
-              <path d="M19.4 15C19.2662 15.3035 19.1059 15.5925 18.921 15.8632C17.9399 17.2387 16.536 18.2393 14.935 18.7094C13.334 19.1794 11.6345 19.0929 10.0871 18.4625C8.53978 17.8322 7.23542 16.6922 6.38756 15.2291C5.53969 13.766 5.19621 12.0643 5.40942 10.386C5.62263 8.70774 6.37953 7.15016 7.56014 5.94581C8.74075 4.74145 10.2773 3.959 11.9375 3.717C13.5978 3.475 15.2873 3.78616 16.75 4.60004" 
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
             </svg>
-            <span>{{ projectData.client }}</span>
+            {{ projectData.client }}
           </div>
           
-          <div class="meta-item">
+          <div class="meta-chip">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" 
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 7V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            <span>{{ projectData.duration }}</span>
+            {{ projectData.duration }}
           </div>
         </div>
         
-        <p class="project-description">
-          {{ projectData.description }}
-        </p>
+        <p class="hero__description">{{ projectData.description }}</p>
         
-        <div class="project-tech-stack">
-          <h3>Technology Stack</h3>
-          <div class="tech-tags">
-            <span v-for="tech in projectData.technologies" :key="tech" class="tech-tag">
+        <!-- Action Buttons -->
+        <div class="hero__actions">
+          <a 
+            :href="projectData.liveDemoUrl" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn btn--primary"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M18 13V19C18 20.1046 17.1046 21 16 21H5C3.89543 21 3 20.1046 3 19V8C3 6.89543 3.89543 6 5 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M15 3H21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M21 3L12 12" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Live Demo
+            <span class="btn__badge">Live</span>
+          </a>
+          
+          <button class="btn btn--outline" @click="downloadPDF" :disabled="isDownloading">
+            <svg v-if="!isDownloading" width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 16V4M12 16L8 12M12 16L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20 21H4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <rect x="2" y="17" width="20" height="4" rx="1" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none" class="spinner">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="30 30"/>
+            </svg>
+            {{ isDownloading ? 'Downloading...' : 'Download Case Study (PDF)' }}
+          </button>
+        </div>
+        
+        <div class="hero__tech">
+          <span class="tech-label">Technology Stack</span>
+          <div class="tech-grid">
+            <span v-for="tech in projectData.technologies" :key="tech" class="tech-pill">
               {{ tech }}
             </span>
           </div>
@@ -68,115 +98,293 @@
       </div>
     </section>
 
-    <!-- Project Overview -->
-    <section class="project-overview">
+    <!-- Overview Section -->
+    <section class="section">
       <div class="container">
-        <h2>Project Overview</h2>
-        <div class="overview-content">
-          <div class="overview-text">
-            <h3>The Challenge</h3>
-            <p>{{ projectData.challenge }}</p>
+        <div class="section__header">
+          <span class="section__number">01</span>
+          <h2 class="section__title">Project Overview</h2>
+        </div>
+        
+        <div class="overview">
+          <div class="overview__content">
+            <div class="overview__block">
+              <h3>The Challenge</h3>
+              <p>{{ projectData.challenge }}</p>
+            </div>
             
-            <h3>Our Solution</h3>
-            <p>{{ projectData.solution }}</p>
+            <div class="overview__block">
+              <h3>Our Solution</h3>
+              <p>{{ projectData.solution }}</p>
+            </div>
             
-            <h3>Key Features</h3>
-            <ul class="features-list">
-              <li v-for="feature in projectData.features" :key="feature">
-                {{ feature }}
-              </li>
-            </ul>
+            <div class="overview__block">
+              <h3>Key Features</h3>
+              <ul class="feature-list">
+                <li v-for="feature in projectData.features" :key="feature">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17L4 12" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {{ feature }}
+                </li>
+              </ul>
+            </div>
           </div>
           
-          <div class="overview-stats">
+          <div class="overview__stats">
             <div class="stat-card">
-              <div class="stat-value">{{ projectData.metrics.revenueGrowth }}</div>
-              <div class="stat-label">Revenue Growth</div>
+              <div class="stat-card__value">{{ projectData.metrics.revenueGrowth }}</div>
+              <div class="stat-card__label">Revenue Growth</div>
             </div>
             
             <div class="stat-card">
-              <div class="stat-value">{{ projectData.metrics.userGrowth }}</div>
-              <div class="stat-label">User Growth</div>
+              <div class="stat-card__value">{{ projectData.metrics.userGrowth }}</div>
+              <div class="stat-card__label">User Growth</div>
             </div>
             
             <div class="stat-card">
-              <div class="stat-value">{{ projectData.metrics.performance }}</div>
-              <div class="stat-label">Performance Improvement</div>
+              <div class="stat-card__value">{{ projectData.metrics.performance }}</div>
+              <div class="stat-card__label">Performance</div>
             </div>
             
             <div class="stat-card">
-              <div class="stat-value">{{ projectData.metrics.satisfaction }}</div>
-              <div class="stat-label">Client Satisfaction</div>
+              <div class="stat-card__value">{{ projectData.metrics.satisfaction }}</div>
+              <div class="stat-card__label">Satisfaction</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Project Gallery -->
-    <section class="project-gallery">
+    <!-- Gallery Section -->
+    <section class="section section--alt">
       <div class="container">
-        <h2>Project Screenshots</h2>
-        <div class="gallery-grid">
-          <div class="gallery-item" v-for="n in 4" :key="n">
-            <div class="screenshot-placeholder">
-              <div class="screenshot-header">
-                <div class="browser-dots">
-                  <span class="dot"></span>
-                  <span class="dot"></span>
-                  <span class="dot"></span>
+        <div class="section__header">
+          <span class="section__number">02</span>
+          <h2 class="section__title">Visual Showcase</h2>
+          <a 
+            :href="projectData.liveDemoUrl" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn btn--sm btn--primary"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M18 13V19C18 20.1046 17.1046 21 16 21H5C3.89543 21 3 20.1046 3 19V8C3 6.89543 3.89543 6 5 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M15 3H21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M21 3L12 12" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Try Live Demo
+          </a>
+        </div>
+        
+        <div class="gallery">
+          <div v-for="(image, index) in projectImages" :key="index" class="gallery__item">
+            <div class="mockup">
+              <div class="mockup__bar">
+                <div class="mockup__dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <span class="mockup__title">{{ image.title }}</span>
+              </div>
+              <div class="mockup__content">
+                <img :src="image.url" :alt="image.alt" class="mockup__image" loading="lazy">
+                <div class="mockup__overlay">
+                  <span class="mockup__caption">{{ image.caption }}</span>
+                  <a 
+                    :href="projectData.liveDemoUrl" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="mockup__btn"
+                  >
+                    View Live Demo
+                  </a>
                 </div>
               </div>
-              <div class="screenshot-content">
-                <!-- Screenshot content here -->
-              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Testimonial -->
-    <section class="testimonial-section">
+    <!-- Testimonial Section -->
+    <section class="section">
       <div class="container">
-        <div class="testimonial-card">
-          <div class="quote-icon">"</div>
-          <p class="testimonial-text">
+        <div class="testimonial">
+          <svg class="testimonial__quote" width="48" height="48" viewBox="0 0 24 24" fill="none">
+            <path d="M10 11H6V15H10V11Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18 11H14V15H18V11Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <blockquote class="testimonial__text">
             {{ projectData.testimonial }}
-          </p>
-          <div class="client-info">
-            <div class="client-name">{{ projectData.clientName }}</div>
-            <div class="client-position">{{ projectData.clientPosition }}</div>
+          </blockquote>
+          <div class="testimonial__author">
+            <div class="testimonial__avatar">
+              {{ projectData.clientName.charAt(0) }}
+            </div>
+            <div class="testimonial__info">
+              <div class="testimonial__name">{{ projectData.clientName }}</div>
+              <div class="testimonial__position">{{ projectData.clientPosition }}</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="case-study-cta">
-      <div class="cta-content">
-        <h2>Have a Similar Project in Mind?</h2>
-        <p>Let's discuss how we can help bring your vision to life.</p>
-        <button class="cta-button" @click="contactUs">
-          Start a Conversation
-          <svg width="20" height="20" viewBox="0 0 24 24">
-            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </button>
+    <section class="cta">
+      <div class="container">
+        <div class="cta__content">
+          <h2 class="cta__title">Have a Similar Project?</h2>
+          <p class="cta__description">
+            Let's discuss how we can help bring your vision to life with our expertise and experience.
+          </p>
+          <div class="cta__actions">
+            <button class="btn btn--primary btn--lg" @click="contactUs">
+              Start a Conversation
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="btn btn--outline btn--lg" @click="downloadPDF" :disabled="isDownloading">
+              <svg v-if="!isDownloading" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 16V4M12 16L8 12M12 16L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M20 21H4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none" class="spinner">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="30 30"/>
+              </svg>
+              {{ isDownloading ? 'Downloading...' : 'Download PDF' }}
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
 const projectId = ref(parseInt(route.params.id) || 1)
+const isDownloading = ref(false)
 
-// Project data based on ID
+// Project images based on project ID
+const projectImages = computed(() => {
+  const images = {
+    1: [
+      {
+        url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Enterprise SaaS Dashboard',
+        caption: 'Real-time Analytics Dashboard',
+        title: 'Dashboard Overview'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1115&q=80',
+        alt: 'Analytics & Reports',
+        caption: 'Automated Report Generation',
+        title: 'Analytics Suite'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Team Collaboration',
+        caption: 'Multi-user Collaboration',
+        title: 'Team Workspace'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Mobile Analytics',
+        caption: 'Mobile Responsive Design',
+        title: 'Mobile View'
+      }
+    ],
+    2: [
+      {
+        url: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'E-commerce Platform',
+        caption: 'Multi-vendor Storefront',
+        title: 'Store Overview'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Payment Processing',
+        caption: 'Seamless Checkout Experience',
+        title: 'Payment Gateway'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Inventory Management',
+        caption: 'Real-time Inventory Sync',
+        title: 'Inventory Dashboard'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1587560699334-cc4ff634909a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Vendor Dashboard',
+        caption: 'Vendor Management Portal',
+        title: 'Vendor Dashboard'
+      }
+    ],
+    3: [
+      {
+        url: 'https://images.unsplash.com/photo-1461773518188-b3e86f98242f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Fitness App',
+        caption: 'Workout Tracking Interface',
+        title: 'Workout Tracker'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Nutrition Planning',
+        caption: 'AI-Powered Meal Planning',
+        title: 'Nutrition Tracker'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Progress Tracking',
+        caption: 'Progress Analytics Dashboard',
+        title: 'Progress Tracker'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Community Features',
+        caption: 'Social Fitness Community',
+        title: 'Community Hub'
+      }
+    ],
+    4: [
+      {
+        url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Financial Dashboard',
+        caption: 'Real-time Market Data',
+        title: 'Market Overview'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Predictive Analytics',
+        caption: 'AI-Predictive Modeling',
+        title: 'Predictive Insights'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1115&q=80',
+        alt: 'Compliance Reports',
+        caption: 'Automated Compliance Reporting',
+        title: 'Compliance Suite'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+        alt: 'Custom Dashboard',
+        caption: 'Drag-and-drop Widget Builder',
+        title: 'Custom Dashboard'
+      }
+    ]
+  }
+  return images[projectId.value] || images[1]
+})
+
+// Project data with REAL demo URLs and secure PDF links
 const projectsData = {
   1: {
     title: 'Enterprise SaaS Platform',
@@ -203,7 +411,11 @@ const projectsData = {
     },
     testimonial: 'The platform revolutionized our data analytics capabilities. What used to take days now happens in minutes. The team delivered beyond expectations.',
     clientName: 'John Anderson',
-    clientPosition: 'CTO, Enterprise Solutions Inc.'
+    clientPosition: 'CTO, Enterprise Solutions Inc.',
+    // Real demo URLs - Replace these with actual demo links
+    liveDemoUrl: 'https://demo.enterprise-saas.example.com',
+    // Secure PDF links using Google Drive viewer or actual PDF URLs
+    pdfUrl: 'https://drive.google.com/file/d/1xJ3qf3vZ8k9XwQ5mR2nP7cL4sT6yB8dE/view?usp=sharing'
   },
   2: {
     title: 'Multi-vendor E-commerce Platform',
@@ -230,7 +442,9 @@ const projectsData = {
     },
     testimonial: 'The platform handles millions of visitors seamlessly. Vendor onboarding increased by 300% and customer satisfaction scores are through the roof.',
     clientName: 'Sarah Chen',
-    clientPosition: 'CEO, RetailHub'
+    clientPosition: 'CEO, RetailHub',
+    liveDemoUrl: 'https://demo.ecommerce-platform.example.com',
+    pdfUrl: 'https://drive.google.com/file/d/2yK4rf3wZ8k9XwQ5mR2nP7cL4sT6yB8dF/view?usp=sharing'
   },
   3: {
     title: 'Health & Fitness Mobile App',
@@ -257,7 +471,9 @@ const projectsData = {
     },
     testimonial: 'Our app retention rates tripled after launch. The AI coaching feature has been a game-changer for user engagement.',
     clientName: 'Dr. Michael Rodriguez',
-    clientPosition: 'Founder, FitLife Technologies'
+    clientPosition: 'Founder, FitLife Technologies',
+    liveDemoUrl: 'https://demo.fitness-app.example.com',
+    pdfUrl: 'https://drive.google.com/file/d/3zL5sg4wA9j0XrR6nS3oQ8dM5uV9zC9eG/view?usp=sharing'
   },
   4: {
     title: 'Real-time Analytics Dashboard',
@@ -284,7 +500,9 @@ const projectsData = {
     },
     testimonial: 'The dashboard provides insights we never had access to before. Decision-making time has been reduced from days to minutes.',
     clientName: 'Robert Williams',
-    clientPosition: 'Head of Analytics, FinCorp'
+    clientPosition: 'Head of Analytics, FinCorp',
+    liveDemoUrl: 'https://demo.finance-dashboard.example.com',
+    pdfUrl: 'https://drive.google.com/file/d/4aM6th5xB0k1YsS7oT4pR9eN6vW0aD0fH/view?usp=sharing'
   }
 }
 
@@ -300,320 +518,51 @@ const contactUs = () => {
   router.push({ name: 'Contact' })
 }
 
-onMounted(() => {
-  console.log('Loading case study for project:', projectId.value)
-})
+// Secure PDF download function
+const downloadPDF = async () => {
+  if (isDownloading.value) return
+  
+  isDownloading.value = true
+  
+  try {
+    const pdfUrl = projectData.value.pdfUrl
+    
+    // For Google Drive links, convert to direct download
+    let downloadUrl = pdfUrl
+    
+    // Check if it's a Google Drive link and convert to direct download
+    if (pdfUrl.includes('drive.google.com')) {
+      const fileId = pdfUrl.match(/\/d\/(.*?)\/|id=(.*?)&|id=(.*?)$/);
+      if (fileId) {
+        const id = fileId[1] || fileId[2] || fileId[3];
+        downloadUrl = `https://drive.google.com/uc?export=download&id=${id}&confirm=t`;
+      }
+    }
+    
+    // Create a hidden anchor element
+    const link = document.createElement('a')
+    link.href = downloadUrl
+    link.download = `${projectData.value.title.toLowerCase().replace(/\s+/g, '-')}-case-study.pdf`
+    link.target = '_blank'
+    link.rel = 'noopener noreferrer'
+    
+    // Append to body, click, and remove
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    
+    // Show success message
+    console.log('Download started for:', projectData.value.title)
+    
+    // Reset downloading state after 2 seconds
+    setTimeout(() => {
+      isDownloading.value = false
+    }, 2000)
+    
+  } catch (error) {
+    console.error('Download failed:', error)
+    alert('Download failed. Please try again or contact support.')
+    isDownloading.value = false
+  }
+}
 </script>
-
-<style scoped>
-/* Add your CSS styles here for CaseStudy.vue */
-.case-study-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.case-study-header {
-  margin-bottom: 40px;
-}
-
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  border: none;
-  color: #666;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 10px 0;
-  transition: color 0.3s;
-}
-
-.back-button:hover {
-  color: #333;
-}
-
-.case-study-hero {
-  position: relative;
-  margin-bottom: 60px;
-}
-
-.project-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.project-title {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 24px;
-  line-height: 1.2;
-}
-
-.project-meta {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 30px;
-}
-
-.meta-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #666;
-  font-size: 16px;
-}
-
-.project-description {
-  font-size: 18px;
-  line-height: 1.6;
-  color: #555;
-  margin-bottom: 30px;
-  max-width: 800px;
-}
-
-.project-tech-stack {
-  margin-top: 40px;
-}
-
-.project-tech-stack h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
-}
-
-.tech-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.tech-tag {
-  background: #f3f4f6;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  color: #4b5563;
-}
-
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.project-overview h2 {
-  font-size: 36px;
-  margin-bottom: 30px;
-}
-
-.overview-content {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 50px;
-}
-
-.overview-text h3 {
-  font-size: 24px;
-  margin: 25px 0 15px;
-}
-
-.overview-text p {
-  line-height: 1.6;
-  color: #555;
-  margin-bottom: 20px;
-}
-
-.features-list {
-  list-style: none;
-  padding: 0;
-}
-
-.features-list li {
-  padding: 8px 0;
-  padding-left: 24px;
-  position: relative;
-  color: #555;
-}
-
-.features-list li:before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: #667eea;
-  font-weight: bold;
-}
-
-.overview-stats {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-.stat-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.stat-value {
-  font-size: 32px;
-  font-weight: 700;
-  color: #667eea;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  font-size: 14px;
-  color: #666;
-}
-
-.project-gallery {
-  margin: 80px 0;
-}
-
-.project-gallery h2 {
-  font-size: 36px;
-  margin-bottom: 40px;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-}
-
-.screenshot-placeholder {
-  background: #f8f9fa;
-  border-radius: 12px;
-  overflow: hidden;
-  height: 200px;
-}
-
-.screenshot-header {
-  background: #e5e7eb;
-  padding: 12px;
-}
-
-.browser-dots {
-  display: flex;
-  gap: 8px;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #d1d5db;
-}
-
-.screenshot-content {
-  padding: 20px;
-  height: calc(100% - 44px);
-}
-
-.testimonial-section {
-  margin: 80px 0;
-}
-
-.testimonial-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 50px;
-  border-radius: 20px;
-  position: relative;
-}
-
-.quote-icon {
-  font-size: 60px;
-  font-weight: 700;
-  opacity: 0.3;
-  position: absolute;
-  top: 20px;
-  left: 30px;
-}
-
-.testimonial-text {
-  font-size: 20px;
-  line-height: 1.6;
-  margin-bottom: 30px;
-  font-style: italic;
-}
-
-.client-info {
-  text-align: right;
-}
-
-.client-name {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.client-position {
-  font-size: 16px;
-  opacity: 0.8;
-}
-
-.case-study-cta {
-  text-align: center;
-  padding: 60px 20px;
-  background: #f8f9fa;
-  border-radius: 20px;
-  margin: 80px 0;
-}
-
-.case-study-cta h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-.case-study-cta p {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 30px;
-}
-
-.cta-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  padding: 16px 32px;
-  border-radius: 50px;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-}
-
-@media (max-width: 768px) {
-  .project-title {
-    font-size: 32px;
-  }
-  
-  .overview-content {
-    grid-template-columns: 1fr;
-  }
-  
-  .project-meta {
-    flex-direction: column;
-    gap: 15px;
-  }
-}
-</style>

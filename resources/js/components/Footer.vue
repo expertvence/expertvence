@@ -44,7 +44,7 @@
       <div class="footer-contact">
         <h4>Dhaka OFFICE </h4>
         <p>Shanir Akhra, Jatrabari, Dhaka, Bangladesh </p>
-        <p>📞 +880 19XXXXXXXX</p>
+        <p>📞 +880 1797488350</p>
         <p>✉ expertvence@gmail.com</p>
       </div>
 

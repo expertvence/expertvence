@@ -51,7 +51,6 @@
 
       <div class="section-header">
         <h2 class="section-title">
-          <span class="title-number">01</span>
           Our Digital <span class="highlight">Capabilities</span>
         </h2>
         <p class="section-description">
@@ -107,14 +106,8 @@
             </div>
             
             <div class="card-footer">
-              <div class="tech-stack">
-                <span class="tech-tag">React</span>
-                <span class="tech-tag">Node.js</span>
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">+5 more</span>
-              </div>
               <button class="explore-btn">
-                <span>Explore</span>
+                <span>Explore →</span>
                 <svg class="arrow" width="20" height="20" viewBox="0 0 24 24">
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
                 </svg>
@@ -171,14 +164,8 @@
             </div>
             
             <div class="card-footer">
-              <div class="tech-stack">
-                <span class="tech-tag">Vue.js</span>
-                <span class="tech-tag">React Native</span>
-                <span class="tech-tag">Flutter</span>
-                <span class="tech-tag">+6 more</span>
-              </div>
               <button class="explore-btn">
-                <span>Explore</span>
+                <span>Explore →</span>
                 <svg class="arrow" width="20" height="20" viewBox="0 0 24 24">
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
                 </svg>
@@ -235,14 +222,8 @@
             </div>
             
             <div class="card-footer">
-              <div class="tech-stack">
-                <span class="tech-tag">Figma</span>
-                <span class="tech-tag">Adobe XD</span>
-                <span class="tech-tag">Sketch</span>
-                <span class="tech-tag">+4 more</span>
-              </div>
               <button class="explore-btn">
-                <span>Explore</span>
+                <span>Explore →</span>
                 <svg class="arrow" width="20" height="20" viewBox="0 0 24 24">
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
                 </svg>

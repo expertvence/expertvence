@@ -8,7 +8,7 @@
             <div class="contact-right">
               <div class="form-header">
                 <h1>KNOCK TO EXPERTVENCE</h1>
-                <p class="form-subtitle">Drop your opinion to us</p>
+                <p class="form-subtitle">Drop Your Smart Choice to Us</p>
                 <button class="close-btn" @click="$emit('close')">
                   <span class="close-icon">✕</span>
                 </button>

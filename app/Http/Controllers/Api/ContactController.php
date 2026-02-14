@@ -85,6 +85,8 @@ class ContactController extends Controller
             'message' => 'reCAPTCHA validation failed. Please try again.'
         ], 422);
     }
+// Merge dial code + phone number like before
+    $validated['phone_number'] = $validated['dial_code'] . $validated['phone_number'];
 
     // Store contact
     $contact = Contact::create($validated);
