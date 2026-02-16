@@ -11,11 +11,12 @@
         </p>
 
         <div class="socials">
-          <a href="#">🌐</a>
-          <a href="#">🐦</a>
-          <a href="#">💼</a>
-          <a href="#">📸</a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="facebook">f</a>
+          <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="linkedin">in</a>
+          <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" class="twitter">x</a>
+          <a href="https://www.pinterest.com/yourprofile" target="_blank" rel="noopener noreferrer" class="pinterest">p</a>
         </div>
+
       </div>
 
       <!-- EXPLORE -->
@@ -31,14 +32,18 @@
       </div>
 
       <!-- NEWSLETTER -->
-      <div class="footer-newsletter">
-        <h4>Newsletter</h4>
-        <p>Subscribe to our newsletter and get updates in your inbox.</p>
+<div class="footer-newsletter">
+  <h4>Newsletter</h4>
+  <p>Subscribe to our newsletter and get updates in your inbox.</p>
 
-        <input type="text" placeholder="Enter Full Name" />
-        <input type="email" placeholder="Enter Email Address" />
-        <button>SUBSCRIBE</button>
-      </div>
+<input type="text" placeholder="Enter Full Name" v-model="fullName" />
+<input type="email" placeholder="Enter Email Address" v-model="email" />
+<button :disabled="isSubmitting" @click="subscribeNewsletter">
+  {{ isSubmitting ? 'SUBMITTING...' : 'SUBSCRIBE' }}
+</button>
+
+</div>
+
 
       <!-- CONTACT -->
       <div class="footer-contact">
@@ -57,5 +62,37 @@
 </template>
 
 <script setup>
-const year = new Date().getFullYear()
+import { ref } from 'vue'
+import axios from 'axios'
+
+const fullName = ref('')
+const email = ref('')
+const isSubmitting = ref(false)
+
+const subscribeNewsletter = async () => {
+  if (!fullName.value || !email.value) {
+    alert('Please fill both fields')
+    return
+  }
+
+  isSubmitting.value = true
+
+  try {
+    await axios.post('/api/auth/newsletter/subscribe', {
+      name: fullName.value,
+      email: email.value
+    })
+
+    alert('Subscribed successfully! Check your email.')
+    fullName.value = ''
+    email.value = ''
+  } catch (error) {
+    console.error(error)
+    alert(error.response?.data?.message || 'Subscription failed')
+  } finally {
+    isSubmitting.value = false
+  }
+}
 </script>
+
+

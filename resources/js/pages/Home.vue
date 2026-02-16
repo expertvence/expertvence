@@ -25,139 +25,128 @@
         </div>
       </div>
     </section>
-
-
-
-
-
-
-   
-  
- <!-- STATS SECTION ONLY -->
-<section class="home-stats fade-section" ref="statsSection">
-  <!-- Topography Background -->
-  <div class="stats-topography">
-    <div class="topo-layer layer-1"></div>
-    <div class="topo-layer layer-2"></div>
-    <div class="topo-layer layer-3"></div>
-    <div class="topo-contour-lines">
-      <div class="contour-line"></div>
-      <div class="contour-line"></div>
-      <div class="contour-line"></div>
-      <div class="contour-line"></div>
-    </div>
-    <div class="topo-dots">
-      <div class="topo-dot"></div>
-      <div class="topo-dot"></div>
-      <div class="topo-dot"></div>
-      <div class="topo-dot"></div>
-      <div class="topo-dot"></div>
-      <div class="topo-dot"></div>
-    </div>
-  </div>
-
-  <!-- Content -->
-  <div class="stats-content">
-    <div class="stats-header">
-      <div class="stats-badge">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" 
-                stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span>Achievements</span>
-      </div>
-      <h2 class="stats-title">Where <span class="text-gradient">Numbers</span> Tell Our Story</h2>
-      <p class="stats-subtitle">
-        Quantifying excellence through years of dedicated service and successful deliveries
-      </p>
-    </div>
-
-    <div class="stats-grid">
-      <!-- Project Card -->
-      <div class="stat-card">
-        <div class="card-topography">
-          <div class="card-wave"></div>
-          <div class="card-dot"></div>
+    <!-- STATS SECTION ONLY -->
+    <section class="home-stats fade-section" ref="statsSection">
+      <!-- Topography Background -->
+      <div class="stats-topography">
+        <div class="topo-layer layer-1"></div>
+        <div class="topo-layer layer-2"></div>
+        <div class="topo-layer layer-3"></div>
+        <div class="topo-contour-lines">
+          <div class="contour-line"></div>
+          <div class="contour-line"></div>
+          <div class="contour-line"></div>
+          <div class="contour-line"></div>
         </div>
-        <div class="card-content">
-          <div class="card-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-              <path d="M10 20H14M10 20V14H14V20M10 20H6M14 20H18M6 20V10M6 20H4M18 20V14M18 20H20M18 14H20V6H14V10M14 10H10V6H4V10M14 10V14M10 6H6M10 6V10M6 10H10" 
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <div class="topo-dots">
+          <div class="topo-dot"></div>
+          <div class="topo-dot"></div>
+          <div class="topo-dot"></div>
+          <div class="topo-dot"></div>
+          <div class="topo-dot"></div>
+          <div class="topo-dot"></div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="stats-content">
+        <div class="stats-header">
+          <div class="stats-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" />
             </svg>
+            <span>Achievements</span>
           </div>
-          <div class="card-number">
-            <span class="number-counter" data-count="200">0</span>
-            <span class="number-plus">+</span>
+          <h2 class="stats-title">Where <span class="text-gradient">Numbers</span> Tell Our Story</h2>
+          <p class="stats-subtitle">
+            Quantifying excellence through years of dedicated service and successful deliveries
+          </p>
+        </div>
+
+        <div class="stats-grid">
+          <!-- Project Card -->
+          <div class="stat-card">
+            <div class="card-topography">
+              <div class="card-wave"></div>
+              <div class="card-dot"></div>
+            </div>
+            <div class="card-content">
+              <div class="card-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M10 20H14M10 20V14H14V20M10 20H6M14 20H18M6 20V10M6 20H4M18 20V14M18 20H20M18 14H20V6H14V10M14 10H10V6H4V10M14 10V14M10 6H6M10 6V10M6 10H10"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="card-number">
+                <span class="number-counter" data-count="200">0</span>
+                <span class="number-plus">+</span>
+              </div>
+              <h3 class="card-title">Projects Delivered</h3>
+              <p class="card-desc">Successful implementations across industries</p>
+              <div class="card-glow"></div>
+            </div>
           </div>
-          <h3 class="card-title">Projects Delivered</h3>
-          <p class="card-desc">Successful implementations across industries</p>
-          <div class="card-glow"></div>
+
+          <!-- Clients Card -->
+          <div class="stat-card">
+            <div class="card-topography">
+              <div class="card-wave"></div>
+              <div class="card-dot"></div>
+            </div>
+            <div class="card-content">
+              <div class="card-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13M16 3.13C16.8604 3.3503 17.623 3.8507 18.1676 4.55231C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89317 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="card-number">
+                <span class="number-counter" data-count="50">0</span>
+                <span class="number-plus">+</span>
+              </div>
+              <h3 class="card-title">Happy Clients</h3>
+              <p class="card-desc">Satisfied businesses worldwide</p>
+              <div class="card-glow"></div>
+            </div>
+          </div>
+
+          <!-- Experience Card -->
+          <div class="stat-card">
+            <div class="card-topography">
+              <div class="card-wave"></div>
+              <div class="card-dot"></div>
+            </div>
+            <div class="card-content">
+              <div class="card-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 8V12L15 15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="card-number">
+                <span class="number-counter" data-count="5">0</span>
+                <span class="number-plus">+</span>
+              </div>
+              <h3 class="card-title">Years Experience</h3>
+              <p class="card-desc">Of technical excellence & innovation</p>
+              <div class="card-glow"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="stats-decoration">
+          <div class="deco-line"></div>
+          <div class="deco-circle circle-1"></div>
+          <div class="deco-circle circle-2"></div>
         </div>
       </div>
-
-      <!-- Clients Card -->
-      <div class="stat-card">
-        <div class="card-topography">
-          <div class="card-wave"></div>
-          <div class="card-dot"></div>
-        </div>
-        <div class="card-content">
-          <div class="card-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-              <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13M16 3.13C16.8604 3.3503 17.623 3.8507 18.1676 4.55231C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89317 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z" 
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="card-number">
-            <span class="number-counter" data-count="50">0</span>
-            <span class="number-plus">+</span>
-          </div>
-          <h3 class="card-title">Happy Clients</h3>
-          <p class="card-desc">Satisfied businesses worldwide</p>
-          <div class="card-glow"></div>
-        </div>
-      </div>
-
-      <!-- Experience Card -->
-      <div class="stat-card">
-        <div class="card-topography">
-          <div class="card-wave"></div>
-          <div class="card-dot"></div>
-        </div>
-        <div class="card-content">
-          <div class="card-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-              <path d="M12 8V12L15 15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" 
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="card-number">
-            <span class="number-counter" data-count="5">0</span>
-            <span class="number-plus">+</span>
-          </div>
-          <h3 class="card-title">Years Experience</h3>
-          <p class="card-desc">Of technical excellence & innovation</p>
-          <div class="card-glow"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Decorative Elements -->
-    <div class="stats-decoration">
-      <div class="deco-line"></div>
-      <div class="deco-circle circle-1"></div>
-      <div class="deco-circle circle-2"></div>
-    </div>
-  </div>
-</section>
-
-
-
-
-
-
-
+    </section>
     <!-- SERVICES -->
     <section class="industries-section fade-section">
       <div class="corner-shape"></div>
@@ -552,9 +541,9 @@
           transform it into a scalable digital solution.
         </p>
 
-           <button class="cta-btn" @click="showModal = true">
-  Get Started →
-</button>
+        <button class="cta-btn" @click="showModal = true">
+          Get Started →
+        </button>
 
       </div>
     </section>
@@ -562,7 +551,7 @@
     <!-- CONTACT Modal -->
 
 
-<ContactModal :show="showModal" @close="showModal = false" />
+    <ContactModal :show="showModal" @close="showModal = false" />
 
 
 
@@ -611,10 +600,13 @@
         <h4>Stay Updated</h4>
         <p>Get product updates & company news directly in your inbox.</p>
 
-        <form class="newsletter-form" @submit.prevent="subscribe">
-          <input type="email" placeholder="Enter your email address" required />
-          <button type="submit">Subscribe</button>
+        <form class="newsletter-form" @submit.prevent="subscribeNewsletter">
+          <input type="email" placeholder="Enter Email Address" v-model="email" required />
+          <button type="submit" :disabled="isSubmitting">
+            {{ isSubmitting ? 'SUBMITTING...' : 'SUBSCRIBE' }}
+          </button>
         </form>
+
       </div>
 
     </section>
@@ -638,6 +630,31 @@ import android from '@/assets/tech/android.svg'
 import apple from '@/assets/tech/apple.svg'
 import mysql from '@/assets/tech/mysql.svg'
 import docker from '@/assets/tech/docker.svg'
+
+const email = ref('')
+const isSubmitting = ref(false)
+
+const subscribeNewsletter = async () => {
+  if (!email.value) {
+    alert('Please enter your email')
+    return
+  }
+
+  isSubmitting.value = true
+
+  try {
+    await axios.post('/api/auth/newsletter/subscribe', {
+      email: email.value
+    })
+
+    alert('Subscribed successfully! Check your email.')
+    email.value = ''
+  } catch (error) {
+    alert(error.response?.data?.message || 'Subscription failed')
+  } finally {
+    isSubmitting.value = false
+  }
+}
 
 const techs = [
   { name: 'PHP', icon: php },
@@ -705,9 +722,9 @@ let statsAnimated = false
 function animateCount(target, element, speed = 20) {
   let count = 0
   const step = Math.ceil(target / 60)
-  
+
   if (!element) return
-  
+
   const timer = setInterval(() => {
     count += step
     if (count >= target) {
@@ -721,10 +738,10 @@ function animateCount(target, element, speed = 20) {
 
 const initStatsCounters = () => {
   const counters = document.querySelectorAll('.number-counter')
-  
+
   counters.forEach(counter => {
     const target = parseInt(counter.getAttribute('data-count'))
-    
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -736,20 +753,20 @@ const initStatsCounters = () => {
         }
       })
     })
-    
+
     observer.observe(counter)
   })
 }
 
 const setupCardHover = () => {
   const cards = document.querySelectorAll('.stat-card')
-  
+
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect()
       const x = ((e.clientX - rect.left) / card.clientWidth) * 100
       const y = ((e.clientY - rect.top) / card.clientHeight) * 100
-      
+
       card.style.setProperty('--x', `${x}%`)
       card.style.setProperty('--y', `${y}%`)
     })
@@ -778,11 +795,11 @@ onMounted(() => {
     ([entry]) => {
       if (entry.isIntersecting && !statsAnimated) {
         statsAnimated = true
-        
+
         // Initialize new stats counters
         initStatsCounters()
         setupCardHover()
-        
+
         observer.disconnect()
       }
     },

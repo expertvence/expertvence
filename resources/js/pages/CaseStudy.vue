@@ -241,7 +241,7 @@
             Let's discuss how we can help bring your vision to life with our expertise and experience.
           </p>
           <div class="cta__actions">
-            <button class="btn btn--primary btn--lg" @click="contactUs">
+            <button class="btn btn--primary btn--lg" @click="openContactModal">
               Start a Conversation
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -261,17 +261,22 @@
         </div>
       </div>
     </section>
+
   </div>
+        <!-- Contact Modal Component -->
+  <ContactModal v-if="showContactModal" :show="showContactModal" @close="closeContactModal" />
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import ContactModal from '@/components/ContactModal.vue'
 
 const route = useRoute()
 const router = useRouter()
 const projectId = ref(parseInt(route.params.id) || 1)
 const isDownloading = ref(false)
+const showContactModal = ref(false)
 
 // Project images based on project ID
 const projectImages = computed(() => {
@@ -413,7 +418,7 @@ const projectsData = {
     clientName: 'John Anderson',
     clientPosition: 'CTO, Enterprise Solutions Inc.',
     // Real demo URLs - Replace these with actual demo links
-    liveDemoUrl: 'https://demo.enterprise-saas.example.com',
+    liveDemoUrl: 'https://chat.deepseek.com/',
     // Secure PDF links using Google Drive viewer or actual PDF URLs
     pdfUrl: 'https://drive.google.com/file/d/1xJ3qf3vZ8k9XwQ5mR2nP7cL4sT6yB8dE/view?usp=sharing'
   },
@@ -514,8 +519,13 @@ const goBack = () => {
   router.back()
 }
 
-const contactUs = () => {
-  router.push({ name: 'Contact' })
+
+const openContactModal = () => {
+  showContactModal.value = true
+}
+
+const closeContactModal = () => {
+  showContactModal.value = false
 }
 
 // Secure PDF download function
