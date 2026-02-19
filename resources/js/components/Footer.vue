@@ -2,22 +2,36 @@
   <footer class="footer">
     <div class="footer-container">
 
-      <!-- BRAND -->
-      <div class="footer-brand">
-        <h2>ExpertVence</h2>
-        <p>
-          Fuel an idea with technology & build scalable,
-          secure and modern software solutions.
-        </p>
+    <!-- BRAND -->
+<div class="footer-brand">
+  <h2 class="brand-title">ExpertVence</h2>
 
-        <div class="socials">
-          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="facebook">f</a>
-          <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="linkedin">in</a>
-          <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" class="twitter">x</a>
-          <a href="https://www.pinterest.com/yourprofile" target="_blank" rel="noopener noreferrer" class="pinterest">p</a>
-        </div>
+  <span class="brand-slogan">Where Code Meets Expertise</span>
 
-      </div>
+  <p class="brand-description">
+    Custom Software, Apps & Digital Solutions.
+  </p>
+
+<div class="socials">
+  <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="social facebook">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+
+  <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="social linkedin">
+    <i class="fab fa-linkedin-in"></i>
+  </a>
+
+  <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" class="social twitter">
+    <i class="fab fa-x-twitter"></i>
+  </a>
+
+  <a href="https://www.pinterest.com/yourprofile" target="_blank" rel="noopener noreferrer" class="social pinterest">
+    <i class="fab fa-pinterest-p"></i>
+  </a>
+</div>
+
+</div>
+
 
       <!-- EXPLORE -->
       <div class="footer-links">
