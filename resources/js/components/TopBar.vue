@@ -47,11 +47,12 @@
     </router-link>
   </template>
 
-  <div class="socials">
-    <a href="#" class="linkedin">in</a>
-    <a href="#" class="facebook">f</a>
-    <a href="#" class="twitter">x</a>
-  </div>
+<div class="socials">
+  <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="linkedin">in</a>
+  <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="facebook">f</a>
+  <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" class="twitter">x</a>
+</div>
+
 </div>
 
 
@@ -79,6 +80,8 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
 })
+
+
 
 // 🔥 auth state
 const isLoggedIn = computed(() => auth.isLoggedIn)

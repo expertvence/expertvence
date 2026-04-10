@@ -14,6 +14,7 @@ class Contact extends Model
         'country_name', 'country_iso',
         'interest', 'message',
         'has_whatsapp', 'has_telegram',
-        'telegram_username'
+        'telegram_username',
+        'agreed_terms', // ✅ ADD THIS
     ];
 }

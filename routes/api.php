@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\NewsletterController;
 
 
 Route::prefix('auth')->group(function () {
@@ -17,6 +18,7 @@ Route::prefix('auth')->group(function () {
     Route::get('/me', [AuthController::class, 'me'])->middleware('auth:api');
     Route::post('/contact', [ContactController::class, 'store']);
     Route::get('/detect-country', [ContactController::class, 'detectCountry']);
+    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe']);
 });
 
 

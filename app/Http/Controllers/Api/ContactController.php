@@ -8,6 +8,9 @@ use App\Models\Contact;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactNotification;
 use Stevebauman\Location\Facades\Location;
+use App\Mail\ContactConfirmation; // ✅ THIS WAS MISSING
+use Illuminate\Support\Facades\Http;
+
 
 class ContactController extends Controller
 {
@@ -49,37 +52,50 @@ class ContactController extends Controller
     /**
      * Store contact form submission
      */
-    public function store(Request $request)
-    {
-        \Log::info('Contact form payload', $request->all());
+   public function store(Request $request)
+{
+    // Validate required fields first
+    $validated = $request->validate([
+        'name' => 'required',
+        'email' => 'required|email',
+        'phone_number' => 'required',
+        'dial_code' => 'required',
+        'country_name' => 'required',
+        'country_iso' => 'required',
+        'interest' => 'required',
+        'message' => 'required',
+        'has_whatsapp' => 'boolean',
+        'has_telegram' => 'boolean',
+        'telegram_username' => 'nullable|string',
+        'agreed_terms' => 'required|boolean|accepted', // ✅ NEW
+        'recaptcha_token' => 'required|string',
+    ]);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone_number' => 'required|string|max:50',
-            'dial_code' => 'required|string|max:10',
-            'country_name' => 'required|string|max:255',
-            'country_iso' => 'required|string|max:10',
-            'interest' => 'required|string|max:255',
-            'message' => 'required|string',
-            'has_whatsapp' => 'boolean',
-            'has_telegram' => 'boolean',
-            'telegram_username' => 'nullable|string|max:255',
-        ]);
+    // Verify reCAPTCHA v3
+    $recaptcha_secret = env('RECAPTCHA_SECRET_KEY');
+    $recaptcha_response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+        'secret' => $recaptcha_secret,
+        'response' => $validated['recaptcha_token']
+    ])->json();
 
-        // Save to database
-        $contact = Contact::create($validated);
+    \Log::info('reCAPTCHA response', $recaptcha_response); // debug
 
-        \Log::info('Contact saved', ['id' => $contact->id]);
-
-        try {
-            // Send email
-            Mail::to(config('mail.from.address'))->send(new ContactNotification($contact));
-            \Log::info('Contact mail sent', ['id' => $contact->id]);
-        } catch (\Throwable $e) {
-            \Log::error('Contact mail failed', ['error' => $e->getMessage()]);
-        }
-
-        return response()->json(['success' => true]);
+    if (!($recaptcha_response['success'] ?? false) || ($recaptcha_response['score'] ?? 0) < 0.5) {
+        return response()->json([
+            'message' => 'reCAPTCHA validation failed. Please try again.'
+        ], 422);
     }
+// Merge dial code + phone number like before
+    $validated['phone_number'] = $validated['dial_code'] . $validated['phone_number'];
+
+    // Store contact
+    $contact = Contact::create($validated);
+
+    // Send emails
+    Mail::to(config('mail.from.address'))->queue(new ContactNotification($contact));
+    Mail::to($contact->email)->queue(new ContactConfirmation($contact));
+
+    return response()->json(['success' => true, 'message' => 'Message sent successfully!']);
+}
+
 }
