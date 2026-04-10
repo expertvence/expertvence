@@ -1,7 +1,6 @@
 /* ================= NAVBAR ================= */
 .navbar {
-  /* display: flex; */
-  display: none;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 18px 48px;
@@ -123,11 +122,7 @@
     left: 0;
     width: 100%;
     z-index: 2000;
-    /* margin-top: 100px; */
-  }
-
-  .desktop-menu {
-    display: none !important; /* 🔥 FIX */
+    margin-top: 100px;
   }
 }
 
