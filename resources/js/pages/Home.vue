@@ -448,6 +448,7 @@
 
 
     <!-- PORTFOLIO -->
+    <!-- PORTFOLIO -->
     <section class="projects-v2">
       <div class="projects-header">
         <span class="tag">PROJECT HIGHLIGHTS</span>
@@ -461,10 +462,9 @@
         <!-- CARD 1 -->
         <div class="project-card">
           <div class="project-thumb">
-            <img src="" alt="Education Platform">
+            <img src="https://placehold.co/600x400/0f172a/38bdf8?text=Education+Platform" alt="Education Consultancy Platform dashboard preview" loading="lazy">
             <span class="project-badge">Education</span>
           </div>
-
           <div class="project-body">
             <h3>Education Consultancy Platform</h3>
             <div class="tech-tags">
@@ -472,8 +472,7 @@
               <span>Vue</span>
               <span>Automation</span>
             </div>
-
-            <a href="#" class="read-more">
+            <a href="#" class="read-more" aria-label="Read more about Education Consultancy Platform">
               Read More <span>→</span>
             </a>
           </div>
@@ -482,10 +481,9 @@
         <!-- CARD 2 -->
         <div class="project-card">
           <div class="project-thumb">
-            <img src="" alt="Travel Website">
+            <img src="https://placehold.co/600x400/0f172a/3b82f6?text=WAFIMA+Travel" alt="WAFIMA Tour and Travel website preview" loading="lazy">
             <span class="project-badge blue">Travel</span>
           </div>
-
           <div class="project-body">
             <h3>WAFIMA – Tour & Travel Website</h3>
             <div class="tech-tags">
@@ -493,8 +491,7 @@
               <span>Elementor</span>
               <span>CMS</span>
             </div>
-
-            <a href="#" class="read-more">
+            <a href="#" class="read-more" aria-label="Read more about WAFIMA Travel website">
               Read More <span>→</span>
             </a>
           </div>
@@ -503,10 +500,9 @@
         <!-- CARD 3 -->
         <div class="project-card">
           <div class="project-thumb">
-            <img src="" alt="EdTech Platform">
+            <img src="https://placehold.co/600x400/0f172a/8b5cf6?text=Classter+EdTech" alt="Classter Education Technology platform preview" loading="lazy">
             <span class="project-badge purple">EdTech</span>
           </div>
-
           <div class="project-body">
             <h3>Classter – Education Technology Platform</h3>
             <div class="tech-tags">
@@ -514,8 +510,7 @@
               <span>WordPress</span>
               <span>CMS</span>
             </div>
-
-            <a href="#" class="read-more">
+            <a href="#" class="read-more" aria-label="Read more about Classter EdTech platform">
               Read More <span>→</span>
             </a>
           </div>
