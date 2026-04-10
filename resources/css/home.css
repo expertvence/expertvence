@@ -2109,3 +2109,132 @@
     font-size: 12px;
   }
 }
+
+
+/* Fix 1: Project card background */
+.project-card {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+/* Fix 2: FAQ section background */
+.faq-section {
+  background: #0f172a;  /* Fixed from #004d66 */
+  padding: 90px 20px;
+}
+
+/* Fix 3: Tech item hover (remove comment) */
+.tech-item:hover img {
+  transform: scale(1.35);
+}
+
+/* Fix 4: Newsletter error/success messages */
+.error-message {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 8px;
+  text-align: left;
+}
+
+.success-message {
+  color: #10b981;
+  font-size: 12px;
+  margin-top: 8px;
+  text-align: left;
+}
+
+.newsletter-form input.error {
+  border-color: #ef4444;
+}
+
+/* Fix 5: Hero slide contour types - ensure all three exist */
+.contour-flow::before,
+.contour-grid::before,
+.contour-rise::before {
+  /* Your existing styles are fine */
+}
+
+/* Fix 6: About section badge improvement */
+.about-badge {
+  background: #ef4444;
+  padding: 20px 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(239,68,68,0.3);
+}
+
+/* Fix 7: Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fix 8: Improve focus states for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Fix 9: Loading state for newsletter button */
+.newsletter-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Fix 10: Project badges consistency */
+.project-badge {
+  backdrop-filter: blur(8px);
+  background: linear-gradient(135deg, rgba(239,68,68,0.9), rgba(239,68,68,0.6));
+  box-shadow: 0 0 20px rgba(239,68,68,0.6);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Fix 11: Read more link enhancement */
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #ef4444;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: gap 0.3s ease;
+}
+
+.read-more:hover {
+  gap: 8px;
+}
+
+/* Fix 12: Service card list items */
+.service-card li {
+  display: flex;
+  align-items: center;
+  gap: 12px;  /* Reduced from 25px for better spacing */
+  font-size: 14px;
+  color: #cbd5f5;
+  margin-bottom: 12px;
+}
+
+/* Fix 13: Why USP card enhancements */
+.why-usp-card {
+  transition: all 0.35s ease;
+}
+
+.why-usp-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(255,77,77,0.18),
+              inset 0 0 0 1px rgba(255,77,77,0.25);
+}
+
+/* Fix 14: CTA button focus */
+.cta-btn:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
