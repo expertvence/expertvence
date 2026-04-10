@@ -16,10 +16,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     >
-
-    @vite(['resources/js/app.js'])
+        @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
-<body>
+<body class="{{ app()->isProduction() ? 'vite-build' : '' }}">
+
     <div id="app"></div>
 </body>
 </html>

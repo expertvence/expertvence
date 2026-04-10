@@ -626,34 +626,22 @@
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import ContactModal from '@/components/ContactModal.vue'
 
-import php from '@/assets/tech/php.svg'
-import python from '@/assets/tech/python.svg'
-import laravel from '@/assets/tech/laravel.svg'
-import django from '@/assets/tech/django.svg'
-import wordpress from '@/assets/tech/wordpress.svg'
-import react from '@/assets/tech/react.svg'
-import vue from '@/assets/tech/vuejs.svg'
-import flutter from '@/assets/tech/flutter.svg'
-import android from '@/assets/tech/android.svg'
-import apple from '@/assets/tech/apple.svg'
-import mysql from '@/assets/tech/mysql.svg'
-import docker from '@/assets/tech/docker.svg'
+const getTechIcon = (name) => new URL(`@/assets/tech/${name}.svg`, import.meta.url).href
 
 const techs = [
-  { name: 'PHP', icon: php },
-  { name: 'Python', icon: python },
-  { name: 'Laravel', icon: laravel },
-  { name: 'Django', icon: django },
-  { name: 'WordPress', icon: wordpress },
-  { name: 'Vue', icon: vue },
-  { name: 'React', icon: react },
-  { name: 'Flutter', icon: flutter },
-  { name: 'Android', icon: android },
-  { name: 'iOS', icon: apple },
-  { name: 'MySQL', icon: mysql },
-  { name: 'Docker', icon: docker },
+  { name: 'PHP',       icon: getTechIcon('php')       },
+  { name: 'Python',    icon: getTechIcon('python')    },
+  { name: 'Laravel',   icon: getTechIcon('laravel')   },
+  { name: 'Django',    icon: getTechIcon('django')    },
+  { name: 'WordPress', icon: getTechIcon('wordpress') },
+  { name: 'React',     icon: getTechIcon('react')     },
+  { name: 'Vue',       icon: getTechIcon('vuejs')     },
+  { name: 'Flutter',   icon: getTechIcon('flutter')   },
+  { name: 'Android',   icon: getTechIcon('android')   },
+  { name: 'iOS',       icon: getTechIcon('apple')     },
+  { name: 'MySQL',     icon: getTechIcon('mysql')     },
+  { name: 'Docker',    icon: getTechIcon('docker')    },
 ]
-
 /* ================= HERO SLIDER ================= */
 
 const slides = [
