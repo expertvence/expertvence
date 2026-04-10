@@ -48,9 +48,9 @@
   </template>
 
 <div class="socials">
-  <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="linkedin">in</a>
-  <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="facebook">f</a>
-  <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" class="twitter">x</a>
+  <a href="#" target="_blank" rel="noopener noreferrer" class="linkedin">in</a>
+  <a href="https://www.facebook.com/profile.php?id=100079079156709" target="_blank" rel="noopener noreferrer" class="facebook">f</a>
+  <a href="#" target="_blank" rel="noopener noreferrer" class="twitter">x</a>
 </div>
 
 </div>

@@ -5,18 +5,20 @@
   align-items: center;
   padding: 18px 48px;
   background: linear-gradient(135deg, #020617, #0f172a);
-  position: fixed;   /* 🔥 changed */
-  top: auto;    /* 🔥 changed */
+  position: fixed;
+  /* 🔥 changed */
+  top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  margin-top: 30px;  /* 🔥 changed */
-  
+  margin-top: 30px;
+  /* TopBar height */
+  transition: margin-top 0.3s ease, background 0.3s ease, transform 0.3s ease;
 }
 
 /* when scrolled */
 .navbar.navbar-scrolled {
-  top: 0;
+  margin-top: 0;
 }
 
 
@@ -96,10 +98,12 @@
 .slide-leave-active {
   transition: all 0.25s ease;
 }
+
 .slide-enter-from {
   opacity: 0;
   transform: translateY(-10px);
 }
+
 .slide-leave-to {
   opacity: 0;
   transform: translateY(-10px);
@@ -118,11 +122,12 @@
   .navbar {
     padding: 16px 20px;
     position: fixed;
-    top: 0px; /* topbar height */
+    top: 0px;
     left: 0;
     width: 100%;
     z-index: 2000;
-    margin-top: 100px;
+    margin-top: 80px;
+    /* Matches strict height of mobile topbar */
   }
 }
 
@@ -282,11 +287,11 @@
     left: 50%;
     transform: translateX(-50%) translateY(10px);
   }
-  
+
   .dropdown-parent:hover .services-dropdown {
     transform: translateX(-50%) translateY(0);
   }
-  
+
   .dropdown-grid {
     gap: 24px;
   }
@@ -302,11 +307,11 @@
   .services-dropdown {
     display: none;
   }
-  
+
   .dropdown-parent {
     position: static;
   }
-  
+
   .mobile-services-submenu {
     list-style: none;
     padding: 12px 0 12px 24px;
@@ -315,17 +320,17 @@
     border-left: 2px solid #38bdf8;
     border-radius: 0 8px 8px 0;
   }
-  
+
   .mobile-services-submenu li {
     margin-bottom: 10px;
   }
-  
+
   .mobile-services-submenu a {
     color: #94a3b8;
     font-size: 14px;
     text-decoration: none;
   }
-  
+
   .explore-link-mobile {
     color: #38bdf8 !important;
     font-weight: 600;
@@ -352,11 +357,11 @@
   .services-dropdown {
     width: 800px;
   }
-  
+
   .dropdown-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .services-dropdown::before {
     left: 40%;
   }

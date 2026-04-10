@@ -7,7 +7,7 @@
   align-items: center;
   padding: 0px 48px;
   font-size: 13px;
-  border-bottom: 1.5px solid rgba(255,255,255,0.08);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.08);
   position: fixed;
   top: 0;
   left: 0;
@@ -25,12 +25,10 @@
   left: 20%;
   width: 60%;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #38bdf8,
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      #38bdf8,
+      transparent);
   opacity: 0.25;
 }
 
@@ -85,13 +83,11 @@
   transition: color 0.25s ease;
 }
 
-.logout-link
-{
+.logout-link {
   color: rgb(255, 153, 0);
 }
 
-.name-link
-{
+.name-link {
   color: #1bd602;
 }
 
@@ -119,14 +115,13 @@
 }
 
 /* ================= SOCIAL ICONS ================= */
-.socials {
+.topbar .socials {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 1.2rem;
 }
 
-.socials a {
+.topbar .socials a {
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -135,30 +130,37 @@
   justify-content: center;
   font-size: 12px;
   font-weight: 700;
-  color: #020617;
+  text-decoration: none;
   transition: all 0.3s ease;
-}
-
-/* brand hover colors */
-.socials .linkedin:hover {
-  background: #0a66c2;
   color: #fff;
 }
 
-.socials .facebook:hover {
+/* Brand Default Colors (Desktop & Mobile) */
+.topbar .socials .linkedin {
+  background: #0077b5;
+}
+
+.topbar .socials .facebook {
   background: #1877f2;
-  color: #fff;
 }
 
-.socials .twitter:hover {
-  background: #000;
-  color: #fff;
+.topbar .socials .twitter {
+  background: #1da1f2;
+  border: none;
+}
+
+/* Hover effects */
+.topbar .socials a:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
 }
 
 .flag {
   display: inline-block;
-  width: 25px;     /* flag width */
-  height: 15px;    /* 3:2 ratio */
+  width: 25px;
+  /* flag width */
+  height: 15px;
+  /* 3:2 ratio */
   border-radius: 2px;
   vertical-align: middle;
   position: relative;
@@ -177,7 +179,8 @@
   position: absolute;
   top: 50%;
   left: 45%;
-  width: 10px;       /* circle size */
+  width: 10px;
+  /* circle size */
   height: 10px;
   background-color: #f42a41;
   border-radius: 50%;
@@ -186,26 +189,72 @@
 
 /* full flag wave effect using skew/rotate */
 @keyframes flag-wave {
-  0%   { transform: rotate(0deg) skewX(0deg); }
-  10%  { transform: rotate(1deg) skewX(3deg); }
-  20%  { transform: rotate(-1deg) skewX(-3deg); }
-  30%  { transform: rotate(2deg) skewX(4deg); }
-  40%  { transform: rotate(-2deg) skewX(-4deg); }
-  50%  { transform: rotate(1deg) skewX(2deg); }
-  60%  { transform: rotate(-1deg) skewX(-2deg); }
-  70%  { transform: rotate(2deg) skewX(3deg); }
-  80%  { transform: rotate(-2deg) skewX(-3deg); }
-  90%  { transform: rotate(1deg) skewX(1deg); }
-  100% { transform: rotate(0deg) skewX(0deg); }
+  0% {
+    transform: rotate(0deg) skewX(0deg);
+  }
+
+  10% {
+    transform: rotate(1deg) skewX(3deg);
+  }
+
+  20% {
+    transform: rotate(-1deg) skewX(-3deg);
+  }
+
+  30% {
+    transform: rotate(2deg) skewX(4deg);
+  }
+
+  40% {
+    transform: rotate(-2deg) skewX(-4deg);
+  }
+
+  50% {
+    transform: rotate(1deg) skewX(2deg);
+  }
+
+  60% {
+    transform: rotate(-1deg) skewX(-2deg);
+  }
+
+  70% {
+    transform: rotate(2deg) skewX(3deg);
+  }
+
+  80% {
+    transform: rotate(-2deg) skewX(-3deg);
+  }
+
+  90% {
+    transform: rotate(1deg) skewX(1deg);
+  }
+
+  100% {
+    transform: rotate(0deg) skewX(0deg);
+  }
 }
 
 /* circle moves slightly with flag motion */
 @keyframes circle-wave {
-  0%   { transform: translate(-50%, -50%) translateX(0); }
-  25%  { transform: translate(-50%, -50%) translateX(1px); }
-  50%  { transform: translate(-50%, -50%) translateX(0); }
-  75%  { transform: translate(-50%, -50%) translateX(-1px); }
-  100% { transform: translate(-50%, -50%) translateX(0); }
+  0% {
+    transform: translate(-50%, -50%) translateX(0);
+  }
+
+  25% {
+    transform: translate(-50%, -50%) translateX(1px);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) translateX(0);
+  }
+
+  75% {
+    transform: translate(-50%, -50%) translateX(-1px);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) translateX(0);
+  }
 }
 
 
@@ -215,21 +264,24 @@
   .topbar {
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    padding: 10px 20px;
-    height: auto;
+    justify-content: center;
+    gap: 8px;
+    padding: 5px 10px;
+    height: 80px;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 998;
+    overflow: hidden;
   }
 
   .topbar-left,
   .topbar-right {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    white-space: nowrap;
     gap: 10px;
   }
 
@@ -237,25 +289,9 @@
     display: none;
   }
 
-  .socials {
-    margin-bottom: 1.2rem;
-    margin-left: 1rem;
+  .topbar .socials {
+    /* No margins needed */
   }
-
-  .socials .linkedin{
-  background: #0a66c2;
-  color: #fff;
-}
-
-.socials .facebook {
-  background: #1877f2;
-  color: #fff;
-}
-
-.socials .twitter {
-  background: #000;
-  color: #fff;
-}
 }
 
 .topbar {
@@ -263,6 +299,7 @@
   padding-top: 0px;
 }
 
-
-
-
+.topbar.topbar-hide {
+  transform: translateY(-100%);
+  opacity: 0;
+}

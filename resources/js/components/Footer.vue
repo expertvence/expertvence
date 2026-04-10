@@ -13,19 +13,19 @@
   </p>
 
 <div class="socials">
-  <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="social facebook">
+  <a href="https://www.facebook.com/profile.php?id=100079079156709" target="_blank" rel="noopener noreferrer" class="social facebook">
     <i class="fab fa-facebook-f"></i>
   </a>
 
-  <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" class="social linkedin">
+  <a href="#" target="_blank" rel="noopener noreferrer" class="social linkedin">
     <i class="fab fa-linkedin-in"></i>
   </a>
 
-  <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" class="social twitter">
+  <a href="#" target="_blank" rel="noopener noreferrer" class="social twitter">
     <i class="fab fa-x-twitter"></i>
   </a>
 
-  <a href="https://www.pinterest.com/yourprofile" target="_blank" rel="noopener noreferrer" class="social pinterest">
+  <a href="#" target="_blank" rel="noopener noreferrer" class="social pinterest">
     <i class="fab fa-pinterest-p"></i>
   </a>
 </div>
