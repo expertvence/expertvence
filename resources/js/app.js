@@ -8,7 +8,13 @@ import '../css/whatsapp-float.css'
 
 const app = createApp(MainLayout)
 
-app.use(createPinia())   // 🔥 REGISTER PINIA
+const pinia = createPinia()
+app.use(pinia)   // 🔥 REGISTER PINIA
 app.use(router)
+
+// ✅ Initialize auth store
+import { useAuthStore } from './stores/auth'
+const authStore = useAuthStore(pinia)
+authStore.init()
 
 app.mount('#app')

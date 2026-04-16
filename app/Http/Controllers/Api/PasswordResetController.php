@@ -45,20 +45,21 @@ class PasswordResetController extends Controller
     // 🔹 RESET PASSWORD
     public function reset(Request $request)
     {
-      $record = PasswordOtp::where('email', $request->email)
-    ->where('otp', $request->otp)
-    ->first();
-
-if (!$record || $record->expires_at->isPast()) {
-    return response()->json([
-        'message' => 'Invalid or expired OTP',
-    ], 422);
-}
-
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'otp' => 'required|string',
+            'password' => 'required|min:6|confirmed',
+        ]);
 
         $record = PasswordOtp::where('email', $request->email)
             ->where('otp', $request->otp)
             ->first();
+
+        if (!$record || $record->expires_at->isPast()) {
+            return response()->json([
+                'message' => 'Invalid or expired OTP',
+            ], 422);
+        }
 
         $user = User::where('email', $request->email)->first();
         $user->password = Hash::make($request->password);

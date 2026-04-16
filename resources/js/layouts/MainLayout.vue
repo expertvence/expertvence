@@ -1,12 +1,5 @@
 <template>
-  <TopBar />
-  <Navbar />
-  <main class="page-content">
-    <router-view />
-  </main>
-  <Footer />
-
-  <WhatsAppFloat />
+  <router-view />
 </template>
 
 <script setup>
@@ -34,11 +27,6 @@ import { contactInit } from '../scripts/contact'
 
 import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
-
-import Navbar from '../components/Navbar.vue'
-import Footer from '../components/Footer.vue'
-import TopBar from '../components/TopBar.vue'
-import WhatsAppFloat from '@/components/WhatsAppFloat.vue'
 
 const route = useRoute()
 

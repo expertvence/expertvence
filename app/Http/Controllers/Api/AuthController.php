@@ -27,6 +27,7 @@ public function register(Request $request)
         'password' => bcrypt($request->password),
         'email_verified_at' => null, // not verified yet
         'remember_token' => Str::random(60), // temporary token
+        'role' => 'user', // Default role
     ]);
 
     $verificationLink = url("/verify-email?token={$user->remember_token}&email={$user->email}");
@@ -102,6 +103,7 @@ public function login(Request $request)
         'user' => $user,
         'token_type' => 'Bearer',
         'expires_in' => auth('api')->factory()->getTTL() * 60,
+        'should_redirect_to_admin' => in_array($user->role, ['admin', 'super_admin']),
     ]);
 }
 

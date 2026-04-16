@@ -93,12 +93,15 @@ const verifiedMessage = ref('')
 
 // 🔹 Check query params on mount
 onMounted(() => {
-  // Clear previous auth state
-  auth.token = null
-  auth.user = null
-  auth.error = null
-  auth.loading = false
-  localStorage.removeItem('token')
+  // Only clear auth state if user is not logged in
+  if (!auth.isLoggedIn) {
+    auth.token = null
+    auth.user = null
+    auth.error = null
+    auth.loading = false
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+  }
 
   if (route.query.verified === 'true') {
     verifiedMessage.value = '✅ Email verified! You can login now.'
@@ -114,12 +117,8 @@ const submitLogin = async () => {
   auth.error = null
 
   try {
-    const res = await auth.login(form)
-    
-    // 🔹 Login checks token inside login
-    if (auth.token) {
-      router.push('/') // 🔥 Login success → Home
-    }
+    await auth.login(form)
+    // auth.login handles redirect based on role
   } catch (err) {
     auth.error =
       err.response?.data?.message || 'Login failed'

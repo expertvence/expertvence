@@ -15,34 +15,60 @@ import Register from './pages/Auth/Register.vue'
 import ForgotPassword from './pages/Auth/ForgotPassword.vue'
 import ResetPassword from './pages/Auth/ResetPassword.vue'
 
+/* Layouts */
+import PublicLayout from './layouts/PublicLayout.vue'
+import AdminLayout from './pages/Admin/AdminLayout.vue'
+
+/* Store */
+import { useAuthStore } from './stores/auth'
+
 /* Routes */
 const routes = [
-  { path: '/', component: Home },
-  { path: '/about', component: About },
-  { path: '/services', component: Services },
-  { path: '/services/:slug', component: ServiceDetail },
-  { path: '/portfolio', component: Portfolio },
-  { path: '/contact', component: Contact },
-  { path: '/gallery', component: Gallery },
-
   {
-    path: '/casestudy/:slug',
-    name: 'CaseStudy',
-    component: CaseStudy,
-    props: true,
+    path: '/',
+    component: PublicLayout,
+    children: [
+      { path: '', component: Home },
+      { path: 'about', component: About },
+      { path: 'services', component: Services },
+      { path: 'services/:slug', component: ServiceDetail },
+      { path: 'portfolio', component: Portfolio },
+      { path: 'contact', component: Contact },
+      { path: 'gallery', component: Gallery },
+      { path: 'casestudy/:slug', component: CaseStudy, props: true },
+      { path: 'login', component: Login },
+      { path: 'register', component: Register },
+      { path: 'forgot-password', component: ForgotPassword },
+      { path: 'reset-password', component: ResetPassword },
+      {
+        path: 'dashboard',
+        component: () => import('./pages/Dashboard.vue'),
+        meta: { auth: true },
+      },
+    ],
   },
 
-  /* Auth routes */
-  { path: '/login', component: Login },
-  { path: '/register', component: Register },
-  { path: '/forgot-password', component: ForgotPassword },
-  { path: '/reset-password', component: ResetPassword },
-
-  /* 🔐 Example protected route */
   {
-    path: '/dashboard',
-    component: () => import('./pages/Dashboard.vue'),
-    meta: { auth: true },
+    path: '/admin',
+    component: AdminLayout,
+    meta: { auth: true, admin: true },
+    children: [
+      {
+        path: '',
+        component: () => import('./pages/Admin/Dashboard.vue'),
+        meta: { title: 'Dashboard' },
+      },
+      {
+        path: 'users',
+        component: () => import('./pages/Admin/Users.vue'),
+        meta: { title: 'Users' },
+      },
+      {
+        path: 'settings',
+        component: () => import('./pages/Admin/Settings.vue'),
+        meta: { title: 'Settings' },
+      },
+    ],
   },
 ]
 
@@ -63,10 +89,13 @@ const router = createRouter({
 
 /* 🔐 AUTH GUARD */
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token')
+  // Get auth store instance
+  const authStore = useAuthStore()
 
-  if (to.meta.auth && !token) {
+  if (to.meta.auth && !authStore.isLoggedIn) {
     next('/login')
+  } else if (to.meta.admin && (!authStore.user || !['admin', 'super_admin'].includes(authStore.user.role))) {
+    next('/') // Redirect to home if not admin
   } else {
     next()
   }

@@ -10,16 +10,20 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
+
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
+        // Run admin seeder first to create admin and super admin users
+        $this->call(AdminUserSeeder::class);
+
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }

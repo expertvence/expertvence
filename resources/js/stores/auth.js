@@ -5,7 +5,7 @@ import router from '@/router'
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
-    token: localStorage.getItem('token'),
+    token: null,
     loading: false,
     error: null,
   }),
@@ -15,6 +15,24 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
+    // ✅ Initialize auth state from localStorage
+    init() {
+      const token = localStorage.getItem('token')
+      const user = localStorage.getItem('user')
+
+      if (token) {
+        this.token = token
+      }
+
+      if (user) {
+        try {
+          this.user = JSON.parse(user)
+        } catch (e) {
+          // Invalid JSON, clear it
+          localStorage.removeItem('user')
+        }
+      }
+    },
     // ✅ Login action
     async login(form) {
       this.loading = true
@@ -30,9 +48,16 @@ export const useAuthStore = defineStore('auth', {
         this.user = res.data.user
 
         localStorage.setItem('token', this.token)
+        localStorage.setItem('user', JSON.stringify(this.user))
 
-        // 🔥 LOGIN SUCCESS → HOME
-        router.push('/')
+        // 🔥 Check if user should be redirected to admin panel
+        if (res.data.should_redirect_to_admin) {
+          // Admin or Super Admin → Admin Panel
+          router.push('/admin')
+        } else {
+          // Regular user → Home/Dashboard
+          router.push('/')
+        }
       } catch (err) {
         this.error =
           err.response?.data?.message || 'Login failed'
@@ -67,6 +92,7 @@ export const useAuthStore = defineStore('auth', {
     // ✅ Logout action
     logout() {
       localStorage.removeItem('token')
+      localStorage.removeItem('user')
       this.token = null
       this.user = null
 
