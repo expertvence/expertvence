@@ -5,12 +5,14 @@
         <div class="contact-modal" :class="{ 'is-submitting': isSubmitting }">
           <div class="contact-wrapper">
             <!-- Form Container -->
-            <div class="contact-right">
+            <div class="contact-content-area">
               <div class="form-header">
-                <h1>KNOCK TO EXPERTVENCE</h1>
-                <p class="form-subtitle">Drop Your Smart Choice to Us</p>
-                <button class="close-btn" @click="$emit('close')">
-                  <span class="close-icon">✕</span>
+                <div class="header-titles">
+                  <h2>Knock to ExpertVence</h2>
+                  <p class="form-subtitle">Drop your project details to us and let's build together</p>
+                </div>
+                <button class="close-btn" @click="$emit('close')" aria-label="Close modal">
+                  ✕
                 </button>
               </div>
 
@@ -19,19 +21,27 @@
                   <!-- Name & Email -->
                   <div class="form-row">
                     <div class="form-group">
-                      <label>YOUR NAME</label>
+                      <label>Your Name</label>
                       <div class="input-wrapper">
-                        <input type="text" placeholder="WRITE YOUR NAME" required v-model="form.name"
-                          class="neon-input" />
-                        <div class="input-glow"></div>
+                        <input
+                          type="text"
+                          placeholder="Your full name"
+                          required
+                          v-model="form.name"
+                          class="modern-input"
+                        />
                       </div>
                     </div>
                     <div class="form-group">
-                      <label>EMAIL ADDRESS</label>
+                      <label>Email Address</label>
                       <div class="input-wrapper">
-                        <input type="email" placeholder="YOU@EXAMPLE.COM" required v-model="form.email"
-                          class="neon-input" />
-                        <div class="input-glow"></div>
+                        <input
+                          type="email"
+                          placeholder="you@example.com"
+                          required
+                          v-model="form.email"
+                          class="modern-input"
+                        />
                       </div>
                     </div>
                   </div>
@@ -39,7 +49,7 @@
                   <!-- Phone & Interest -->
                   <div class="form-row">
                     <div class="form-group">
-                      <label>PHONE NUMBER</label>
+                      <label>Phone Number</label>
                       <div class="phone-input-wrapper">
                         <div class="input-wrapper phone-combined-input">
                           <div class="country-selector-container">
@@ -49,18 +59,26 @@
                               <span class="dropdown-arrow">▼</span>
                             </div>
 
-                            <div v-if="showCountryList" class="country-dropdown neon-dropdown">
-                              <div v-for="c in filteredCountries" :key="c.iso" @click="selectCountry(c)"
-                                class="country-option">
+                            <div v-if="showCountryList" class="country-dropdown modern-dropdown">
+                              <div
+                                v-for="c in filteredCountries"
+                                :key="c.iso"
+                                @click="selectCountry(c)"
+                                class="country-option"
+                              >
                                 <img :src="c.flag" class="flag" />
                                 <span>{{ c.dial_code }} - {{ c.name }}</span>
                               </div>
                             </div>
                           </div>
 
-                          <input type="tel" class="neon-input phone-number-input" :placeholder="phonePlaceholder"
-                            required v-model="form.phone" />
-                          <div class="input-glow"></div>
+                          <input
+                            type="tel"
+                            class="modern-input phone-number-input"
+                            :placeholder="phonePlaceholder"
+                            required
+                            v-model="form.phone"
+                          />
                         </div>
                         <p v-if="phoneMeta.message" class="error-message">
                           {{ phoneMeta.message }}
@@ -69,41 +87,45 @@
                     </div>
 
                     <div class="form-group">
-                      <label>INTERESTED IN</label>
+                      <label>Interested In</label>
                       <div class="input-wrapper">
-                        <select required v-model="form.interest" class="neon-input">
-                          <option value="" disabled>SELECT AN OPTION</option>
-                          <option>BOOKKEEPING</option>
-                          <option>ACCOUNTING</option>
-                          <option>COMPANY FORMATION</option>
-                          <option>TAX SERVICES</option>
-                          <option>BUSINESS CONSULTING</option>
+                        <select required v-model="form.interest" class="modern-input modern-select">
+                          <option value="" disabled>Select an option</option>
+                          <option>Custom Software Development</option>
+                          <option>Cloud Migration &amp; DevOps</option>
+                          <option>Web &amp; SaaS Development</option>
+                          <option>Mobile App Development</option>
+                          <option>Ready Software Solutions</option>
+                          <option>IT Consulting &amp; Security</option>
                         </select>
-                        <div class="input-glow"></div>
                       </div>
                     </div>
                   </div>
 
                   <!-- Message -->
                   <div class="form-group">
-                    <label>HOW CAN WE HELP?</label>
+                    <label>How Can We Help?</label>
                     <div class="input-wrapper">
-                      <textarea placeholder="TELL US ABOUT YOUR PROJECT..." rows="3" required v-model="form.message"
-                        class="neon-input"></textarea>
-                      <div class="input-glow"></div>
+                      <textarea
+                        placeholder="Tell us about your project requirements..."
+                        rows="3"
+                        required
+                        v-model="form.message"
+                        class="modern-input"
+                      ></textarea>
                     </div>
                   </div>
 
                   <!-- Terms Agreement -->
                   <div class="form-group">
-                    <label class="checkbox-label neon-checkbox">
+                    <label class="checkbox-label modern-checkbox">
                       <input type="checkbox" v-model="form.agreed_terms" required />
                       <span class="checkmark"></span>
                       <span class="checkbox-text">
-                        I AGREE TO THE
-                        <a href="#" class="terms-link">TERMS & CONDITIONS</a>,
-                        <a href="#" class="terms-link">PRIVACY</a> AND
-                        <a href="#" class="terms-link">DATA PROTECTION POLICY</a>
+                        I agree to the
+                        <a href="#" class="terms-link">Terms &amp; Conditions</a>,
+                        <a href="#" class="terms-link">Privacy</a> and
+                        <a href="#" class="terms-link">Data Protection Policy</a>
                       </span>
                     </label>
                   </div>
@@ -111,9 +133,14 @@
                   <!-- Submit -->
                   <div class="submit-section-wrapper">
                     <div class="submit-section">
-                      <button type="submit" class="submit-btn neon-btn"
-                        :disabled="!phoneMeta.isValid || !form.agreed_terms || isSubmitting">
-                        <span class="btn-text">SEND MESSAGE</span>
+                      <button
+                        type="submit"
+                        class="submit-btn modern-btn"
+                        :disabled="!phoneMeta.isValid || !form.agreed_terms || isSubmitting"
+                      >
+                        <span class="btn-text">
+                          {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+                        </span>
                         <span class="btn-arrow">→</span>
                       </button>
                     </div>
@@ -126,7 +153,7 @@
           <div v-if="isSubmitting" class="submit-overlay">
             <div class="loader">
               <div class="loader-spinner"></div>
-              <div class="loader-text">TRANSMITTING...</div>
+              <div class="loader-text">Sending message...</div>
             </div>
           </div>
         </div>
@@ -135,7 +162,7 @@
 
     <!-- Custom Toast Notification -->
     <transition name="toast-slide">
-      <div v-if="showToast" class="neon-toast" :class="toastType">
+      <div v-if="showToast" class="modern-toast" :class="toastType">
         <div class="toast-content">
           <span class="toast-icon">{{ toastIcon }}</span>
           <div class="toast-text">
@@ -199,7 +226,6 @@ const toastIcon = computed(() => {
 
 // Toast functions
 const showNotification = (type, title, message, duration = 3000) => {
-  // Clear existing timeout
   if (toastTimeout.value) {
     clearTimeout(toastTimeout.value)
   }
@@ -210,7 +236,6 @@ const showNotification = (type, title, message, duration = 3000) => {
   toastDuration.value = duration
   showToast.value = true
   
-  // Auto close after duration
   toastTimeout.value = setTimeout(() => {
     closeToast()
   }, duration)
@@ -283,7 +308,6 @@ const loadRecaptcha = () => new Promise((resolve, reject) => {
   document.head.appendChild(script)
 })
 
-// Load reCAPTCHA and get token
 const getRecaptchaToken = async () => {
   return new Promise((resolve, reject) => {
     if (!window.grecaptcha) {
@@ -314,22 +338,19 @@ const getRecaptchaToken = async () => {
   });
 };
 
-// Form submit
 const handleSubmit = async () => {
   if (!phoneMeta.isValid) {
     showNotification('error', 'Validation Error', 'Please check your phone number')
     return;
   }
 
-  
-  emit('close'); // ✅ modal instant close
-  // 🔔 Step 1: Sending toast
-showNotification(
-  'success',
-  'Sending...',
-  'Your message is being transmitted',
-  999999 // long duration, manually replaced later
-);
+  emit('close');
+  showNotification(
+    'success',
+    'Sending...',
+    'Your message is being transmitted',
+    999999
+  );
   
   isSubmitting.value = true;
 
@@ -348,9 +369,6 @@ showNotification(
     phone_number: form.phone,
     interest: form.interest,
     message: form.message,
-    has_whatsapp: form.has_whatsapp,
-    has_telegram: form.has_telegram,
-    telegram_username: form.telegram_username,
     dial_code: selectedCountry.value.dial_code,
     country_name: selectedCountry.value.name,
     country_iso: selectedCountry.value.iso,
@@ -359,41 +377,30 @@ showNotification(
   };
 
   try {
-    const res = await axios.post('/api/auth/contact', payload);
+    await axios.post('/api/auth/contact', payload);
   
-
-    
-    // Show success toast
     showNotification(
-  'success',
-  'Message Sent!',
-  'Thank you for contacting us. We will get back to you shortly.',
-  3000
-);
-
+      'success',
+      'Message Sent!',
+      'Thank you for contacting us. We will get back to you shortly.',
+      3000
+    );
     
-    // Close modal after 1.5 seconds
-    setTimeout(() => {
-      
-      
-      // Reset form
-      Object.assign(form, {
-        name: '', email: '', phone: '', interest: '', message: '', agreed_terms: true
-      })
-    }, 1500);
-    
+    Object.assign(form, {
+      name: '',
+      email: '',
+      phone: '',
+      interest: '',
+      message: '',
+      agreed_terms: true
+    });
   } catch (err) {
-    const msg = err.response?.data?.message || 'Failed to send message';
-    
-    // Show error toast
     showNotification(
-  'error',
-  'Failed!',
-  'Unable to send your message. Please try again later.',
-  4000
-);
-
-    
+      'error',
+      'Failed!',
+      'Unable to send your message. Please try again later.',
+      4000
+    );
   } finally {
     isSubmitting.value = false;
   }
@@ -401,836 +408,469 @@ showNotification(
 </script>
 
 <style scoped>
-/* ================= NEON MINIMALIST THEME ================= */
-:root {
-  --neon-blue: #00f3ff;
-  --neon-pink: #ff00ff;
-  --neon-purple: #9d4edd;
-  --dark-bg: #0a0a1a;
-  --darker-bg: #050510;
-  --card-bg: rgba(10, 15, 30, 0.8);
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0c0;
-  --border-glow: rgba(0, 243, 255, 0.3);
-}
-
-/* ================= Overlay ================= */
+/* ================= MODERN MODAL THEME (Matching Landing Page) ================= */
 .contact-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(5, 5, 16, 0.85);
-  backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
   z-index: 999999;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
 }
 
-/* ================= Modal - NO SCROLL BAR ================= */
 .contact-modal {
-  width: auto;
-  max-width: 720px;
+  width: 100%;
+  max-width: 680px;
   max-height: 90vh;
-  background: var(--card-bg);
-  border-radius: 5px;
-  overflow: hidden;
-  border: 1px solid rgba(0, 243, 255, 0.1);
-  box-shadow:
-    0 0 40px rgba(0, 243, 255, 0.15),
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border-radius: 20px;
+  overflow-y: auto;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .contact-wrapper {
   display: flex;
   flex-direction: column;
-  flex: 1;
 }
 
-/* ================= Header ================= */
+.contact-content-area {
+  padding: 32px 36px 36px;
+}
+
+/* Header */
 .form-header {
-  padding: 12px 32px 16px;
-  position: relative;
-  text-align: center;
-  border-bottom: 1px solid rgba(0, 243, 255, 0.1);
-  background: linear-gradient(to bottom, rgba(28, 141, 6, 0.527), transparent);
-  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 26px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F1F5F9;
 }
 
-.form-header h1 {
-  font-size: 18px;
+.header-titles h2 {
+  font-size: 24px;
   font-weight: 800;
-  color: var(--text-primary);
-  margin: 0;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  background: #00f3ff;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+  color: #0F172A;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
 }
 
 .form-subtitle {
-  color: rgb(30, 224, 5);
-  font-size: 14px;
-  margin-top: 5px;
-  letter-spacing: 1px;
+  font-size: 14.5px;
+  color: #64748B;
+  margin: 0;
 }
 
 .close-btn {
-  position: absolute;
-  top: 24px;
-  right: 24px;
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 243, 255, 0.3);
-  background: rgba(10, 15, 30, 0.8);
-  color: red;
-  font-size: 18px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  color: #64748B;
+  font-size: 15px;
+  display: grid;
+  place-items: center;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  margin-left: 16px;
 }
 
 .close-btn:hover {
-  background: rgba(0, 243, 255, 0.1);
-  border-color: var(--neon-blue);
-  box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+  background: #E2E8F0;
+  color: #0F172A;
   transform: rotate(90deg);
 }
 
-/* ================= Form Content - NO SCROLL ================= */
-.form-content {
-  padding: 24px 32px 32px;
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  overflow: visible;
-}
-
+/* Form Layout */
 .contact-form {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  gap: 20px;
 }
 
-/* ================= Form Rows & Groups ================= */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 18px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .form-group label {
-  font-size: 12px;
-  font-weight: 600;
-  color: linen;
-  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
   text-transform: uppercase;
-  letter-spacing: 1.3px;
+  letter-spacing: 0.04em;
 }
 
-/* ================= Neon Inputs ================= */
-.input-wrapper {
-  position: relative;
-  border-radius: 5px;
-  overflow: hidden;
-  flex: 1;
-}
-
-.neon-input {
+/* Inputs */
+.modern-input {
   width: 100%;
-  padding: 14px;
-  background: rgba(15, 20, 40, 0.6);
-  border: 1px solid rgba(0, 243, 255, 0.2);
-  border-radius: 5px;
-  color: rgb(30, 224, 5);
-  font-size: 14px;
-  font-family: monospace;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  box-sizing: border-box;
-  margin-bottom: 7px;
-}
-
-.neon-input::placeholder {
-  color: rgba(160, 160, 192, 0.5);
-}
-
-.neon-input:focus {
-  outline: none;
-  border-color: var(--neon-blue);
-  box-shadow:
-    0 0 20px rgba(0, 243, 255, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  background: rgba(15, 20, 40, 0.8);
-}
-
-.input-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  padding: 13px 16px;
+  font-size: 14.5px;
+  color: #0F172A;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
   border-radius: 12px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  box-shadow: inset 0 0 30px rgba(0, 243, 255, 0.1);
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  box-sizing: border-box;
 }
 
-.neon-input:focus~.input-glow {
-  opacity: 1;
+.modern-input::placeholder {
+  color: #94A3B8;
 }
 
-/* ================= COMBINED PHONE INPUT ================= */
-.phone-input-wrapper {
-  display: flex;
-  flex-direction: column;
+.modern-input:focus {
+  border-color: #0E7490;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.12);
 }
 
+textarea.modern-input {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.modern-select {
+  cursor: pointer;
+}
+
+/* Phone combined input */
 .phone-combined-input {
   display: flex;
   align-items: center;
-  padding: 0;
-  background: rgba(40, 27, 15, 0.6);
-  border: 1px solid rgba(0, 243, 255, 0.2);
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
   border-radius: 12px;
-  overflow: visible;
+  transition: border-color 0.2s, box-shadow 0.2s;
   position: relative;
 }
 
 .phone-combined-input:focus-within {
-  border-color: var(--neon-blue);
-  box-shadow:
-    0 0 20px rgba(0, 243, 255, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  background: rgba(15, 20, 40, 0.8);
+  border-color: #0E7490;
+  box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.12);
+  background: #ffffff;
 }
 
-.phone-combined-input:focus-within~.input-glow {
-  opacity: 1;
+.phone-combined-input .phone-number-input {
+  border: none;
+  background: transparent;
+  padding-left: 10px;
+}
+
+.phone-combined-input .phone-number-input:focus {
+  box-shadow: none;
 }
 
 .country-selector-container {
   position: relative;
-  flex-shrink: 0;
 }
 
 .country-selector {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 12px 0 16px;
-  height: 48px;
+  gap: 6px;
+  padding: 10px 12px;
+  border-right: 1.5px solid #E2E8F0;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border-right: 1px solid rgba(0, 243, 255, 0.2);
-  min-width: 100px;
+  background: #F1F5F9;
+  border-radius: 10px 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  user-select: none;
+  white-space: nowrap;
 }
 
 .country-selector:hover {
-  background: rgba(0, 243, 255, 0.05);
+  background: #E0F7FB;
 }
 
 .flag {
   width: 20px;
-  height: 15px;
+  height: 14px;
   object-fit: cover;
   border-radius: 2px;
 }
 
-.dial-code {
-  color: rgb(30, 224, 5);
-  font-size: 14px;
-  font-weight: 500;
-  font-family: monospace;
-}
-
 .dropdown-arrow {
-  font-size: 10px;
-  color: var(--neon-blue);
-  margin-left: 4px;
-  transition: transform 0.3s ease;
+  font-size: 9px;
+  color: #64748B;
 }
 
-.country-selector:hover .dropdown-arrow {
-  transform: rotate(180deg);
-}
-
-/* Country Dropdown */
-.country-dropdown {
+.modern-dropdown {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 6px);
   left: 0;
-  margin-top: 4px;
   width: 280px;
-  max-height: 300px;
+  max-height: 220px;
   overflow-y: auto;
-  background: rgba(15, 20, 40, 0.98);
-  border: 1px solid rgba(0, 243, 255, 0.3);
-  border-radius: 6px;
-  z-index: 1000;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.16);
+  z-index: 100;
+  padding: 6px;
 }
 
 .country-option {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  color: var(--text-primary);
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #334155;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.15s;
 }
 
 .country-option:hover {
-  background: rgba(0, 243, 255, 0.1);
-}
-
-/* Phone Number Input Field */
-.phone-number-input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  border-radius: 0;
-  padding: 16px;
-  margin: 0;
-  height: 48px;
-}
-
-.phone-number-input:focus {
-  outline: none;
-  box-shadow: none;
-  background: transparent;
+  background: #E0F7FB;
+  color: #0E7490;
 }
 
 .error-message {
-  color: #ff6b6b;
   font-size: 12px;
-  margin-top: 4px;
-  text-align: left;
+  color: #EF4444;
+  margin: 4px 0 0;
 }
 
-/* ================= Textarea ================= */
-textarea.neon-input {
-  min-height: 100px;
-  resize: vertical;
-  font-family: inherit;
-}
-
-/* ================= Checkboxes ================= */
-.neon-checkbox {
+/* Checkbox */
+.modern-checkbox {
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-  height: 28px;
+  user-select: none;
 }
 
-.neon-checkbox:hover {
-  color: rgb(30, 224, 5);
-}
-
-.neon-checkbox input[type="checkbox"] {
-  display: none;
-}
-
-.neon-checkbox .checkmark {
-  width: 20px;
-  height: 20px;
-  border: 1px solid rgba(0, 243, 255, 0.3);
-  border-radius: 4px;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.neon-checkbox input[type="checkbox"]:checked~.checkmark {
-  background: rgba(0, 243, 255, 0.1);
-  border-color: var(--neon-blue);
-}
-
-.neon-checkbox .checkmark::after {
-  content: '✓';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--neon-blue);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  font-size: 14px;
-}
-
-.neon-checkbox input[type="checkbox"]:checked~.checkmark::after {
-  opacity: 1;
+.modern-checkbox input {
+  width: 17px;
+  height: 17px;
+  accent-color: #0E7490;
+  cursor: pointer;
 }
 
 .checkbox-text {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 13px;
+  color: #64748B;
+  line-height: 1.4;
 }
 
 .terms-link {
-  color: red;
-  text-decoration: none;
-  transition: all 0.3s ease;
+  color: #0E7490;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 .terms-link:hover {
-  color: darkorange;
-  text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+  color: #155E75;
 }
 
-/* ================= Submit Section ================= */
-.submit-section-wrapper {
-  margin-top: auto;
-  padding-top: 12px;
-}
-
-.submit-section {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.neon-btn {
+/* Submit Button */
+.submit-btn.modern-btn {
   width: 100%;
-  padding: 18px;
-  background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(157, 78, 221, 0.1));
-  border: 1px solid rgba(0, 243, 255, 0.3);
-  border-radius: 6px;
-  color: rgb(30, 224, 5);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(90deg, #3BD9F2, #1BA9C9);
+  color: #06222B;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 15px 28px;
+  border: none;
+  border-radius: 99px;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(34, 197, 227, 0.28);
+  transition: all 0.2s;
+  font-family: inherit;
 }
 
-.neon-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(157, 78, 221, 0.2));
-  border-color: var(--neon-blue);
-  box-shadow:
-    0 0 30px rgba(0, 243, 255, 0.4),
-    0 0 60px rgba(0, 243, 255, 0.2);
+.submit-btn.modern-btn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #22C5E3, #0E8FB0);
   transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(34, 197, 227, 0.35);
 }
 
-.neon-btn:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.neon-btn:disabled {
-  opacity: 0.5;
+.submit-btn.modern-btn:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
 }
 
 .btn-arrow {
-  font-size: 20px;
-  transition: transform 0.3s ease;
+  font-size: 18px;
+  transition: transform 0.2s;
 }
 
-.neon-btn:hover:not(:disabled) .btn-arrow {
+.submit-btn.modern-btn:hover:not(:disabled) .btn-arrow {
   transform: translateX(4px);
 }
 
-/* ================= Submit Overlay ================= */
-.contact-modal.is-submitting {
-  pointer-events: none;
-}
-
+/* Loader */
 .submit-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(5, 5, 16, 0.9);
-  backdrop-filter: blur(8px);
-  display: none !important;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
 }
 
 .loader {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
 }
 
 .loader-spinner {
-  width: 50px;
-  height: 50px;
-  border: 3px solid transparent;
-  border-top: 3px solid var(--neon-blue);
+  width: 36px;
+  height: 36px;
+  border: 3px solid #E0F7FB;
+  border-top-color: #0E7490;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 .loader-text {
-  color: var(--neon-blue);
   font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  animation: pulse 1.5s ease-in-out infinite;
+  font-weight: 600;
+  color: #0F172A;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-/* ================= CUSTOM TOAST STYLES ================= */
-.neon-toast {
+/* Toast */
+.modern-toast {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  min-width: 320px;
-  max-width: 400px;
-  background: rgba(15, 20, 40, 0.95);
-  border: 1px solid;
-  border-radius: 8px;
-  padding: 16px;
+  bottom: 24px;
+  right: 24px;
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.15);
+  padding: 16px 20px;
   z-index: 1000000;
-  backdrop-filter: blur(20px);
+  min-width: 300px;
   overflow: hidden;
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.5),
-    0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.neon-toast.success {
-  border-color: rgba(0, 243, 255, 0.4);
-  box-shadow: 
-    0 0 30px rgba(0, 243, 255, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+.modern-toast.success {
+  border-left: 4px solid #16A34A;
 }
 
-.neon-toast.error {
-  border-color: rgba(255, 107, 107, 0.4);
-  box-shadow: 
-    0 0 30px rgba(255, 107, 107, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+.modern-toast.error {
+  border-left: 4px solid #EF4444;
 }
 
 .toast-content {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
 }
 
 .toast-icon {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
+  background: #DCFCE7;
+  color: #16A34A;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
   font-size: 14px;
-  font-weight: bold;
   flex-shrink: 0;
-  margin-top: 2px;
 }
 
-.neon-toast.success .toast-icon {
-  background: rgba(0, 243, 255, 0.1);
-  color: #00f3ff;
-  border: 1px solid rgba(0, 243, 255, 0.3);
-  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
-}
-
-.neon-toast.error .toast-icon {
-  background: rgba(255, 107, 107, 0.1);
-  color: #ff6b6b;
-  border: 1px solid rgba(255, 107, 107, 0.3);
-  text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+.modern-toast.error .toast-icon {
+  background: #FEE2E2;
+  color: #EF4444;
 }
 
 .toast-text {
   flex: 1;
-  min-width: 0;
 }
 
 .toast-title {
   font-size: 14px;
   font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 4px;
-  text-transform: uppercase;
-}
-
-.neon-toast.success .toast-title {
-  color: #00f3ff;
-  text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
-}
-
-.neon-toast.error .toast-title {
-  color: #ff6b6b;
-  text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+  color: #0F172A;
+  margin-bottom: 2px;
 }
 
 .toast-message {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.4;
-  word-wrap: break-word;
+  color: #64748B;
 }
 
 .toast-close {
-  background: transparent;
+  background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  color: #94A3B8;
   cursor: pointer;
-  font-size: 14px;
-  padding: 0;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  border-radius: 50%;
+  padding: 4px;
 }
 
 .toast-close:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
+  color: #0F172A;
 }
 
-.toast-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 100%;
-  transform-origin: left;
-  animation: toastProgress linear forwards;
-}
-
-.neon-toast.success .toast-progress {
-  background: linear-gradient(90deg, #00f3ff, #9d4edd);
-}
-
-.neon-toast.error .toast-progress {
-  background: linear-gradient(90deg, #ff6b6b, #ff00ff);
-}
-
-@keyframes toastProgress {
-  0% {
-    transform: scaleX(1);
-  }
-  100% {
-    transform: scaleX(0);
-  }
-}
-
-/* Toast Animation */
-.toast-slide-enter-active,
-.toast-slide-leave-active {
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.toast-slide-enter-from {
-  opacity: 0;
-  transform: translateX(100%) translateY(-20px);
-}
-
-.toast-slide-enter-to {
-  opacity: 1;
-  transform: translateX(0) translateY(0);
-}
-
-.toast-slide-leave-from {
-  opacity: 1;
-  transform: translateX(0) translateY(0);
-}
-
-.toast-slide-leave-to {
-  opacity: 0;
-  transform: translateX(100%) translateY(-20px);
-}
-
-/* ================= Transitions ================= */
+/* Transitions */
 .contact-modal-enter-active,
 .contact-modal-leave-active {
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.25s ease;
 }
 
 .contact-modal-enter-from,
 .contact-modal-leave-to {
   opacity: 0;
-  transform: scale(0.95) translateY(-20px);
 }
 
-/* ================= Responsive - MOBILE: SINGLE COLUMN ================= */
-/* Tablet: 2 columns */
-@media (min-width: 769px) {
-  .contact-modal {
-    max-height: 85vh;
-  }
-  .form-content {
-    padding: 24px 32px 32px;
-  }
+.contact-modal-enter-active .contact-modal {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Mobile: Single column (one field per row) */
-@media (max-width: 768px) {
-  .contact-overlay {
-    padding: 16px;
+.contact-modal-enter-from .contact-modal {
+  transform: scale(0.95) translateY(12px);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .contact-content-area {
+    padding: 24px 20px 28px;
   }
-  .contact-modal {
-    max-height: 95vh;
-    border-radius: 5px;
-  }
-  .form-header {
-    padding: 24px 20px 16px;
-  }
-  .form-content {
-    padding: 20px 20px 24px;
-  }
-  /* MOBILE: SINGLE COLUMN - One field per row */
+
   .form-row {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
   }
-  .phone-combined-input {
-    flex-direction: row;
-  }
-  .country-selector {
-    min-width: 90px;
-    padding: 0 10px 0 12px;
-  }
-  .neon-btn {
-    padding: 16px;
-  }
-  .form-group {
-    width: 100%;
-  }
-  /* Toast mobile */
-  .neon-toast {
-    min-width: calc(100vw - 40px);
-    max-width: calc(100vw - 40px);
-    right: 20px;
-    left: 20px;
-    top: 20px;
-  }
-}
 
-/* Small mobile devices */
-@media (max-width: 480px) {
-  .form-header h1 {
-    font-size: 22px;
-  }
-  .form-subtitle {
-    font-size: 12px;
-  }
-  .close-btn {
-    width: 32px;
-    height: 32px;
-    top: 20px;
-    right: 20px;
-  }
-  .neon-input {
-    padding: 14px;
-  }
-  .country-selector {
-    min-width: 80px;
-    padding: 0 8px 0 10px;
-  }
-  .dial-code {
-    font-size: 13px;
-  }
-  .phone-number-input {
-    padding: 14px;
-  }
-  /* Toast mobile small */
-  .neon-toast {
-    padding: 12px;
-  }
-  .toast-title {
-    font-size: 13px;
-  }
-  .toast-message {
-    font-size: 12px;
-  }
-}
-
-/* Extra small devices */
-@media (max-width: 360px) {
-  .form-content {
-    padding: 16px 16px 20px;
-  }
-  .neon-input {
-    padding: 12px;
-    font-size: 13px;
-  }
-  .country-selector {
-    min-width: 70px;
-    gap: 6px;
-  }
-  .flag {
-    width: 18px;
-    height: 13px;
-  }
-  .dial-code {
-    font-size: 12px;
-  }
-  .phone-number-input {
-    padding: 12px;
-  }
-  .neon-btn {
-    padding: 14px;
-    font-size: 14px;
-  }
-}
-
-/* Height-based adjustments */
-@media (min-height: 900px) and (min-width: 769px) {
-  .contact-modal {
-    max-height: 80vh;
-  }
-  .form-content {
-    padding: 32px 40px 40px;
-  }
-  .contact-form {
-    gap: 24px;
+  .header-titles h2 {
+    font-size: 20px;
   }
 }
 </style>

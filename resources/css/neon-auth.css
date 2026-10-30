@@ -1,66 +1,113 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
-
-* {
-  box-sizing: border-box;
-  font-family: 'Orbitron', monospace;
-}
+/* ===================================================
+   Auth Pages Styles (Matching ExpertVence Landing Page)
+   =================================================== */
 
 .neon-auth-wrapper {
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #020202, #000);
+  min-height: calc(100vh - 120px);
+  background: radial-gradient(760px 380px at 92% 8%, #CFF4FB, transparent 70%),
+              radial-gradient(520px 320px at 0 28%, #CFF4FB, transparent 70%),
+              #F8FAFC;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 40px 20px;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
 }
 
 .neon-card {
   width: 100%;
-  max-width: 420px;
-  background: rgba(0, 0, 0, 0.85);
-  border: 1px solid #00ff88;
-  box-shadow: 0 0 20px #00ff88;
-  padding: 30px;
-  border-radius: 8px;
+  max-width: 440px;
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+  padding: 36px 32px;
+  border-radius: 20px;
 }
 
 .neon-header {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 28px;
 }
 
-.neon-icon {
-  font-size: 30px;
-  color: #00ff88;
-  margin-bottom: 10px;
+.neon-header .logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #0F172A;
+  line-height: 1;
+  text-decoration: none;
+  margin-bottom: 18px;
+}
+
+.neon-header .logo .lw {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 26px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+}
+
+.neon-header .logo .lw svg {
+  width: 34px;
+  height: 28px;
+  flex: none;
+}
+
+.neon-header .logo small {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .28em;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+.neon-header .logo small::before,
+.neon-header .logo small::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #CBD5E1;
 }
 
 .neon-header h2 {
-  color: #00eaff;
-  letter-spacing: 2px;
+  font-size: 24px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
 }
 
 .neon-header p {
-  color: #ff0055;
-  font-size: 12px;
+  color: #64748B;
+  font-size: 14.5px;
+  margin: 0;
 }
 
 .neon-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
 }
 
 .neon-input {
   display: flex;
   align-items: center;
-  border: 1px solid #00ff88;
-  padding: 10px;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: all 0.2s;
 }
 
 .neon-input span {
-  color: #00ff88;
-  margin-right: 8px;
+  display: none;
 }
 
 .neon-input input {
@@ -68,114 +115,106 @@
   background: transparent;
   border: none;
   outline: none;
-  color: #00ff88;
+  color: #0F172A;
+  font-size: 14.5px;
+  font-family: inherit;
 }
 
-.neon-options {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #aaa;
+.neon-input input::placeholder {
+  color: #94A3B8;
 }
 
-.neon-options a {
-  color: #ff0055;
-  text-decoration: none;
+.neon-input:focus-within {
+  border-color: #0E7490;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.12);
 }
 
-.neon-btn {
-  margin-top: 10px;
-  padding: 12px;
-  background: transparent;
-  border: 1px solid #00ff88;
-  color: #00ff88;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.neon-btn:hover {
-  background: #00ff88;
-  color: #000;
-  box-shadow: 0 0 15px #00ff88;
-}
-
-.neon-footer {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.neon-footer a {
-  color: #00eaff;
-  font-size: 12px;
-  text-decoration: none;
-}
-
-/* 📱 Mobile Responsive */
-@media (max-width: 480px) {
-  .neon-card {
-    padding: 20px;
-  }
-}
-
-/* EXTRA OPTIONS */
 .neon-extra {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
-  color: #aaa;
+  align-items: center;
+  font-size: 13.5px;
+  color: #64748B;
 }
 
 .neon-check {
-  display: flex;
-  gap: 6px;
+  display: inline-flex;
   align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
 }
 
 .neon-check input {
-  accent-color: #00ff88;
+  accent-color: #0E7490;
+  width: 16px;
+  height: 16px;
 }
 
 .forgot-link {
-  color: #00eaff;
+  color: #0E7490;
+  font-weight: 600;
   text-decoration: none;
 }
 
-/* GRADIENT SIGN IN */
-.neon-gradient {
-  background: linear-gradient(90deg, #00ff88, #00ff88);
-  color: #000;
-  font-weight: 600;
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.neon-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
   border: none;
-  box-shadow: 0 0 20px rgba(0,255,136,.5);
+  border-radius: 99px;
+  background: linear-gradient(90deg, #3BD9F2, #1BA9C9);
+  color: #06222B;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(34, 197, 227, 0.28);
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 6px;
 }
 
-.neon-gradient:hover {
-  box-shadow: 0 0 30px rgba(0,255,136,.9);
+.neon-btn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #22C5E3, #0E8FB0);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(34, 197, 227, 0.35);
 }
 
-/* OR DIVIDER */
+.neon-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .neon-divider {
+  display: flex;
+  align-items: center;
   text-align: center;
-  position: relative;
-  margin: 15px 0;
-  color: #666;
+  margin: 6px 0;
+  color: #94A3B8;
   font-size: 12px;
+  font-weight: 600;
 }
 
 .neon-divider::before,
 .neon-divider::after {
   content: '';
-  position: absolute;
-  top: 50%;
-  width: 40%;
-  height: 1px;
-  background: #222;
+  flex: 1;
+  border-bottom: 1px solid #E2E8F0;
 }
 
-.neon-divider::before { left: 0; }
-.neon-divider::after { right: 0; }
+.neon-divider span {
+  padding: 0 12px;
+}
 
-/* SOCIAL LOGIN */
 .neon-social {
   display: flex;
   flex-direction: column;
@@ -183,34 +222,72 @@
 }
 
 .social-btn {
-  background: #111;
-  border: 1px solid #222;
-  padding: 10px;
-  color: #ccc;
-  cursor: pointer;
-  border-radius: 4px;
   display: flex;
   align-items: center;
-  gap: 10px;
   justify-content: center;
-}
-
-.social-btn.google span {
-  color: #00ff88;
-  font-weight: bold;
-}
-
-.social-btn.apple span {
-  font-size: 18px;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  background: #ffffff;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
 }
 
 .social-btn:hover {
-  border-color: #00ff88;
-  color: #00ff88;
+  background: #F8FAFC;
+  border-color: #CBD5E1;
 }
 
-/* NAVBAR SAFE OFFSET */
-.neon-auth-wrapper {
-  padding-top: 90px; /* navbar + topbar height */
+.social-btn.google span {
+  color: #EA4335;
+  font-weight: 800;
 }
 
+.social-btn.apple span {
+  font-weight: 800;
+}
+
+.neon-footer {
+  text-align: center;
+  font-size: 14px;
+  color: #64748B;
+  margin-top: 10px;
+}
+
+.neon-footer a {
+  color: #0E7490;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.neon-footer a:hover {
+  text-decoration: underline;
+}
+
+.neon-success {
+  background: #DCFCE7;
+  color: #16A34A;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.neon-error {
+  background: #FEE2E2;
+  color: #EF4444;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}

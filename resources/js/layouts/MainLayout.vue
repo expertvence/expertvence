@@ -5,8 +5,6 @@
     <router-view />
   </main>
   <Footer />
-
-  <WhatsAppFloat />
 </template>
 
 <script setup>
@@ -25,6 +23,7 @@ import '../../css/contact.css'
 import '../../css/service-detail.css'
 import '../../css/casestudy.css'
 
+
 /* JS */
 import { homeInit } from '../scripts/home'
 import { servicesInit } from '../scripts/services'
@@ -38,7 +37,6 @@ import { useRoute } from 'vue-router'
 import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 import TopBar from '../components/TopBar.vue'
-import WhatsAppFloat from '@/components/WhatsAppFloat.vue'
 
 const route = useRoute()
 
@@ -57,3 +55,6 @@ watch(
   (newPath) => pageInit(newPath)
 )
 </script>
+
+
+

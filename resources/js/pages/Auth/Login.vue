@@ -2,74 +2,82 @@
   <div class="neon-auth-wrapper">
     <div class="neon-card">
       <div class="neon-header">
-        <div class="neon-icon">⬢</div>
-        <h2>ExpertVence</h2>
-        <p>[ SECURE TERMINAL ACCESS ]</p>
+        <router-link class="logo" to="/" aria-label="Expertvence">
+          <span class="lw">
+            Expert
+            <svg viewBox="0 0 34 28" aria-hidden="true">
+              <defs>
+                <linearGradient id="auth-lg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#5BE7FF" />
+                  <stop offset="1" stop-color="#1A9FC0" />
+                </linearGradient>
+              </defs>
+              <path d="M1 3h13v3.5H5V11h8v3.5H5V19h9v3.5H1z" fill="url(#auth-lg)" />
+              <path d="M14 3h6.5l3.5 11 6-11h4L26 25h-5.5z" fill="url(#auth-lg)" />
+            </svg>
+            Vence
+          </span>
+          <small>Software</small>
+        </router-link>
+        <h2>Welcome Back</h2>
+        <p>Sign in to your account</p>
       </div>
 
       <form class="neon-form" @submit.prevent="submitLogin">
-
-       <p v-if="verifiedMessage" class="neon-success">{{ verifiedMessage }}</p>
-
+        <p v-if="verifiedMessage" class="neon-success">{{ verifiedMessage }}</p>
+        <p v-if="auth.error" class="neon-error">{{ auth.error }}</p>
 
         <div class="neon-input">
-          <span>&gt;</span>
-          <input v-model="form.email" type="email" placeholder="EMAIL_ADDRESS" />
+          <input
+            v-model="form.email"
+            type="email"
+            placeholder="Email address"
+            required
+            autocomplete="email"
+          />
         </div>
 
         <div class="neon-input">
-          <span>&gt;</span>
-          <input v-model="form.password" type="password" placeholder="ACCESS_CODE" />
+          <input
+            v-model="form.password"
+            type="password"
+            placeholder="Password"
+            required
+            autocomplete="current-password"
+          />
         </div>
 
+        <div class="neon-extra">
+          <label class="neon-check">
+            <input type="checkbox" />
+            <span>Keep me signed in</span>
+          </label>
+          <router-link to="/forgot-password" class="forgot-link">
+            Forgot password?
+          </router-link>
+        </div>
 
-<div class="neon-extra">
-  <label class="neon-check">
-    <input type="checkbox" />
-    <span>Keep me signed in</span>
-  </label>
-
-  <a href="/forgot-password" class="forgot-link">
-  Forgot password?
-</a>
-
-</div>
-
-<!-- SIGN IN BUTTON -->
- 
-        <button class="neon-btn neon-gradient" :disabled="auth.loading">
-          {{ auth.loading ? 'LOGGING IN...' : 'LOGIN' }}
+        <button class="neon-btn" :disabled="auth.loading">
+          {{ auth.loading ? 'Signing in...' : 'Sign In' }}
         </button>
 
+        <div class="neon-divider">
+          <span>OR</span>
+        </div>
 
-<!-- OR DIVIDER -->
-<div class="neon-divider">
-  <span>OR</span>
-</div>
+        <div class="neon-social">
+          <button type="button" class="social-btn google">
+            <span>G</span> Continue with Google
+          </button>
+          <button type="button" class="social-btn apple">
+            <span></span> Continue with Apple
+          </button>
+        </div>
 
-<!-- SOCIAL LOGIN -->
-<div class="neon-social">
-  <button class="social-btn google">
-    <span>G</span> Continue with Google
-  </button>
-
-  <button class="social-btn apple">
-    <span>A</span> Continue with Apple
-  </button>
-</div>
-
-<!-- REGISTER LINK -->
-<div class="neon-footer">
-  New here?
-  <router-link to="/register">CREATE_PROFILE</router-link>
-</div>
-
- <p v-if="auth.error" class="neon-error">
-    {{ auth.error }}
-  </p>
-
-  
-
+        <div class="neon-footer">
+          Don't have an account?
+          <router-link to="/register">Create an account</router-link>
+        </div>
       </form>
     </div>
   </div>
@@ -91,9 +99,7 @@ const form = reactive({
 
 const verifiedMessage = ref('')
 
-// 🔹 Check query params on mount
 onMounted(() => {
-  // Clear previous auth state
   auth.token = null
   auth.user = null
   auth.error = null
@@ -107,29 +113,22 @@ onMounted(() => {
   }
 })
 
-
-// 🔹 LOGIN
 const submitLogin = async () => {
   auth.loading = true
   auth.error = null
 
   try {
-    const res = await auth.login(form)
-    
-    // 🔹 Login checks token inside login
+    await auth.login(form)
     if (auth.token) {
-      router.push('/') // 🔥 Login success → Home
+      router.push('/')
     }
   } catch (err) {
-    auth.error =
-      err.response?.data?.message || 'Login failed'
+    auth.error = err.response?.data?.message || 'Login failed. Please check your credentials.'
   } finally {
     auth.loading = false
   }
 }
 </script>
-
-
 
 <style scoped>
 @import '../../../css/neon-auth.css';

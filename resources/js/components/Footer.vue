@@ -1,112 +1,83 @@
 <template>
-  <footer class="footer">
-    <div class="footer-container">
+  <footer class="site-footer">
+    <div class="w">
+      <!-- FOOTER GRID -->
+      <div class="fg">
+        <div>
+          <router-link class="logo" to="/" aria-label="Expertvence">
+            <span class="lw">
+              Expert
+              <svg viewBox="0 0 34 28" aria-hidden="true">
+                <defs>
+                  <linearGradient id="lf" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#5BE7FF" />
+                    <stop offset="1" stop-color="#1A9FC0" />
+                  </linearGradient>
+                </defs>
+                <path d="M1 3h13v3.5H5V11h8v3.5H5V19h9v3.5H1z" fill="url(#lf)" />
+                <path d="M14 3h6.5l3.5 11 6-11h4L26 25h-5.5z" fill="url(#lf)" />
+              </svg>
+              Vence
+            </span>
+            <small>Software</small>
+          </router-link>
+          <p style="margin-top:14px;font-size:15px;color:#D3E4E8;max-width:32ch">
+            Web applications, digital marketing, professional page management, and ready-made software for your business.
+          </p>
 
-    <!-- BRAND -->
-<div class="footer-brand">
-  <h2 class="brand-title">ExpertVence</h2>
+          <!-- Social Media Icons under the description -->
+          <div class="footer-social">
+            <a href="https://www.facebook.com/profile.php?id=100079079156709" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c-.97 0-1.75-.79-1.75-1.76s.78-1.75 1.75-1.75 1.75.78 1.75 1.75-.78 1.76-1.75 1.76m1.39 9.74v-8.37H5.07v8.37h2.78z"/></svg>
+            </a>
+          </div>
+        </div>
 
-  <span class="brand-slogan">Where Code Meets Expertise</span>
+        <div>
+          <h4>Ready Solutions</h4>
+          <ul>
+            <li><a href="#solutions">Somiti Management</a></li>
+            <li><a href="#solutions">School Management</a></li>
+            <li><a href="#solutions">E-commerce</a></li>
+          </ul>
+        </div>
 
-  <p class="brand-description">
-    Custom Software, Apps & Digital Solutions.
-  </p>
+        <div>
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#services">Web Application</a></li>
+            <li><a href="#services">Digital Marketing</a></li>
+            <li><a href="#plans">Page Management</a></li>
+            <li><a href="#services">Banner &amp; Design</a></li>
+          </ul>
+        </div>
 
-<div class="socials">
-  <a href="https://www.facebook.com/profile.php?id=100079079156709" target="_blank" rel="noopener noreferrer" class="social facebook">
-    <i class="fab fa-facebook-f"></i>
-  </a>
-
-  <a href="#" target="_blank" rel="noopener noreferrer" class="social linkedin">
-    <i class="fab fa-linkedin-in"></i>
-  </a>
-
-  <a href="#" target="_blank" rel="noopener noreferrer" class="social twitter">
-    <i class="fab fa-x-twitter"></i>
-  </a>
-
-  <a href="#" target="_blank" rel="noopener noreferrer" class="social pinterest">
-    <i class="fab fa-pinterest-p"></i>
-  </a>
-</div>
-
-</div>
-
-
-      <!-- EXPLORE -->
-      <div class="footer-links">
-        <h4>Explore</h4>
-        <ul>
-          <li><router-link to="/about">About</router-link></li>
-          <li><router-link to="/contact">Contact</router-link></li>
-          <li><router-link to="/portfolio">Recent Works</router-link></li>
-          <li><router-link to="/services">Services</router-link></li>
-          <li>Privacy Policy</li>
-        </ul>
+        <div>
+          <h4>Site Map</h4>
+          <ul>
+            <li><a href="#audit">Free Page Audit</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#process">Our Process</a></li>
+            <li><a href="#reviews">Client Reviews</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
       </div>
 
-      <!-- NEWSLETTER -->
-<div class="footer-newsletter">
-  <h4>Newsletter</h4>
-  <p>Subscribe to our newsletter and get updates in your inbox.</p>
-
-<input type="text" placeholder="Enter Full Name" v-model="fullName" />
-<input type="email" placeholder="Enter Email Address" v-model="email" />
-<button :disabled="isSubmitting" @click="subscribeNewsletter">
-  {{ isSubmitting ? 'SUBMITTING...' : 'SUBSCRIBE' }}
-</button>
-
-</div>
-
-
-      <!-- CONTACT -->
-      <div class="footer-contact">
-        <h4>Dhaka OFFICE </h4>
-        <p>Shanir Akhra, Jatrabari, Dhaka, Bangladesh </p>
-        <p>📞 +880 1797488350</p>
-        <p>✉ expertvence@gmail.com</p>
+      <!-- COPYRIGHT CENTERED -->
+      <div class="copy">
+        <span>© {{ currentYear }} Expertvence. All rights reserved.</span>
       </div>
-
-    </div>
-
-    <div class="footer-bottom">
-      © {{ year }} ExpertVence Software. All Rights Reserved.
     </div>
   </footer>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
-
-const fullName = ref('')
-const email = ref('')
-const isSubmitting = ref(false)
-
-const subscribeNewsletter = async () => {
-  if (!fullName.value || !email.value) {
-    alert('Please fill both fields')
-    return
-  }
-
-  isSubmitting.value = true
-
-  try {
-    await axios.post('/api/auth/newsletter/subscribe', {
-      name: fullName.value,
-      email: email.value
-    })
-
-    alert('Subscribed successfully! Check your email.')
-    fullName.value = ''
-    email.value = ''
-  } catch (error) {
-    console.error(error)
-    alert(error.response?.data?.message || 'Subscription failed')
-  } finally {
-    isSubmitting.value = false
-  }
-}
+const currentYear = new Date().getFullYear()
 </script>
-
-

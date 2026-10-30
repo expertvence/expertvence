@@ -660,7 +660,7 @@
 }
 
 /* CTA Section */
-.cta {
+.case-study .cta {
   padding: 100px 0;
   background: linear-gradient(135deg, #1e293b, #0f172a);
 }

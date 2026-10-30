@@ -1,0 +1,239 @@
+:root {
+  --brand-navy: #071426;
+  --brand-navy-soft: #10233d;
+  --brand-blue: #1677d2;
+  --brand-cyan: #29b6d8;
+  --brand-ink: #18283b;
+  --brand-muted: #617187;
+  --brand-border: #dce6ef;
+  --brand-surface: #f5f8fb;
+  --brand-white: #ffffff;
+  --brand-accent: #e7a83e;
+}
+
+html,
+body {
+  font-family: Inter, 'Segoe UI', sans-serif;
+  color: var(--brand-ink);
+  background: var(--brand-white);
+}
+
+::selection {
+  background: rgba(41, 182, 216, .24);
+  color: var(--brand-navy);
+}
+
+.page-content {
+  padding-top: 0;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(41, 182, 216, .65);
+  outline-offset: 3px;
+}
+
+/* Consistent fixed header */
+.navbar {
+  background: rgba(7, 20, 38, .97);
+  box-shadow: 0 8px 28px rgba(7, 20, 38, .14);
+  backdrop-filter: blur(14px);
+}
+
+.menu a,
+.dropdown-toggle {
+  color: #d9e5f2;
+}
+
+.menu a:hover,
+.dropdown-toggle:hover {
+  color: #fff;
+}
+
+.menu a::after,
+.dropdown-toggle::after {
+  background: var(--brand-cyan);
+}
+
+.cta {
+  background: var(--brand-cyan);
+  color: var(--brand-navy) !important;
+  border-radius: 8px;
+  padding: 12px 22px;
+  box-shadow: none;
+}
+
+.cta:hover {
+  background: #62cde5;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(41, 182, 216, .22);
+}
+
+.mobile-menu,
+.services-dropdown {
+  background: var(--brand-navy);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+/* Brand buttons, section labels, links */
+.btn.primary,
+.cta-btn,
+.newsletter-form button,
+.footer-newsletter button {
+  background: var(--brand-blue);
+  color: #fff;
+  border: 1px solid var(--brand-blue);
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.btn.primary:hover,
+.cta-btn:hover,
+.newsletter-form button:hover,
+.footer-newsletter button:hover {
+  background: #0e62b3;
+  border-color: #0e62b3;
+  transform: translateY(-2px);
+}
+
+.btn.outline {
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 8px;
+}
+
+.section-tag,
+.read-more,
+.about-label,
+.about-badge-label {
+  color: var(--brand-blue);
+}
+
+/* Dark content sections retain contrast, with restrained blue accents */
+.hero-slide::after {
+  background: linear-gradient(90deg, rgba(7, 20, 38, .88), rgba(7, 20, 38, .48));
+}
+
+.hero-content h1 span {
+  color: var(--brand-cyan);
+}
+
+.industries-section,
+.home-stats,
+.faq-section {
+  background: var(--brand-navy);
+}
+
+.home-stats {
+  background: linear-gradient(135deg, #071426, #102c49 55%, #071426);
+}
+
+.stat-card,
+.project-card,
+.service-card,
+.why-usp-card {
+  border-color: rgba(41, 182, 216, .18);
+}
+
+.text-gradient,
+.number-counter {
+  background-image: linear-gradient(90deg, #54cbe5, #38a4e8);
+}
+
+/* Site-wide cards and forms */
+.card,
+.gallery-item,
+.portfolio-card,
+.case-study-card,
+.contact-card,
+.service-detail-card {
+  border-radius: 12px;
+}
+
+input,
+textarea,
+select {
+  border-color: var(--brand-border);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--brand-cyan);
+  box-shadow: 0 0 0 3px rgba(41, 182, 216, .12);
+  outline: none;
+}
+
+.footer {
+  background: var(--brand-navy);
+}
+
+.brand-title {
+  background-image: linear-gradient(90deg, #fff, var(--brand-cyan));
+}
+
+.brand-slogan::after {
+  background: var(--brand-cyan);
+}
+
+.footer-newsletter button {
+  background-image: none;
+}
+
+.footer-bottom {
+  background: #05101f;
+  border-color: rgba(255, 255, 255, .1);
+}
+
+@media (max-width: 900px) {
+  .page-content {
+    padding-top: 110px;
+  }
+
+  .navbar {
+    background: rgba(7, 20, 38, .98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+/* Requested light blue page background */
+:root { --brand-surface: #DBEAFE; }
+html, body { background: #DBEAFE; }
+.page-content { background: #DBEAFE; }
+
+/* Apply the requested surface to page wrappers that set their own backgrounds */
+.about-page { background: #DBEAFE !important; color: var(--brand-ink); }
+
+
+/* Make the requested page color visible on every route surface */
+html, body, #app, .page-content { background-color: #DBEAFE !important; }
+.page-content > *,
+.page-content > * > section,
+.page-content > * > main,
+.about-page,
+.services-page,
+.expertvence-gallery,
+.portfolio-hero,
+.contact-page,
+.case-study-page,
+.service-detail-page {
+  background-color: #DBEAFE !important;
+}
+/* Home hero uses an inline background, so set its color after that declaration. */
+.home .hero-slide { background-color: #DBEAFE !important; }

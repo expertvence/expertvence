@@ -3,12 +3,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'  
 import router from './router'
 import MainLayout from './layouts/MainLayout.vue'
-import '../css/app.css'
-import '../css/whatsapp-float.css'
 
-
-/* CSS */
-import '../css/app.css'
 import '../css/topbar.css'
 import '../css/navbar.css'
 import '../css/footer.css'
