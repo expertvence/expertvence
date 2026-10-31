@@ -2,22 +2,30 @@
   <header class="site-header">
     <div class="w">
       <!-- LOGO -->
-      <router-link class="logo" to="/" aria-label="Expertvence" @click="closeMenu">
-        <span class="lw">
-          Expert
-          <svg viewBox="0 0 34 28" aria-hidden="true">
-            <defs>
-              <linearGradient id="header-lg" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#5BE7FF" />
-                <stop offset="1" stop-color="#1A9FC0" />
-              </linearGradient>
-            </defs>
-            <path d="M1 3h13v3.5H5V11h8v3.5H5V19h9v3.5H1z" fill="url(#header-lg)" />
-            <path d="M14 3h6.5l3.5 11 6-11h4L26 25h-5.5z" fill="url(#header-lg)" />
-          </svg>
-          Vence
-        </span>
-        <small>Software</small>
+      <router-link class="logo" to="/" :aria-label="settings.site_name || 'Expertvence'" @click="closeMenu">
+        <img
+          v-if="settings.site_logo"
+          :src="settings.site_logo"
+          :alt="settings.site_name || 'Logo'"
+          style="max-height: 84px; width: auto; object-fit: contain; vertical-align: middle;"
+        />
+        <template v-else>
+          <span class="lw">
+            {{ brandFirstPart }}
+            <svg viewBox="0 0 34 28" aria-hidden="true">
+              <defs>
+                <linearGradient id="header-lg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#5BE7FF" />
+                  <stop offset="1" stop-color="#1A9FC0" />
+                </linearGradient>
+              </defs>
+              <path d="M1 3h13v3.5H5V11h8v3.5H5V19h9v3.5H1z" fill="url(#header-lg)" />
+              <path d="M14 3h6.5l3.5 11 6-11h4L26 25h-5.5z" fill="url(#header-lg)" />
+            </svg>
+            {{ brandSecondPart }}
+          </span>
+          <small>{{ settings.site_tagline || 'Software' }}</small>
+        </template>
       </router-link>
 
       <!-- MOBILE TOGGLE -->
@@ -91,12 +99,28 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useSettingsStore } from '@/stores/settings'
 import ContactModal from '@/components/ContactModal.vue'
 
 const route = useRoute()
 const router = useRouter()
+const settingsStore = useSettingsStore()
+
+const settings = computed(() => settingsStore.settings)
+
+const brandFirstPart = computed(() => {
+  const name = settings.value?.site_name || 'Expertvence'
+  if (name.toLowerCase() === 'expertvence') return 'Expert'
+  return name.length > 5 ? name.slice(0, Math.ceil(name.length / 2)) : name
+})
+
+const brandSecondPart = computed(() => {
+  const name = settings.value?.site_name || 'Expertvence'
+  if (name.toLowerCase() === 'expertvence') return 'Vence'
+  return name.length > 5 ? name.slice(Math.ceil(name.length / 2)) : ''
+})
 
 const isMobileOpen = ref(false)
 const isDropdownOpen = ref(false)

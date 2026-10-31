@@ -246,7 +246,7 @@
             <ul class="feat">
               <li v-for="(feat, fi) in sol.features" :key="fi">{{ feat }}</li>
             </ul>
-            <a class="more" href="#contact" @click.prevent="openModal">
+            <a class="more" :href="sol.demo_url || (sol.id ? ('/demo-access/' + sol.id) : '#contact')" @click.prevent="openDemo(sol)">
               View demo →
             </a>
           </div>
@@ -658,10 +658,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
 import ContactModal from '@/components/ContactModal.vue'
+import { useRouter } from 'vue-router'
+import { useSettingsStore } from '@/stores/settings'
 
+const router = useRouter()
+const settingsStore = useSettingsStore()
 const showModal = ref(false)
 const newsletterEmail = ref('')
 const subscribing = ref(false)
@@ -673,12 +677,10 @@ const openModal = () => {
 
 /* ================= WHATSAPP POPUP & AUDIT ================= */
 const isWpopOpen = ref(false)
-const WA_COMPANY = '8801797488350'
-const WA_CONSULTANT = '8801797488350'
 const waMsg = encodeURIComponent('Hello, I want a free Facebook page audit.')
-const whatsappCompanyUrl = `https://wa.me/${WA_COMPANY}?text=${waMsg}`
-const whatsappConsultantUrl = `https://wa.me/${WA_CONSULTANT}?text=${waMsg}`
-
+const phoneDigits = value => String(value || '').replace(/\D/g, '')
+const whatsappCompanyUrl = computed(() => 'https://wa.me/' + phoneDigits(settingsStore.settings.whatsapp_number) + '?text=' + waMsg)
+const whatsappConsultantUrl = computed(() => 'https://wa.me/' + phoneDigits(settingsStore.settings.whatsapp_consultant_number) + '?text=' + waMsg)
 const toggleWpop = () => {
   isWpopOpen.value = !isWpopOpen.value
 }
@@ -756,7 +758,7 @@ const services = [
 ]
 
 /* ================= READY SOLUTIONS DATA ================= */
-const solutions = [
+const solutions = ref([
   {
     icon: '🤝',
     tag: 'Somiti Management',
@@ -793,7 +795,7 @@ const solutions = [
       'Powerful admin panel'
     ]
   }
-]
+])
 
 /* ================= HOW WE WORK PROCESS ================= */
 const processSteps = [
@@ -981,6 +983,25 @@ const handleNewsletter = async () => {
   }
 }
 
+const openDemo = (solution) => {
+  if (solution?.id) {
+    router.push('/demo-access/' + encodeURIComponent(solution.id))
+    return
+  }
+  window.alert('This demo link is not configured yet.')
+}
+
+const loadSolutions = async () => {
+  try {
+    const response = await axios.get('/api/software-demos')
+    const items = response.data?.data
+    if (Array.isArray(items) && items.length) {
+      solutions.value = items.map(item => ({ ...item, desc: item.description }))
+    }
+  } catch {
+    // Keep the built-in cards visible if the public demo list is unavailable.
+  }
+}
 /* ================= LIFECYCLE HOOKS ================= */
 onMounted(() => {
   window.addEventListener('scroll', updateScrollProgress, { passive: true })
@@ -989,6 +1010,7 @@ onMounted(() => {
   document.addEventListener('click', handleGlobalClick)
   document.addEventListener('keydown', handleKeydown)
 
+  loadSolutions()
   updateScrollProgress()
   setTimeout(() => {
     updateCarouselMetrics()
